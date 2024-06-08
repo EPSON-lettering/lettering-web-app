@@ -1,0 +1,23 @@
+:root {
+    --unselected-pagination: #FFEF96;
+    --selected-pagination: #FFD700;
+}
+
+.swiper-pagination-bullet {
+    width: 8px !important;
+    height: 8px !important;
+    background-color: var(--unselected-pagination) !important;
+    opacity: 1 !important;
+}
+
+.swiper-pagination-bullet-active {
+    background-color: var(--selected-pagination) !important;
+    width: 12px !important;
+    height: 12px !important;
+}
+
+.swiper-pagination {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+}
