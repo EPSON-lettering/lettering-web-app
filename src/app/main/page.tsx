@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import OnBoarding from "@/components/OnBoarding";
 
 export const metadata: Metadata = {
 	title: "Lettering | Home",
@@ -8,8 +9,8 @@ export const metadata: Metadata = {
 
 export default async function MainPage() {
 	return (
-			<div>
-				hello
-			</div>
+		<div className="relative">
+			<OnBoarding />
+		</div>
 	);
 }
