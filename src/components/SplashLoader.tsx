@@ -3,6 +3,7 @@
 import React from 'react';
 import useSessionStore, { SessionItem } from "@/hooks/useSessionStore";
 import FirstLoading from "@/pages/FirstLoading";
+import Login from "@/pages/Login";
 
 const SplashLoader = () => {
 	const sessionStore = useSessionStore();
@@ -11,7 +12,7 @@ const SplashLoader = () => {
 	return (
 			<>
 				{!splashDone && <FirstLoading />}
-				{splashDone && <div>hello</div>}
+				{splashDone && <Login />}
 			</>
 	);
 };
