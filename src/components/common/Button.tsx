@@ -30,7 +30,7 @@ const Button: React.FC<ButtonProps> = ({
 					])}
 					{...props}
 			>
-				<Typo>
+				<Typo color="">
 					{children}
 				</Typo>
 			</button>
@@ -45,7 +45,7 @@ const sizeProps: Record<Size, string> = {
 
 const shapeProps: Record<Shape, string> = {
 	normal: 'rounded-[14px]',
-	round: 'rounded-[30px]'
+	round: 'rounded-3xl'
 };
 
 export default Button;

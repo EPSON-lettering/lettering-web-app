@@ -1,7 +1,7 @@
 import React from 'react';
 import clsx from 'clsx';
 
-type Color = "black";
+type Color = 'black' | 'white';
 
 type TypoProps = {
 	color?: Color

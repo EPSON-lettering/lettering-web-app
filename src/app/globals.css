@@ -32,12 +32,14 @@ body {
   }
 }
 
-
-
 .flex-all-center {
   @apply flex flex-col items-center justify-center;
 }
 
 .col-center {
   @apply flex flex-col items-center;
+}
+
+.button {
+  @apply px-[16px] py-[12px] h-[48px] bg-letter-yellow hover:bg-[#FFC700] active:bg-[#FFB800] text-white transition-all duration-75;
 }

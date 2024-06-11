@@ -1,5 +1,5 @@
-import FirstLoading from "@/pages/FirstLoading";
+import SplashLoader from "@/components/SplashLoader";
 
 export default function Home() {
-  return <FirstLoading />;
+  return <SplashLoader />;
 }

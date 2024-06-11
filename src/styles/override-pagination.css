@@ -18,6 +18,7 @@
 
 .swiper-pagination {
     display: flex !important;
+    bottom: 50px !important;
     align-items: center;
     justify-content: center;
 }
