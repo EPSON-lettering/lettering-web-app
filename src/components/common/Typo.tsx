@@ -22,6 +22,7 @@ const Typo: React.FC<TypoProps> = ({ children, color = "black", className, ...pr
 
 const colorProps: Record<Color, string> = {
 	black: 'text-black',
+	white: 'text-white',
 }
 
 export default Typo;
