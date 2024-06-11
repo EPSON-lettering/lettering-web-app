@@ -6,8 +6,8 @@ import useSessionStore, { SessionItem } from "@/hooks/useSessionStore";
 import { useRouter } from "next/navigation";
 
 const OnBoardRouter = () => {
-	const [getItem] = useSessionStore();
-	const complete = getItem(SessionItem.ON_BOARD);
+	const sessionStore = useSessionStore();
+	const complete = sessionStore.boolean(sessionStore.get(SessionItem.ON_BOARD));
 	const router = useRouter();
 
 	useEffect(() => {
