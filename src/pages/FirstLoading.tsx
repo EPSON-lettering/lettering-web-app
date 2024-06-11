@@ -4,13 +4,20 @@ import React, { useEffect } from 'react';
 import LoadingLogo from "@public/logo/loading-logo.svg";
 import LetterText from "@public/letter-u.svg";
 import { useRouter } from "next/navigation";
+import useSessionStore, { SessionItem } from "@/hooks/useSessionStore";
 
 const FirstLoading: React.FC = () => {
 	const router = useRouter();
+	const [getItem, setItem] = useSessionStore();
 
 	useEffect(() => {
+		setItem(SessionItem.SPLASH, 'true');
+		const onBoardComplete = getItem(SessionItem.ON_BOARD);
 		setTimeout(() => {
-			router.push("/main");
+			if (!onBoardComplete) {
+				return router.push('/on-board');
+			}
+			router.push('/');
 		}, 2000);
 	}, []);
 
