@@ -63,8 +63,7 @@ const OnBoarding = () => {
 					</Button>
 				</div>
 			</section>
-
-);
+	);
 };
 
 const pagination = {
