@@ -39,7 +39,7 @@ const Button: React.FC<ButtonProps> = ({
 					]))}
 					{...props}
 			>
-				<section className="flex gap-x-[10px] justify-center">
+				<section className="flex gap-x-[10px] justify-center items-center">
 					{icon?.leftIcon && icon.leftIcon}
 					<Typo color="white">
 						{children}
