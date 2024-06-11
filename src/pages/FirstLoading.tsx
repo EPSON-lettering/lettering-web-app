@@ -8,11 +8,11 @@ import useSessionStore, { SessionItem } from "@/hooks/useSessionStore";
 
 const FirstLoading: React.FC = () => {
 	const router = useRouter();
-	const [getItem, setItem] = useSessionStore();
+	const sessionStore = useSessionStore();
 
 	useEffect(() => {
-		setItem(SessionItem.SPLASH, 'true');
-		const onBoardComplete = getItem(SessionItem.ON_BOARD);
+		sessionStore.set(SessionItem.SPLASH, 'true');
+		const onBoardComplete = sessionStore.boolean(sessionStore.get(SessionItem.ON_BOARD));
 		setTimeout(() => {
 			if (!onBoardComplete) {
 				return router.push('/on-board');

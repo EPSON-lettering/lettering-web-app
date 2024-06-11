@@ -15,11 +15,11 @@ import useSessionStore, { SessionItem } from "@/hooks/useSessionStore";
 import { useRouter } from "next/navigation";
 
 const OnBoarding = () => {
-	const [_, setItem] = useSessionStore();
+	const sessionStore = useSessionStore();
 	const router = useRouter();
 
 	const onClickButton = () => {
-		setItem(SessionItem.ON_BOARD, "true");
+		sessionStore.set(SessionItem.ON_BOARD, "true");
 		router.push('/');
 	};
 
@@ -68,7 +68,7 @@ const OnBoarding = () => {
 
 const pagination = {
 	clickable: true,
-	renderBullet: function (index, className) {
+	renderBullet: function (index: number, className: string) {
 		return '<span class="' + className + '"></span>';
 	},
 };

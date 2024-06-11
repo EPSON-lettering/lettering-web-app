@@ -4,12 +4,14 @@ export enum SessionItem {
 }
 
 const useSessionStore = () => {
-	const getter = (key: SessionItem) => sessionStorage.getItem(key);
-	const setter = (key: SessionItem, value: string) => {
+	const getter = (key: SessionItem): string | null => sessionStorage.getItem(key);
+	const setter = (key: SessionItem, value: string): void => {
 		sessionStorage.setItem(key, value);
 	};
 
-	return [getter, setter];
+	const boolean = (value: string | null) => value === "true";
+
+	return { get: getter, set: setter, boolean }
 };
 
 export default useSessionStore;

@@ -5,9 +5,8 @@ import useSessionStore, { SessionItem } from "@/hooks/useSessionStore";
 import FirstLoading from "@/pages/FirstLoading";
 
 const SplashLoader = () => {
-	const [getItem] = useSessionStore();
-	const splashDone = getItem(SessionItem.SPLASH);
-	console.log({splashDone});
+	const sessionStore = useSessionStore();
+	const splashDone: boolean = sessionStore.boolean(sessionStore.get(SessionItem.SPLASH));
 
 	return (
 			<>

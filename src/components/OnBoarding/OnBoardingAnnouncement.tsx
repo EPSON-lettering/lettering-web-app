@@ -2,7 +2,7 @@ import React from 'react';
 import Typo from "@/components/common/Typo";
 
 interface ComponentProps {
-	element: React.Component,
+	element: React.ReactNode,
 	desc: string
 }
 
