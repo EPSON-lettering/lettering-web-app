@@ -21,7 +21,12 @@ const EnterNicknameOnSign = () => {
 				</nav>
 
 				<section className="pt-[100px] flex-1">
-					<NickInput value={nickname} setValue={setNickname} maxLength={13} />
+					<NickInput
+							value={nickname}
+							placeholder="닉네임을 입력하세요"
+							setValue={setNickname}
+							maxLength={13}
+					/>
 				</section>
 
 

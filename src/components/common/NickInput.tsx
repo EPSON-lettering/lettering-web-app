@@ -5,11 +5,19 @@ import CloseBtn from "@public/icon/close.svg";
 interface NickInputProps extends HTMLAttributes<HTMLInputElement> {
 	container?: HTMLAttributes<HTMLDivElement>;
 	value: string;
+	placeholder?: string;
 	maxLength?: number;
 	setValue: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const NickInput: React.FC<NickInputProps> = ({ value, setValue, maxLength, container, ...inputProps }) => {
+const NickInput: React.FC<NickInputProps> = ({
+     value,
+     setValue,
+     maxLength,
+		 placeholder,
+     container,
+     ...inputProps
+}) => {
 
 	const onChangeValue = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const val = e.target.value;
@@ -22,6 +30,7 @@ const NickInput: React.FC<NickInputProps> = ({ value, setValue, maxLength, conta
 				<div className="flex justify-between w-full border-b-2 border-letter-yellow pb-[8px]">
 					<input
 						value={value}
+						placeholder={placeholder}
 						onChange={onChangeValue}
 						className="flex-1 input"
 						{...inputProps}
