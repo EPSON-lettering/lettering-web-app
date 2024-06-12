@@ -3,6 +3,7 @@
 import React, { useState, createContext, useContext } from 'react';
 import ChoiceLangOnSign from "@/components/signup/ChoiceLangOnSign";
 import FormProgress from "@/components/common/FormProgress";
+import EnterNicknameOnSign from "@/components/signup/EnterNicknameOnSign";
 
 export enum SignupPhase {
 	CHOICE_LANG,
@@ -29,6 +30,7 @@ const Signup = () => {
 							<FormProgress progressCount={3} sequence={formSeq[signupPhase]} />
 					</section>
 					{signupPhase === SignupPhase.CHOICE_LANG && <ChoiceLangOnSign />}
+					{signupPhase === SignupPhase.SET_NICKNAME && <EnterNicknameOnSign />}
 				</SignupContext.Provider>
 			</article>
 

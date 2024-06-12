@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useSignupContext } from "@/pages/Signup";
+import { useSignupContext, SignupPhase } from "@/pages/Signup";
 import Typo from "@/components/common/Typo";
 import Button from "@/components/common/Button";
 import { Language, languageOptions, languageKorProps } from "@/i18n/lang";
@@ -9,7 +9,12 @@ import Ratio from "@/components/common/RatioButton";
 
 const ChoiceLangOnSign = () => {
 	const [lang, setLang] = useState<Language>();
-	const { } = useSignupContext();
+	const { setSignupPhase } = useSignupContext();
+
+	const onClickNextPhase = () => {
+		if (!lang) return;
+		setSignupPhase(SignupPhase.SET_NICKNAME);
+	}
 
 	return (
 			<article className="w-full h-full pb-[60px] px-[16px] flex flex-col">
@@ -45,6 +50,7 @@ const ChoiceLangOnSign = () => {
 
 				<section className="w-full flex justify-end items-end">
 					<Button
+							onClick={onClickNextPhase}
 							shape="round"
 							size="small"
 							disabled={!lang}
@@ -52,7 +58,7 @@ const ChoiceLangOnSign = () => {
 								rightIcon: <ArrowRight />
 							}}
 					>
-						<Typo color={!lang ? "gray" : "white"}>다음</Typo>
+						다음
 					</Button>
 				</section>
 
