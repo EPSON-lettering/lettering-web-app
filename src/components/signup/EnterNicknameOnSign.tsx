@@ -29,7 +29,6 @@ const EnterNicknameOnSign = () => {
 					/>
 				</section>
 
-
 				<section className="w-full flex justify-end items-end">
 					<Button
 							onClick={onClickNextPhase}

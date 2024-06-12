@@ -4,7 +4,7 @@ import clsx from "clsx";
 import { twMerge } from "tailwind-merge";
 
 type Shape = 'round' | 'normal';
-type Size = 'small' | 'full';
+type Size = 'small' | 'full' | 'fit';
 type Theme = 'normal' | 'ghost' | 'real-ghost';
 
 export interface ButtonProps extends HTMLAttributes<HTMLButtonElement> {
@@ -54,6 +54,7 @@ const Button: React.FC<ButtonProps> = ({
 const sizeProps: Record<Size, string> = {
 	full: 'w-full',
 	small: '76px',
+	fit: 'w-fit',
 };
 
 const shapeProps: Record<Shape, string> = {

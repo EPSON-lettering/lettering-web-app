@@ -4,6 +4,7 @@ import React, { useState, createContext, useContext } from 'react';
 import ChoiceLangOnSign from "@/components/signup/ChoiceLangOnSign";
 import FormProgress from "@/components/common/FormProgress";
 import EnterNicknameOnSign from "@/components/signup/EnterNicknameOnSign";
+import SetInterestsOnSign from "@/components/signup/SetInterestsOnSign";
 
 export enum SignupPhase {
 	CHOICE_LANG,
@@ -30,8 +31,10 @@ const Signup = () => {
 					<section className="w-full py-[37px] flex justify-center">
 							<FormProgress progressCount={3} sequence={formSeq[signupPhase]} />
 					</section>
+
 					{signupPhase === SignupPhase.CHOICE_LANG && <ChoiceLangOnSign />}
 					{signupPhase === SignupPhase.SET_NICKNAME && <EnterNicknameOnSign />}
+					{signupPhase === SignupPhase.CHOICE_INTER && <SetInterestsOnSign />}
 				</SignupContext.Provider>
 			</article>
 
