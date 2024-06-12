@@ -5,9 +5,9 @@ import { twMerge } from "tailwind-merge";
 
 type Shape = 'round' | 'normal';
 type Size = 'small' | 'full';
-type Theme = 'normal' | 'ghost';
+type Theme = 'normal' | 'ghost' | 'real-ghost';
 
-interface ButtonProps extends HTMLAttributes<HTMLButtonElement> {
+export interface ButtonProps extends HTMLAttributes<HTMLButtonElement> {
 	shape?: Shape;
 	size?: Size;
 	theme?: Theme;
@@ -41,7 +41,7 @@ const Button: React.FC<ButtonProps> = ({
 			>
 				<section className="flex gap-x-[10px] justify-center items-center">
 					{icon?.leftIcon && icon.leftIcon}
-					<Typo color="white">
+					<Typo color={theme === "normal" ? "white" : "black"}>
 						{children}
 					</Typo>
 					{icon?.rightIcon && icon.rightIcon}
@@ -64,6 +64,7 @@ const shapeProps: Record<Shape, string> = {
 const themeProps: Record<Theme, string> = {
 	normal: 'button',
 	ghost: 'bg-white text-[#111111] font-semibold border border-[3px] border-letter-yellow',
+	'real-ghost': 'bg-white !text-[#111111] border border-[3px] border-gray-300'
 };
 
 export default Button;

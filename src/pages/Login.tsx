@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import LoginLogo from '@public/icon/login-logo.svg';
 import Google from '@public/icon/google.svg';
@@ -6,8 +8,15 @@ import Kakao from '@public/icon/kakao.svg';
 import Apple from '@public/icon/apple.svg';
 import Typo from "@/components/common/Typo";
 import Button from "@/components/common/Button";
+import { useRouter } from "next/navigation";
 
 const Login = () => {
+	const router = useRouter();
+
+	const onClickGoogleLogin = () => {
+		router.push('/sign-up');
+	};
+
 	return (
 			<div className="flex flex-col justify-center h-full">
 				<section className="flex justify-start sm:justify-center w-full">
@@ -23,6 +32,7 @@ const Login = () => {
 
 					<section className="pt-16 flex flex-col items-center">
 						<Button
+								onClick={onClickGoogleLogin}
 								theme="ghost"
 								shape="round"
 								icon={{
