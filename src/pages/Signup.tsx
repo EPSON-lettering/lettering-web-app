@@ -22,9 +22,10 @@ export const useSignupContext = () => useContext(SignupContext);
 
 const Signup = () => {
 	const [signupPhase, setSignupPhase] = useState<SignupPhase>(SignupPhase.CHOICE_LANG);
+	console.log({signupPhase});
 
 	return (
-			<article className="flex flex-col h-full">
+			<article className="flex flex-col h-full pb-[60px] px-[16px] flex flex-col">
 				<SignupContext.Provider value={{ signupPhase, setSignupPhase }}>
 					<section className="w-full py-[37px] flex justify-center">
 							<FormProgress progressCount={3} sequence={formSeq[signupPhase]} />

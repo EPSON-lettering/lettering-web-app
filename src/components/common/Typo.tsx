@@ -36,7 +36,7 @@ const colorProps: Record<Color, string> = {
 	black: 'text-black',
 	white: 'text-white',
 	yellow: 'text-letter-yellow',
-	gray: 'text-gray-400',
+	gray: 'text-letter-gray',
 }
 
 export default Typo;

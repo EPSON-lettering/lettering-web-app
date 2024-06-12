@@ -33,9 +33,8 @@ const RatioContextComponent: React.FC<Comp> = ({ list, children }) => {
 
 const RatioButton: React.FC<RatioButtonProps> = ({ identifier, ...props }) => {
 	const { currentIdentifier, setIdentifier } = useRatioContext();
+const selected: boolean = currentIdentifier === identifier
 
-	console.log({ currentIdentifier });
-	const selected: boolean = currentIdentifier === identifier;
 	const onClickWrapper = (e: any) => {
 		console.log('onClickWrapper');
 		setIdentifier(identifier);

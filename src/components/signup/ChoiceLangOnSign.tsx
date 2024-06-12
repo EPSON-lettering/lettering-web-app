@@ -17,7 +17,7 @@ const ChoiceLangOnSign = () => {
 	}
 
 	return (
-			<article className="w-full h-full pb-[60px] px-[16px] flex flex-col">
+			<article className="w-full h-full flex flex-col">
 				<nav className="flex-all-center">
 					<Typo size="16" bold>공부하고 싶은 언어를 선택해주세요!</Typo>
 				</nav>
@@ -37,7 +37,6 @@ const ChoiceLangOnSign = () => {
 						</section>
 					</Ratio.Context>
 
-
 					{lang && (
 							<div className="flex gap-x-[4px] py-[100px] w-full justify-center">
 								<Typo size="16">교환 제공 언어는</Typo>
@@ -46,7 +45,6 @@ const ChoiceLangOnSign = () => {
 							</div>
 					)}
 				</section>
-
 
 				<section className="w-full flex justify-end items-end">
 					<Button
