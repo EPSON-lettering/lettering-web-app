@@ -1,6 +1,8 @@
 export enum SessionItem {
 	ON_BOARD = 'ON_BOARD',
 	SPLASH = 'SPLASH',
+	SIGNUP_PROVIDER = 'SIGNUP_PROVIDER',
+	SIGNUP_UNIQUE_VALUE = 'SIGNUP_UNIQUE_VALUE'
 }
 
 const useSessionStore = () => {

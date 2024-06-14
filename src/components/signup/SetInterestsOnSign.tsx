@@ -2,14 +2,16 @@ import React, { useState, useEffect } from 'react';
 import Interest from "@/components/common/Interest";
 import type { Interest as InterestType } from "@/types/object";
 import Button from "@/components/common/Button";
-import ArrowRight from "@public/icon/left-arrow-white.svg";
 import Typo from "@/components/common/Typo";
 import { useQuery } from "@tanstack/react-query";
 import Server from "@public/services/api";
 import { useSignupContext } from "@/pages/Signup";
+import useSessionStore, { SessionItem } from "@/hooks/useSessionStore";
+import { SignupProvider } from "@public/services/api/AccountService";
 
 const SetInterestsOnSign = () => {
 	const [selectedList, setSelectedList] = useState<InterestType[]>([]);
+	const sessionStore = useSessionStore();
 	const { setForm, form } = useSignupContext();
 	const { data: interests = [] } = useQuery({
 		queryKey: ['interests'],
@@ -17,7 +19,21 @@ const SetInterestsOnSign = () => {
 	});
 
 	const onClickSubmit = async () => {
+		const provider = sessionStore.get(SessionItem.SIGNUP_PROVIDER) as SignupProvider;
+		const unique = sessionStore.get(SessionItem.SIGNUP_UNIQUE_VALUE);
+		if (!provider || !unique) throw Error("에러 발생");
 
+		try {
+			await Server.Account.signup({
+				nickname: form.nickname,
+				interests: form.interests,
+				languages: form.lang,
+				unique,
+				provider,
+			});
+		} catch (error) {
+			console.error(error);
+		}
 	};
 
 	useEffect(() => {
@@ -53,14 +69,10 @@ const SetInterestsOnSign = () => {
 				<section className="w-full flex justify-end items-end">
 					<Button
 							onClick={onClickSubmit}
-							shape="round"
-							size="small"
+							size="full"
 							disabled={selectedList.length === 0}
-							icon={{
-								rightIcon: <ArrowRight />
-							}}
 					>
-						다음
+						회원가입하기
 					</Button>
 				</section>
 			</article>

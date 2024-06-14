@@ -8,9 +8,11 @@ interface LoginResponse {
 	refresh: string;
 }
 
+export type SignupProvider = 'google' | 'kakao' | 'facebook' | 'apple';
+
 interface SignupRequest {
 	unique: string;
-	provider: 'google' | 'kakao' | 'facebook' | 'apple';
+	provider: SignupProvider;
 	languages: string[];
 	nickname: string;
 	interests: number[];

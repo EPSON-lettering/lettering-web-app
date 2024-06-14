@@ -11,20 +11,26 @@ import Button from "@/components/common/Button";
 import { useRouter } from "next/navigation";
 import Server from "@public/services/api";
 import { BroadcastChannel } from "broadcast-channel";
+import useSessionStore, { SessionItem } from "@/hooks/useSessionStore";
 
 const oAuthChannel = new BroadcastChannel('oauth');
 
 type AuthCode = { authCode: string };
+interface NonSignedUserError {
+	message: string;
+	provider: string;
+	unique: string;
+}
 
 const Login = () => {
 	const router = useRouter();
 	const [authCode, setAuthCode] = useState<string>();
+	const sessionStore = useSessionStore();
 
 	const redirectSignup = () => router.push('/sign-up');
 
 	const onClickGoogleLogin = async () => {
 		const { oauthUrl } = await Server.Account.getGoogleAuthUrl();
-		console.log({ oauthUrl });
 		window.open(oauthUrl);
 	};
 
@@ -35,7 +41,10 @@ const Login = () => {
 				const { user, access, refresh } = await Server.Account.login(authCode);
 				console.log({ user, access, refresh });
 				await oAuthChannel.close();
-			} catch (error) {
+			} catch (error: unknown) {
+				const { unique, provider } = error as NonSignedUserError;
+				sessionStore.set(SessionItem.SIGNUP_PROVIDER, provider);
+				sessionStore.set(SessionItem.SIGNUP_UNIQUE_VALUE, unique);
 				redirectSignup();
 			}
 		});
