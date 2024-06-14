@@ -40,9 +40,9 @@ const colorProps: Record<Color, string> = {
 }
 
 const textProps: Record<Size, string> = {
-	"13": 'text-[13px]',
-	"16": 'text-[16px]',
-	"19": 'text-[19px]',
+	"13": 'text-[16px]',
+	"16": 'text-[18px]',
+	"19": 'text-[23px]',
 	"25": 'text-[25px]',
 };
 

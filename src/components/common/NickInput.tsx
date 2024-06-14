@@ -15,6 +15,7 @@ const NickInput: React.FC<NickInputProps> = ({
      setValue,
      maxLength,
 		 placeholder,
+		 onChange,
      container,
      ...inputProps
 }) => {
@@ -23,6 +24,7 @@ const NickInput: React.FC<NickInputProps> = ({
 		const val = e.target.value;
 		if (maxLength && val.length > maxLength) return;
 		setValue(e.target.value);
+		onChange && onChange(e);
 	};
 
 	return (

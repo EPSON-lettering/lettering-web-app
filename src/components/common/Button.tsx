@@ -31,7 +31,7 @@ const Button: React.FC<ButtonProps> = ({
 	return (
 			<button
 					className={twMerge(clsx([
-							disabled && '!bg-gray-50',
+							disabled && '!bg-gray-200',
 							shapeProps[shape],
 							sizeProps[size],
 							themeProps[theme],

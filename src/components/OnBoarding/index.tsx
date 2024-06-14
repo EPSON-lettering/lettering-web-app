@@ -45,7 +45,7 @@ const OnBoarding = () => {
 						</SwiperSlide>
 						<SwiperSlide>
 							<OnBoardingAnnouncement
-									element={<img src="/image/onboard-3.png" className="w-[393px] h-[550px]" alt="onboarding" />}
+									element={<img src="/image/onboard-3.png" className="h-[550px]" alt="onboarding" />}
 									desc={onboardParagraphs.third}
 							/>
 						</SwiperSlide>

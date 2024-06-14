@@ -1,18 +1,36 @@
-import React, { useState } from 'react';
+import React, { useState, ChangeEvent } from 'react';
 import Typo from "@/components/common/Typo";
 import NickInput from "@/components/common/NickInput";
 import Button from "@/components/common/Button";
 import ArrowRight from "@public/icon/left-arrow-white.svg";
 import { useSignupContext, SignupPhase } from "@/pages/Signup";
+import Server from "@public/services/api";
 
+
+let validationTimer: any;
 
 const EnterNicknameOnSign = () => {
 	const [nickname, setNickname] = useState<string>('');
 	const { setSignupPhase, setForm } = useSignupContext();
+	const [error, setError] = useState<string>();
 
-	const onClickNextPhase = () => {
+	const onClickNextPhase = async () => {
+		if (error) return;
 		setForm(prev => ({ ...prev, nickname }));
 		setSignupPhase(SignupPhase.CHOICE_INTER);
+	};
+
+	const onChangeValidation = (e: ChangeEvent<HTMLInputElement>) => {
+		const value = e.target.value;
+		clearTimeout(validationTimer);
+		validationTimer = setTimeout(async () => {
+			const validation = await Server.Account.validateNickname(value);
+			if (!validation.available) {
+				setError(validation.error);
+				return;
+			}
+			setError(undefined);
+		}, 300);
 	};
 
 	return (
@@ -23,6 +41,7 @@ const EnterNicknameOnSign = () => {
 
 				<section className="pt-[100px] flex-1">
 					<NickInput
+							onChange={onChangeValidation}
 							value={nickname}
 							placeholder="닉네임을 입력하세요"
 							setValue={setNickname}
@@ -33,14 +52,14 @@ const EnterNicknameOnSign = () => {
 				<section className="w-full flex justify-end items-end">
 					<Button
 							onClick={onClickNextPhase}
-							shape="round"
-							size="small"
+							shape={error ? 'normal' : 'round'}
+							size={error ? 'full' : 'small'}
 							disabled={nickname.length === 0}
 							icon={{
-								rightIcon: <ArrowRight />
+								rightIcon: error ? undefined : <ArrowRight />
 							}}
 					>
-						다음
+						{error ?? '다음'}
 					</Button>
 				</section>
 			</article>
