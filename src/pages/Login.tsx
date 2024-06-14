@@ -9,11 +9,16 @@ import Apple from '@public/icon/apple.svg';
 import Typo from "@/components/common/Typo";
 import Button from "@/components/common/Button";
 import { useRouter } from "next/navigation";
+import Server from "@public/services/api";
 
 const Login = () => {
 	const router = useRouter();
 
-	const onClickGoogleLogin = () => {
+	const onClickGoogleLogin = async () => {
+		const { oauthUrl } = await Server.Account.getGoogleAuthUrl();
+		console.log({ oauthUrl });
+		window.open(oauthUrl);
+
 		router.push('/sign-up');
 	};
 
