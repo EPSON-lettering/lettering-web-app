@@ -19,7 +19,7 @@ const ContextComp: React.FC<PropsWithChildren<ContextProps>> = ({ selectList, se
 
 export const useInterestContext = () => useContext(Context);
 
-const InterestButton: React.FC<InterestType> = ({ name, id, iconUrl }) => {
+const InterestButton: React.FC<InterestType> = ({ name, id, image }) => {
 	const { selectList, setSelectList } = useInterestContext();
 	const index = selectList.findIndex(item => item.id === id);
 	const selected = index !== -1;
@@ -34,14 +34,14 @@ const InterestButton: React.FC<InterestType> = ({ name, id, iconUrl }) => {
 		}
 
 		if (selectList.length >= 5) return;
-		setSelectList(prev => prev.concat({ name,  id, iconUrl }));
+		setSelectList(prev => prev.concat({ name,  id, image }));
 	};
 
 	return (
 		<Button
 				onClick={onClickButton}
 				icon={{
-					leftIcon: iconUrl ? <img src={iconUrl} alt="interestIcon" /> : undefined,
+					leftIcon: image ? <img src={image} alt="interestIcon" /> : undefined,
 				}}
 				theme={selected ? 'normal' : 'real-ghost'}
 				size="fit"

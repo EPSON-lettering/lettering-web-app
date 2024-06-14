@@ -4,6 +4,7 @@ import "./globals.css";
 import clsx from "clsx";
 import AppHeader from "@/components/common/AppHeader";
 import VhMobile from "@/components/common/VhMobile";
+import QueryProvider from "@/components/common/QueryProvider";
 
 export const metadata: Metadata = {
   title: "Lettering",
@@ -24,7 +25,9 @@ export default function RootLayout({
       ])}>
         <main className="w-full flex flex-1 flex-col md:w-[640px] bg-white">
           <AppHeader />
-          {children}
+          <QueryProvider>
+            {children}
+          </QueryProvider>
         </main>
       </body>
     </html>

@@ -1,13 +1,18 @@
 import React, { useState } from 'react';
 import Interest from "@/components/common/Interest";
 import type { Interest as InterestType } from "@/types/object";
-import { mockInterests } from "@/data/mock";
 import Button from "@/components/common/Button";
 import ArrowRight from "@public/icon/left-arrow-white.svg";
 import Typo from "@/components/common/Typo";
+import { useQuery } from "@tanstack/react-query";
+import Server from "@public/services/api";
 
 const SetInterestsOnSign = () => {
 	const [selectedList, setSelectedList] = useState<InterestType[]>([])
+	const { data: interests = [] } = useQuery({
+		queryKey: ['interests'],
+		queryFn: Server.Account.getInterests,
+	});
 
 	const onClickSubmit = () => {
 	};
@@ -25,12 +30,12 @@ const SetInterestsOnSign = () => {
 							selectList={selectedList}
 							setSelectList={setSelectedList}
 					>
-						{mockInterests.map(inter => (
+						{interests.map(inter => (
 								<Interest.Button
 										key={inter.id}
 										id={inter.id}
 										name={inter.name}
-										iconUrl={inter.iconUrl}
+										image={inter.image}
 								/>
 						))}
 					</Interest.Context>
