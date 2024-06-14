@@ -5,11 +5,17 @@ import ChoiceLangOnSign from "@/components/signup/ChoiceLangOnSign";
 import FormProgress from "@/components/common/FormProgress";
 import EnterNicknameOnSign from "@/components/signup/EnterNicknameOnSign";
 import SetInterestsOnSign from "@/components/signup/SetInterestsOnSign";
+import { ClientLanguage } from "@/i18n/lang";
 
 export enum SignupPhase {
 	CHOICE_LANG,
 	SET_NICKNAME,
 	CHOICE_INTER,
+}
+
+interface SignupForm {
+	nickname: string;
+	lang: ClientLanguage;
 }
 
 interface SignupContextProps {

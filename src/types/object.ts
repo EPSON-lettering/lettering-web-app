@@ -29,3 +29,8 @@ export interface User {
 	isLoggined: boolean;
 	withdrawReason?: string;
 }
+
+export interface Language {
+	id: number;
+	langName: string;
+}

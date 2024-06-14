@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 import { useSignupContext, SignupPhase } from "@/pages/Signup";
 import Typo from "@/components/common/Typo";
 import Button from "@/components/common/Button";
-import { Language, languageOptions, languageKorProps } from "@/i18n/lang";
+import { ClientLanguage, languageOptions, languageKorProps } from "@/i18n/lang";
 
 import ArrowRight from "@public/icon/left-arrow-white.svg";
 import Ratio from "@/components/common/RatioButton";
 
 const ChoiceLangOnSign = () => {
-	const [lang, setLang] = useState<Language>();
+	const [lang, setLang] = useState<ClientLanguage>();
 	const { setSignupPhase } = useSignupContext();
 
 	const onClickNextPhase = () => {
