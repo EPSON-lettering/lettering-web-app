@@ -21,7 +21,7 @@ const Typo: React.FC<TypoProps> = ({
 	return (
 			<span className={clsx([
 					colorProps[color],
-					`text-[${size}px]`,
+					textProps[size],
 					bold && 'font-bold',
 					className,
 			])}
@@ -38,5 +38,12 @@ const colorProps: Record<Color, string> = {
 	yellow: 'text-letter-yellow',
 	gray: 'text-letter-gray',
 }
+
+const textProps: Record<Size, string> = {
+	"13": 'text-[13px]',
+	"16": 'text-[16px]',
+	"19": 'text-[19px]',
+	"25": 'text-[25px]',
+};
 
 export default Typo;
