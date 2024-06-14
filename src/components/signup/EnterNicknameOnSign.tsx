@@ -8,9 +8,10 @@ import { useSignupContext, SignupPhase } from "@/pages/Signup";
 
 const EnterNicknameOnSign = () => {
 	const [nickname, setNickname] = useState<string>('');
-	const { setSignupPhase } = useSignupContext();
+	const { setSignupPhase, setForm } = useSignupContext();
 
 	const onClickNextPhase = () => {
+		setForm(prev => ({ ...prev, nickname }));
 		setSignupPhase(SignupPhase.CHOICE_INTER);
 	};
 

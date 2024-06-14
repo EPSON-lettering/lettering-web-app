@@ -5,7 +5,6 @@ import ChoiceLangOnSign from "@/components/signup/ChoiceLangOnSign";
 import FormProgress from "@/components/common/FormProgress";
 import EnterNicknameOnSign from "@/components/signup/EnterNicknameOnSign";
 import SetInterestsOnSign from "@/components/signup/SetInterestsOnSign";
-import { ClientLanguage } from "@/i18n/lang";
 
 export enum SignupPhase {
 	CHOICE_LANG,
@@ -15,12 +14,15 @@ export enum SignupPhase {
 
 interface SignupForm {
 	nickname: string;
-	lang: ClientLanguage;
+	lang: string[];
+	interests: number[];
 }
 
 interface SignupContextProps {
 	signupPhase: SignupPhase;
 	setSignupPhase: (phase: SignupPhase) => void;
+	form: SignupForm;
+	setForm: React.Dispatch<React.SetStateAction<SignupForm>>;
 }
 
 const SignupContext = createContext<SignupContextProps>({} as SignupContextProps);
@@ -28,10 +30,20 @@ export const useSignupContext = () => useContext(SignupContext);
 
 const Signup = () => {
 	const [signupPhase, setSignupPhase] = useState<SignupPhase>(SignupPhase.CHOICE_LANG);
+	const [form, setForm] = useState<SignupForm>(() => ({
+		interests: [],
+		lang: [],
+		nickname: '',
+	}));
 
 	return (
 			<article className="px-[16px] pb-[50px] flex-1 flex flex-col SignOnContainer">
-				<SignupContext.Provider value={{ signupPhase, setSignupPhase }}>
+				<SignupContext.Provider value={{
+					signupPhase,
+					setSignupPhase,
+					form,
+					setForm,
+				}}>
 					<section className="w-full py-[37px] flex justify-center">
 							<FormProgress progressCount={3} sequence={formSeq[signupPhase]} />
 					</section>

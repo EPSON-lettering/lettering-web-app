@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Interest from "@/components/common/Interest";
 import type { Interest as InterestType } from "@/types/object";
 import Button from "@/components/common/Button";
@@ -6,16 +6,23 @@ import ArrowRight from "@public/icon/left-arrow-white.svg";
 import Typo from "@/components/common/Typo";
 import { useQuery } from "@tanstack/react-query";
 import Server from "@public/services/api";
+import { useSignupContext } from "@/pages/Signup";
 
 const SetInterestsOnSign = () => {
-	const [selectedList, setSelectedList] = useState<InterestType[]>([])
+	const [selectedList, setSelectedList] = useState<InterestType[]>([]);
+	const { setForm, form } = useSignupContext();
 	const { data: interests = [] } = useQuery({
 		queryKey: ['interests'],
 		queryFn: Server.Account.getInterests,
 	});
 
-	const onClickSubmit = () => {
+	const onClickSubmit = async () => {
+
 	};
+
+	useEffect(() => {
+		setForm(prev => ({ ...prev, interests: selectedList.map(item => item.id) }));
+	}, [selectedList]);
 
 	return (
 			<article className="w-full h-full flex flex-col">
