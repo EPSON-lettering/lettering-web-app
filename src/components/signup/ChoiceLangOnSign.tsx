@@ -17,7 +17,7 @@ const ChoiceLangOnSign = () => {
 	}
 
 	return (
-			<article className="w-full h-full flex flex-col">
+			<article className="w-full h-full flex flex-col flex-1">
 				<nav className="flex-all-center">
 					<Typo size="16" bold>공부하고 싶은 언어를 선택해주세요!</Typo>
 				</nav>

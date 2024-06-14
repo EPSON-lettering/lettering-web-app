@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import localFont from 'next/font/local';
 import "./globals.css";
 import clsx from "clsx";
-
+import AppHeader from "@/components/common/AppHeader";
+import VhMobile from "@/components/common/VhMobile";
 
 export const metadata: Metadata = {
   title: "Lettering",
@@ -16,11 +17,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      {/*<VhMobile />*/}
       <body className={clsx([
           pretendard.className, pretendard.variable,
           'flex justify-center h-full'
       ])}>
-        <main className="w-full md:w-[640px] h-full bg-white">
+        <main className="w-full flex flex-1 flex-col md:w-[640px] bg-white">
+          <AppHeader />
           {children}
         </main>
       </body>

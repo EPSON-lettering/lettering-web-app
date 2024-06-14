@@ -13,7 +13,7 @@ type TypoProps = {
 const Typo: React.FC<TypoProps> = ({
 	 children,
 	 color = "black",
-   size,
+   size = '13',
 	 bold = false,
    className,
    ...props
@@ -21,7 +21,7 @@ const Typo: React.FC<TypoProps> = ({
 	return (
 			<span className={clsx([
 					colorProps[color],
-					size && `text-[${size}px]`,
+					`text-[${size}px]`,
 					bold && 'font-bold',
 					className,
 			])}

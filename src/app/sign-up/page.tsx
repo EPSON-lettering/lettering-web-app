@@ -1,5 +1,7 @@
 import Signup from "@/pages/Signup";
 
 export default function SignupPage() {
-	return <Signup />;
+	return (
+			<Signup />
+	);
 }
