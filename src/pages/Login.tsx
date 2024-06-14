@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import LoginLogo from '@public/icon/login-logo.svg';
 import Google from '@public/icon/google.svg';
 import Facebook from '@public/icon/facebook.svg';
@@ -10,17 +10,36 @@ import Typo from "@/components/common/Typo";
 import Button from "@/components/common/Button";
 import { useRouter } from "next/navigation";
 import Server from "@public/services/api";
+import { BroadcastChannel } from "broadcast-channel";
+
+const oAuthChannel = new BroadcastChannel('oauth');
+
+type AuthCode = { authCode: string };
 
 const Login = () => {
 	const router = useRouter();
+	const [authCode, setAuthCode] = useState<string>();
+
+	const redirectSignup = () => router.push('/sign-up');
 
 	const onClickGoogleLogin = async () => {
 		const { oauthUrl } = await Server.Account.getGoogleAuthUrl();
 		console.log({ oauthUrl });
 		window.open(oauthUrl);
-
-		router.push('/sign-up');
 	};
+
+	useEffect(() => {
+		oAuthChannel.addEventListener('message', async ({ authCode }: AuthCode) => {
+			if (!authCode) return;
+			try {
+				const { user, access, refresh } = await Server.Account.login(authCode);
+				console.log({ user, access, refresh });
+				await oAuthChannel.close();
+			} catch (error) {
+				redirectSignup();
+			}
+		});
+	}, []);
 
 	return (
 			<div className="flex flex-col justify-center h-full">
