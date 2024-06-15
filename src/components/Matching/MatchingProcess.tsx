@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import useUser from "@/hooks/useUser";
 import MatchingProcessingLogo from "@public/icon/matching.svg";
