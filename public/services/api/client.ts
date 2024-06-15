@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { toCamel } from "snake-camel";
 
 const serverUrl = process.env.NEXT_PUBLIC_SERVER_URL;
 
@@ -14,13 +13,12 @@ export const jsonClient = axios.create({
 });
 
 
-
-// jsonClient.interceptors.request.use((req) => {
-// 	const token = localStorage.getItem("access-token")
-// 	if (!token) return req
-// 	req.headers["Authorization"] = `Bearer ${token}`
-// 	return req
-// })
+jsonClient.interceptors.request.use((req) => {
+	const token = localStorage.getItem("access");
+	if (!token) return req;
+	req.headers["Authorization"] = `Bearer ${token}`;
+	return req;
+});
 
 jsonClient.interceptors.response.use(
 		(res) => res.data,

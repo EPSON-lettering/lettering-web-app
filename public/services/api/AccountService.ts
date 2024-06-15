@@ -30,12 +30,19 @@ interface AccountService {
 
 const URL= '/account';
 
+const doLogin = (login: LoginResponse) => {
+	const { access, refresh } = login;
+	localStorage.setItem('access', access);
+	localStorage.setItem('refresh', refresh);
+	return login;
+};
+
 const accountService: AccountService = {
 	getGoogleAuthUrl: () => jsonClient.get(`${URL}/google/login/`),
 	getInterests: () => jsonClient.get('/interest'),
 	login: (authCode) =>
 			jsonClient.post(`${URL}/google/callback/`, { code: authCode })
-				.then(data => toCamel(data) as LoginResponse),
+				.then(data => doLogin(toCamel(data) as LoginResponse)),
 	getLanguages: () => jsonClient.get<Language[]>(`${URL}/languages/`)
 			.then((data: any) => data.map(toCamel) as Language[]),
 	signup: (body) => jsonClient.post(`${URL}/register/`, body),
