@@ -5,7 +5,7 @@ import { twMerge } from "tailwind-merge";
 
 type Shape = 'round' | 'normal';
 type Size = 'small' | 'full' | 'fit';
-type Theme = 'normal' | 'ghost' | 'real-ghost';
+type Theme = 'normal' | 'ghost' | 'gray' | 'real-ghost';
 
 export interface ButtonProps extends HTMLAttributes<HTMLButtonElement> {
 	shape?: Shape;
@@ -65,6 +65,7 @@ const shapeProps: Record<Shape, string> = {
 
 const themeProps: Record<Theme, string> = {
 	normal: 'button border border-[3px] border-letter-yellow',
+	gray: 'bg-[#EAEAEA] border border-[3px] border-[#EAEAEA]',
 	ghost: 'bg-white text-[#111111] font-semibold border border-[3px] border-letter-yellow',
 	'real-ghost': 'bg-white !text-[#111111] border border-[3px] border-gray-300'
 };

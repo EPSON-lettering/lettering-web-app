@@ -22,14 +22,14 @@ export default function RootLayout({
           pretendard.className, pretendard.variable,
           'flex justify-center h-full'
       ])}>
-        <main className="w-full flex flex-1 flex-col md:w-[640px] bg-white">
+        <main id="root" className="w-full flex flex-1 relative flex-col md:w-[640px] bg-white">
           <AppHeader />
           <QueryProvider>
             {children}
           </QueryProvider>
+          <div id="portal" />
         </main>
       </body>
-      <div id="portal" />
     </html>
   );
 }
