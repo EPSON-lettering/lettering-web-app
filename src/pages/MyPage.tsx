@@ -5,14 +5,17 @@ import useUser from "@/hooks/useUser";
 import Typo from "@/components/common/Typo";
 import Button from "@/components/common/Button";
 import RightArrow from "@public/icon/right-arrow-yello.svg";
+import WhitePerson from "@public/icon/white-person.svg";
 import { useRouter } from "next/navigation";
 
 const MyPage = () => {
 	const { user } = useUser();
 	return (
 			<div className="flex-1 col-center px-[16px]">
-				<section className="flex-all-center gap-y-3 py-[60px] ">
-					<div className="avatar bg-violet-400" />
+				<section className="flex-all-center gap-y-3 py-[60px]">
+					<div className="avatar bg-violet-400 flex-all-center">
+						<WhitePerson />
+					</div>
 					<Typo size="47" bold>lalal</Typo>
 				</section>
 
