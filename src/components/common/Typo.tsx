@@ -4,7 +4,7 @@ import clsx from 'clsx';
 type Color = 'black' | 'white' | 'yellow' | "gray";
 type Size = '25' | '16' | '19' | '13' | '47';
 
-type TypoProps = {
+export type TypoProps = {
 	color?: Color
 	size?: Size;
 	bold?: boolean;

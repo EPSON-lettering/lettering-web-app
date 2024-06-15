@@ -1,6 +1,6 @@
 'use client';
 
-import React, { ReactNode, useState } from 'react';
+import React, { ReactNode, useState, useEffect } from 'react';
 import { usePathname, useRouter } from "next/navigation";
 import Typo from "@/components/common/Typo";
 
@@ -11,7 +11,7 @@ import LetterInActive from "@public/icon/letter_inactive.svg";
 import MyPageActive from "@public/icon/mypage_active.svg";
 import MyPageInActive from "@public/icon/mypage_inactive.svg";
 
-const noRenderUrls: string[] = ['/', '/sign-up'];
+const noRenderUrls: string[] = ['/', '/sign-up', '/on-board'];
 
 enum NavItem {
 	HOME,
@@ -44,19 +44,30 @@ const GlobalNavBar = () => {
 	const noRender = pathname ? noRenderUrls.includes(pathname) : false;
 
 	const onClickHome = () => {
-		setNavItem(NavItem.HOME);
 		router.push('/match');
 	};
 
 	const onClickLetter = () => {
-		setNavItem(NavItem.LETTER);
 		router.push('/letter');
 	};
 
 	const onClickMyPage = () => {
-		setNavItem(NavItem.MYPAGE);
 		router.push('/my');
 	};
+
+	useEffect(() => {
+		if (pathname === '/match') {
+			setNavItem(NavItem.HOME);
+		}
+
+		if (pathname === '/letter') {
+			setNavItem(NavItem.LETTER);
+		}
+
+		if (pathname === '/my') {
+			setNavItem(NavItem.MYPAGE);
+		}
+	}, [pathname]);
 
 	if (noRender) return null;
 

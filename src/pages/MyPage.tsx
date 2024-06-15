@@ -36,24 +36,16 @@ const MyPage = () => {
 				</section>
 
 				<section className="flex flex-wrap gap-x-2 pb-[60px]">
-					<Button shape="round" size="fit">
-						<Typo>패션</Typo>
-					</Button>
-					<Button shape="round" size="fit">
-						<Typo>패션</Typo>
-					</Button>
-					<Button shape="round" size="fit">
-						<Typo>패션</Typo>
-					</Button>
-					<Button shape="round" size="fit">
-						<Typo>패션</Typo>
-					</Button>
-					<Button shape="round" size="fit">
-						<Typo>패션</Typo>
-					</Button>
-					<Button shape="round" size="fit">
-						<Typo>패션</Typo>
-					</Button>
+					{user.interests.map(item => (
+						<Button
+								key={item.id}
+								icon={{ leftIcon: <img src={item.image} /> }}
+								shape="round"
+								size="fit"
+						>
+							<Typo>{item.name}</Typo>
+						</Button>
+					))}
 				</section>
 
 				<section className="box w-full">
