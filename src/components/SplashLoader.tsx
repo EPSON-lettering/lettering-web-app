@@ -4,15 +4,19 @@ import React from 'react';
 import useSessionStore, { SessionItem } from "@/hooks/useSessionStore";
 import FirstLoading from "@/pages/FirstLoading";
 import Login from "@/pages/Login";
+import useUser from "@/hooks/useUser";
+import MatchRouter from "@/pages/MatchRouter";
 
 const SplashLoader = () => {
+	const { user } = useUser();
 	const sessionStore = useSessionStore();
 	const splashDone: boolean = sessionStore.boolean(sessionStore.get(SessionItem.SPLASH));
 
 	return (
 			<>
-				{!splashDone && <FirstLoading />}
-				{splashDone && <Login />}
+				{(!splashDone && !user) && <FirstLoading />}
+				{(splashDone && !user) && <Login />}
+				{user && <MatchRouter />}
 			</>
 	);
 };

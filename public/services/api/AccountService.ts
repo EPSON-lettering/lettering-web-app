@@ -26,6 +26,7 @@ interface AccountService {
 	login: (authCode: string) => Promise<LoginResponse>;
 	getLanguages: () => Promise<Language[]>;
 	validateNickname: (nickname: string) => Promise<{ available:boolean; error?: string }>;
+	getUser: () => Promise<User>;
 }
 
 const URL= '/account';
@@ -47,6 +48,8 @@ const accountService: AccountService = {
 			.then((data: any) => data.map(toCamel) as Language[]),
 	signup: (body) => jsonClient.post(`${URL}/register/`, body),
 	validateNickname: (nickname) => jsonClient.get(`${URL}/nickname/?nickname=${nickname}`),
+
+	getUser: () => jsonClient.get(`${URL}`),
 };
 
 export default accountService;

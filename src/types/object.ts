@@ -23,8 +23,9 @@ export interface User {
 	email: string;
 	profileImageUrl: string;
 	createdAt: string;
+	interests: Interest[];
 	withdrawAt?: string;
-	language: any;
+	language: Language;
 	printerStatus: boolean;
 	isLoggined: boolean;
 	withdrawReason?: string;
