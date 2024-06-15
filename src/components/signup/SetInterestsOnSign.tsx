@@ -5,21 +5,26 @@ import Button from "@/components/common/Button";
 import Typo from "@/components/common/Typo";
 import { useQuery } from "@tanstack/react-query";
 import Server from "@public/services/api";
-import { useSignupContext, SignupPhase } from "@/pages/Signup";
+import { useSignupContext } from "@/pages/Signup";
 import useSessionStore, { SessionItem } from "@/hooks/useSessionStore";
 import { SignupProvider } from "@public/services/api/AccountService";
 import { useHeader } from "@/components/common/AppHeader";
+import Dialog, { useDialog } from "@/components/common/Dialog";
+import { useRouter } from "next/navigation";
 
 const SetInterestsOnSign = () => {
 	const [selectedList, setSelectedList] = useState<InterestType[]>([]);
 	const sessionStore = useSessionStore();
 	const { setForm, form } = useSignupContext();
+	const router = useRouter();
 	const { data: interests = [] } = useQuery({
 		queryKey: ['interests'],
 		queryFn: Server.Account.getInterests,
 		refetchInterval: false,
 	});
 	const { setBackFn, defaultCallback } = useHeader();
+	const { show, open, close } = useDialog();
+	const onClickRedirectLogin = () => router.push('/login');
 
 	const onClickSubmit = async () => {
 		const provider = sessionStore.get(SessionItem.SIGNUP_PROVIDER) as SignupProvider;
@@ -27,6 +32,7 @@ const SetInterestsOnSign = () => {
 		if (!provider || !unique) throw Error("에러 발생");
 
 		try {
+			open();
 			await Server.Account.signup({
 				nickname: form.nickname,
 				interests: form.interests,
@@ -81,6 +87,20 @@ const SetInterestsOnSign = () => {
 					>
 						회원가입하기
 					</Button>
+
+					<Dialog
+							show={show}
+							close={close}
+							onClickOk={onClickRedirectLogin}
+							title="회원가입에 성공하였습니다!"
+							okText="네, 로그인할게요"
+							hideCancel
+					>
+						<section className="w-full flex-all-center">
+							<Typo>메인에서 로그인을 수행해주세요</Typo>
+						</section>
+					</Dialog>
+
 				</section>
 			</article>
 	);
