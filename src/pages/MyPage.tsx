@@ -6,17 +6,33 @@ import Typo from "@/components/common/Typo";
 import Button from "@/components/common/Button";
 import RightArrow from "@public/icon/right-arrow-yello.svg";
 import WhitePerson from "@public/icon/white-person.svg";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 
 const MyPage = () => {
 	const { user } = useUser();
+	const uploadedProfileImage = !!user?.profileImageUrl;
+
+	if (!user) return null;
+
 	return (
 			<div className="flex-1 col-center px-[16px]">
 				<section className="flex-all-center gap-y-3 py-[60px]">
-					<div className="avatar bg-violet-400 flex-all-center">
-						<WhitePerson />
-					</div>
-					<Typo size="47" bold>lalal</Typo>
+					{uploadedProfileImage && (
+						<Image
+								src={user.profileImageUrl}
+								width={130}
+								height={130}
+								className="avatar"
+								alt="user profile image"
+						/>
+					)}
+					{!uploadedProfileImage && (
+						<div className="avatar bg-violet-400 flex-all-center">
+							<WhitePerson />
+						</div>
+					)}
+					<Typo size="47" bold>{user.nickname}</Typo>
 				</section>
 
 				<section className="flex flex-wrap gap-x-2 pb-[60px]">

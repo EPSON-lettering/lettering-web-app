@@ -22,15 +22,22 @@ const useUser = () => {
 	const store = useStore();
 	const { setUser } = store;
 
+	const login = (user: User) => {
+		setUser(user);
+	};
+
 	useEffect(() => {
-		const access = localStorage.getItem('access');
+		const access  = localStorage.getItem('access');
 		if (!access) return;
 		(async () => {
 			await Server.Account;
 		})();
 	}, []);
 
-	return store;
+	return {
+		...store,
+		login,
+	};
 };
 
 export default useUser;

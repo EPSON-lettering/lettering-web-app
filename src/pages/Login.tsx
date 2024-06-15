@@ -12,6 +12,8 @@ import { useRouter } from "next/navigation";
 import Server from "@public/services/api";
 import { BroadcastChannel } from "broadcast-channel";
 import useSessionStore, { SessionItem } from "@/hooks/useSessionStore";
+import { HttpStatusCode } from "axios";
+import useUser from "@/hooks/useUser";
 
 const oAuthChannel = new BroadcastChannel('oauth');
 
@@ -20,12 +22,24 @@ interface NonSignedUserError {
 	message: string;
 	provider: string;
 	unique: string;
+	code: number;
 }
+
+const getLoginOnceCallback = (code: string) => {
+	let once = false;
+	return async () => {
+		if (once) return;
+		const res = await Server.Account.login(code);
+		once = true;
+		return res;
+	};
+};
 
 const Login = () => {
 	const router = useRouter();
 	const [authCode, setAuthCode] = useState<string>();
 	const sessionStore = useSessionStore();
+	const { login, user } = useUser();
 
 	const redirectSignup = () => router.push('/sign-up');
 
@@ -35,14 +49,22 @@ const Login = () => {
 	};
 
 	useEffect(() => {
+		if (user) {
+			router.push('/match');
+		}
+
 		oAuthChannel.addEventListener('message', async ({ authCode }: AuthCode) => {
 			if (!authCode) return;
 			try {
-				const { user, access, refresh } = await Server.Account.login(authCode);
-				console.log({ user, access, refresh });
+				const fn = getLoginOnceCallback(authCode);
+				const res = await fn();
+				if (!res) return;
 				await oAuthChannel.close();
+				login(res.user);
+				router.push('/match');
 			} catch (error: unknown) {
-				const { unique, provider } = error as NonSignedUserError;
+				const { unique, provider, code } = error as NonSignedUserError;
+				if (code === HttpStatusCode.BadRequest) return;
 				sessionStore.set(SessionItem.SIGNUP_PROVIDER, provider);
 				sessionStore.set(SessionItem.SIGNUP_UNIQUE_VALUE, unique);
 				redirectSignup();

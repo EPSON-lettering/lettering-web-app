@@ -23,6 +23,7 @@ jsonClient.interceptors.request.use((req) => {
 jsonClient.interceptors.response.use(
 		(res) => res.data,
 		(err) => {
-			return Promise.reject(err.response.data)
+			const statusCode = err.response.status as number;
+			return Promise.reject({ ...err.response.data, code: statusCode });
 		},
 );
