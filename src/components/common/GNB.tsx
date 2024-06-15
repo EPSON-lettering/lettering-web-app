@@ -11,7 +11,7 @@ import LetterInActive from "@public/icon/letter_inactive.svg";
 import MyPageActive from "@public/icon/mypage_active.svg";
 import MyPageInActive from "@public/icon/mypage_inactive.svg";
 
-const noRenderUrls: string[] = ['/', 'sign-up'];
+const noRenderUrls: string[] = ['/', '/sign-up'];
 
 enum NavItem {
 	HOME,
@@ -28,7 +28,7 @@ interface ActivationProps {
 
 const Activation: React.FC<ActivationProps> = ({ active, icon, activeIcon, text }) => {
 	return (
-			<div className="flex-all-center gap-y-1">
+			<div className="flex-all-center gap-y-1 whitespace-nowrap">
 				<section>
 					{active ? activeIcon : icon}
 				</section>

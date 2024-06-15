@@ -78,3 +78,16 @@ body {
   height: 84px;
   padding: 15px 32px;
 }
+
+.avatar {
+  @apply w-[130px] h-[130px] rounded-[99px];
+}
+
+.box {
+  @apply
+    bg-white drop-shadow-md px-3 py-5 rounded-[15px];
+}
+
+.horizontal-divider {
+  @apply w-full border border-gray-200;
+}
