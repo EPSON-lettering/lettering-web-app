@@ -14,7 +14,7 @@ export enum SignupPhase {
 
 interface SignupForm {
 	nickname: string;
-	lang: string[];
+	lang: string;
 	interests: number[];
 }
 
@@ -32,7 +32,7 @@ const Signup = () => {
 	const [signupPhase, setSignupPhase] = useState<SignupPhase>(SignupPhase.CHOICE_LANG);
 	const [form, setForm] = useState<SignupForm>(() => ({
 		interests: [],
-		lang: [],
+		lang: '',
 		nickname: '',
 	}));
 

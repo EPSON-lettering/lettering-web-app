@@ -1,10 +1,11 @@
-import React, { useState, ChangeEvent } from 'react';
+import React, { useState, ChangeEvent, useEffect } from 'react';
 import Typo from "@/components/common/Typo";
 import NickInput from "@/components/common/NickInput";
 import Button from "@/components/common/Button";
 import ArrowRight from "@public/icon/left-arrow-white.svg";
 import { useSignupContext, SignupPhase } from "@/pages/Signup";
 import Server from "@public/services/api";
+import { useHeader } from "@/components/common/AppHeader";
 
 
 let validationTimer: any;
@@ -13,6 +14,7 @@ const EnterNicknameOnSign = () => {
 	const [nickname, setNickname] = useState<string>('');
 	const { setSignupPhase, setForm } = useSignupContext();
 	const [error, setError] = useState<string>();
+	const { setBackFn, defaultCallback } = useHeader();
 
 	const onClickNextPhase = async () => {
 		if (error) return;
@@ -32,6 +34,10 @@ const EnterNicknameOnSign = () => {
 			setError(undefined);
 		}, 300);
 	};
+
+	// useEffect(() => {
+	// 	setBackFn(() => SignupPhase.CHOICE_LANG);
+	// }, []);
 
 	return (
 			<article className="w-full h-full flex flex-col">

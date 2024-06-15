@@ -1,20 +1,34 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSignupContext, SignupPhase } from "@/pages/Signup";
 import Typo from "@/components/common/Typo";
 import Button from "@/components/common/Button";
-import { ClientLanguage, languageOptions, languageKorProps } from "@/i18n/lang";
 
 import ArrowRight from "@public/icon/left-arrow-white.svg";
 import Ratio from "@/components/common/RatioButton";
+import { useHeader } from "@/components/common/AppHeader";
+import { useQuery } from "@tanstack/react-query";
+import Server from "@public/services/api";
+import { Language } from "@/types/object";
 
 const ChoiceLangOnSign = () => {
-	const [lang, setLang] = useState<ClientLanguage>();
-	const { setSignupPhase } = useSignupContext();
+	const [lang, setLang] = useState<Language>();
+	const { setSignupPhase, setForm } = useSignupContext();
+	const { hideBack, showBack } = useHeader();
+	const { data: langOptions = [] } = useQuery({
+		queryKey: ['getLangs'],
+		queryFn: Server.Account.getLanguages,
+	});
 
 	const onClickNextPhase = () => {
 		if (!lang) return;
+		setForm(prev => ({ ...prev, lang: lang.langName }));
 		setSignupPhase(SignupPhase.SET_NICKNAME);
-	}
+	};
+
+	useEffect(() => {
+		hideBack();
+		return () => showBack();
+	}, []);
 
 	return (
 			<article className="w-full h-full flex flex-col flex-1">
@@ -23,24 +37,24 @@ const ChoiceLangOnSign = () => {
 				</nav>
 
 				<section className="py-[50px] flex-1">
-					<Ratio.Context list={languageOptions}>
+					<Ratio.Context list={langOptions}>
 						<section className="col-center gap-y-[37px]">
-							{languageOptions.map(lang => (
+							{langOptions.map(lang => (
 									<Ratio.Button
 											identifier={lang}
 											shape="round"
-											key={lang}
+											key={lang.id}
 											className="w-[200px] h-[46px]"
 											onClick={() => setLang(lang)}
-									>{languageKorProps[lang]}</Ratio.Button>
+									>{lang.langName}</Ratio.Button>
 							))}
 						</section>
 					</Ratio.Context>
 
 					{lang && (
-							<div className="flex gap-x-[4px] py-[100px] w-full justify-center">
+							<div className="flex gap-x-[4px] py-[100px] w-full items-center justify-center">
 								<Typo size="16">교환 제공 언어는</Typo>
-								<Typo color="yellow" size="19">{lang}</Typo>
+								<Typo color="yellow" size="19" className="px-[5px]" bold>{lang.langName}</Typo>
 								<Typo size="16">가 됩니다</Typo>
 							</div>
 					)}

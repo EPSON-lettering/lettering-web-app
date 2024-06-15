@@ -5,9 +5,10 @@ import Button from "@/components/common/Button";
 import Typo from "@/components/common/Typo";
 import { useQuery } from "@tanstack/react-query";
 import Server from "@public/services/api";
-import { useSignupContext } from "@/pages/Signup";
+import { useSignupContext, SignupPhase } from "@/pages/Signup";
 import useSessionStore, { SessionItem } from "@/hooks/useSessionStore";
 import { SignupProvider } from "@public/services/api/AccountService";
+import { useHeader } from "@/components/common/AppHeader";
 
 const SetInterestsOnSign = () => {
 	const [selectedList, setSelectedList] = useState<InterestType[]>([]);
@@ -16,7 +17,9 @@ const SetInterestsOnSign = () => {
 	const { data: interests = [] } = useQuery({
 		queryKey: ['interests'],
 		queryFn: Server.Account.getInterests,
+		refetchInterval: false,
 	});
+	const { setBackFn, defaultCallback } = useHeader();
 
 	const onClickSubmit = async () => {
 		const provider = sessionStore.get(SessionItem.SIGNUP_PROVIDER) as SignupProvider;
@@ -27,7 +30,7 @@ const SetInterestsOnSign = () => {
 			await Server.Account.signup({
 				nickname: form.nickname,
 				interests: form.interests,
-				languages: form.lang,
+				language: form.lang,
 				unique,
 				provider,
 			});
@@ -39,6 +42,10 @@ const SetInterestsOnSign = () => {
 	useEffect(() => {
 		setForm(prev => ({ ...prev, interests: selectedList.map(item => item.id) }));
 	}, [selectedList]);
+
+	// useEffect(() => {
+	// 	setBackFn(() => SignupPhase.SET_NICKNAME);
+	// }, []);
 
 	return (
 			<article className="w-full h-full flex flex-col">

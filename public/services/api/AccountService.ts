@@ -13,7 +13,7 @@ export type SignupProvider = 'google' | 'kakao' | 'facebook' | 'apple';
 interface SignupRequest {
 	unique: string;
 	provider: SignupProvider;
-	languages: string[];
+	language: string;
 	nickname: string;
 	interests: number[];
 }
@@ -36,9 +36,9 @@ const accountService: AccountService = {
 	login: (authCode) =>
 			jsonClient.post(`${URL}/google/callback/`, { code: authCode })
 				.then(data => toCamel(data) as LoginResponse),
-	getLanguages: () => jsonClient.get(`${URL}/languages/`)
-			.then(data => toCamel(data) as Language[]),
-	signup: (body) => jsonClient.post(`${URL}/register`, body),
+	getLanguages: () => jsonClient.get<Language[]>(`${URL}/languages/`)
+			.then((data: any) => data.map(toCamel) as Language[]),
+	signup: (body) => jsonClient.post(`${URL}/register/`, body),
 	validateNickname: (nickname) => jsonClient.get(`${URL}/nickname/?nickname=${nickname}`),
 };
 

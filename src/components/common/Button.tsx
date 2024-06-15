@@ -32,6 +32,7 @@ const Button: React.FC<ButtonProps> = ({
 			<button
 					className={twMerge(clsx([
 							disabled && '!bg-gray-200',
+							'transition-all duration-150',
 							shapeProps[shape],
 							sizeProps[size],
 							themeProps[theme],

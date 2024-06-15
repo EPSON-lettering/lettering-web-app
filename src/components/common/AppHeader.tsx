@@ -41,6 +41,7 @@ export const useHeader = create<UseHeaderStates>(set => ({
 	setDefaultCallbacks: (cb) => set({ defaultCallback: cb }),
 }));
 
+
 const AppHeader: React.FC = () => {
 	const pathname = usePathname();
 	const router = useRouter();
@@ -51,6 +52,8 @@ const AppHeader: React.FC = () => {
 	} = useHeader();
 
 	const noRender = pathname ? noRenderList.includes(pathname) : false;
+
+	console.log('Header Rerender!');
 
 	const goBack = () => router.back();
 
@@ -69,7 +72,10 @@ const AppHeader: React.FC = () => {
 			<header className="header w-full">
 				<section>
 					{back && (
-						<button onClick={backFn}>
+						<button onClick={e => {
+							console.log("back button clicked");
+							backFn();
+						}}>
 							<BackIcon />
 						</button>
 					)}

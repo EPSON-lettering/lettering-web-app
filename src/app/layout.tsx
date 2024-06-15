@@ -3,7 +3,6 @@ import localFont from 'next/font/local';
 import "./globals.css";
 import clsx from "clsx";
 import AppHeader from "@/components/common/AppHeader";
-import VhMobile from "@/components/common/VhMobile";
 import QueryProvider from "@/components/common/QueryProvider";
 
 export const metadata: Metadata = {
@@ -30,6 +29,7 @@ export default function RootLayout({
           </QueryProvider>
         </main>
       </body>
+      <div id="portal" />
     </html>
   );
 }
