@@ -5,7 +5,7 @@ import useSessionStore, { SessionItem } from "@/hooks/useSessionStore";
 import FirstLoading from "@/pages/FirstLoading";
 import Login from "@/pages/Login";
 import useUser from "@/hooks/useUser";
-import MatchRouter from "@/pages/MatchRouter";
+import MatchRouter from "@/components/Matching/MatchRouter";
 
 const SplashLoader = () => {
 	const { user } = useUser();
