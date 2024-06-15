@@ -54,55 +54,54 @@ const SetInterestsOnSign = () => {
 	// }, []);
 
 	return (
-			<article className="w-full h-full flex flex-col">
+		<article className="w-full h-full flex flex-col">
 
-				<nav className="flex-all-center pb-[48px]">
-					<Typo size="16" bold>관심사를 선택해주세요!</Typo>
-					<Typo size="13">5개까지 선택가능합니다</Typo>
-				</nav>
+			<nav className="flex-all-center pb-[48px]">
+				<Typo size="16" bold>관심사를 선택해주세요!</Typo>
+				<Typo size="13">5개까지 선택가능합니다</Typo>
+			</nav>
 
-				<section className="flex flex-wrap h-fit gap-[13px]">
-					<Interest.Context
-							selectList={selectedList}
-							setSelectList={setSelectedList}
-					>
-						{interests.map(inter => (
-								<Interest.Button
-										key={inter.id}
-										id={inter.id}
-										name={inter.name}
-										image={inter.image}
-								/>
-						))}
-					</Interest.Context>
+			<section className="flex flex-wrap h-fit gap-[13px]">
+				<Interest.Context
+						selectList={selectedList}
+						setSelectList={setSelectedList}
+				>
+					{interests.map(inter => (
+							<Interest.Button
+									key={inter.id}
+									id={inter.id}
+									name={inter.name}
+									image={inter.image}
+							/>
+					))}
+				</Interest.Context>
+			</section>
+
+			<div className="flex-1" />
+
+			<section className="w-full flex justify-end items-end">
+				<Button
+						onClick={onClickSubmit}
+						size="full"
+						disabled={selectedList.length === 0}
+				>
+					회원가입하기
+				</Button>
+			</section>
+			<Dialog
+					show={show}
+					close={close}
+					onClickOk={onClickRedirectLogin}
+					title="회원가입에 성공하였습니다!"
+					okText="네, 로그인할게요"
+					hideCancel
+					closePrevent
+			>
+				<section className="w-full flex-all-center">
+					<Typo>메인에서 로그인을 수행해주세요</Typo>
 				</section>
-
-				<div className="flex-1" />
-
-				<section className="w-full flex justify-end items-end">
-					<Button
-							onClick={onClickSubmit}
-							size="full"
-							disabled={selectedList.length === 0}
-					>
-						회원가입하기
-					</Button>
-
-					<Dialog
-							show={show}
-							close={close}
-							onClickOk={onClickRedirectLogin}
-							title="회원가입에 성공하였습니다!"
-							okText="네, 로그인할게요"
-							hideCancel
-					>
-						<section className="w-full flex-all-center">
-							<Typo>메인에서 로그인을 수행해주세요</Typo>
-						</section>
-					</Dialog>
-
-				</section>
-			</article>
+			</Dialog>
+		</article>
 	);
 };
 

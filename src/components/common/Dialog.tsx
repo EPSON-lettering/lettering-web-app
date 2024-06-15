@@ -16,6 +16,7 @@ interface DialogProps {
 	title: string;
 	children?: React.ReactNode;
 	hideCancel?: boolean;
+	closePrevent?: boolean;
 }
 
 export const useDialog = () => {
@@ -28,6 +29,7 @@ export const useDialog = () => {
 	}
 };
 
+
 const Dialog: React.FC<DialogProps> = ({
 		title,
 		show,
@@ -37,38 +39,42 @@ const Dialog: React.FC<DialogProps> = ({
 		onClickOk,
 		children,
 		hideCancel = false,
+		closePrevent = false,
  }) => {
-	return createPortal(
-			<div className="w-full h-full">
-				<D open={show} onClose={close} className="relative z-50">
-					<div className="dialog-dimmed fixed inset-0 w-screen" />
-					<div className="fixed inset-0 w-screen items-center p-4 flex-all-center">
-						<DialogPanel className="dialog-panel space-y-4 bg-white">
-							<DialogTitle className="font-bold pt-[40px] pb-[12px] text-center">{title}</DialogTitle>
+	const closeWrapper = () => {
+		if (closePrevent) return;
+		close();
+	}
+	return (
+		<div>
+			<D open={show} onClose={closeWrapper} className="relative z-50">
+				<div className="dialog-dimmed fixed inset-0 w-screen" />
+				<div className="fixed inset-0 w-screen items-center p-4 flex-all-center">
+					<DialogPanel className="dialog-panel space-y-4 bg-white">
+						<DialogTitle className="font-bold pt-[40px] pb-[12px] text-center">{title}</DialogTitle>
 
-							<section>
-								{children}
-							</section>
+						<section>
+							{children}
+						</section>
 
-							<section className="flex gap-4">
-								{!hideCancel && (
-										<Button
-												theme="gray"
-												onClick={close}
-												className="flex-1"
-										>{cancelText}</Button>
-								)}
-								<Button
-										theme="normal"
-										onClick={onClickOk}
-										className="flex-1"
-								>{okText}</Button>
-							</section>
-						</DialogPanel>
-					</div>
-				</D>
-			</div>,
-			portal,
+						<section className="flex gap-4">
+							{!hideCancel && (
+									<Button
+											theme="gray"
+											onClick={close}
+											className="flex-1"
+									>{cancelText}</Button>
+							)}
+							<Button
+									theme="normal"
+									onClick={onClickOk}
+									className="flex-1"
+							>{okText}</Button>
+						</section>
+					</DialogPanel>
+				</div>
+			</D>
+		</div>
 	);
 };
 
