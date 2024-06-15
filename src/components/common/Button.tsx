@@ -64,7 +64,7 @@ const shapeProps: Record<Shape, string> = {
 };
 
 const themeProps: Record<Theme, string> = {
-	normal: 'button',
+	normal: 'button border border-[3px] border-letter-yellow',
 	ghost: 'bg-white text-[#111111] font-semibold border border-[3px] border-letter-yellow',
 	'real-ghost': 'bg-white !text-[#111111] border border-[3px] border-gray-300'
 };
