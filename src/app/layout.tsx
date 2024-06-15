@@ -4,6 +4,7 @@ import "./globals.css";
 import clsx from "clsx";
 import AppHeader from "@/components/common/AppHeader";
 import QueryProvider from "@/components/common/QueryProvider";
+import GNB from "@/components/common/GNB";
 
 export const metadata: Metadata = {
   title: "Lettering",
@@ -27,6 +28,7 @@ export default function RootLayout({
           <QueryProvider>
             {children}
           </QueryProvider>
+          <GNB />
           <div id="portal" />
         </main>
       </body>
