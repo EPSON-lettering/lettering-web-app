@@ -6,7 +6,11 @@ export enum SessionItem {
 }
 
 const useSessionStore = () => {
-	const getter = (key: SessionItem): string | null => sessionStorage.getItem(key);
+	const getter = (key: SessionItem): string | null => {
+		if (!sessionStorage) return null;
+		return sessionStorage.getItem(key);
+	};
+
 	const setter = (key: SessionItem, value: string): void => {
 		sessionStorage.setItem(key, value);
 	};
