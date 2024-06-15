@@ -24,7 +24,7 @@ const SetInterestsOnSign = () => {
 	});
 	const { setBackFn, defaultCallback } = useHeader();
 	const { show, open, close } = useDialog();
-	const onClickRedirectLogin = () => router.push('/login');
+	const onClickRedirectLogin = () => router.push('/');
 
 	const onClickSubmit = async () => {
 		const provider = sessionStore.get(SessionItem.SIGNUP_PROVIDER) as SignupProvider;
