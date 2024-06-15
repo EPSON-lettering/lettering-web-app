@@ -14,10 +14,11 @@ const EnterNicknameOnSign = () => {
 	const [nickname, setNickname] = useState<string>('');
 	const { setSignupPhase, setForm } = useSignupContext();
 	const [error, setError] = useState<string>();
+	const [satisfied, setSatisfied] = useState(false);
 	const { setBackFn, defaultCallback } = useHeader();
 
 	const onClickNextPhase = async () => {
-		if (error) return;
+		if (!satisfied || error) return;
 		setForm(prev => ({ ...prev, nickname }));
 		setSignupPhase(SignupPhase.CHOICE_INTER);
 	};
@@ -32,6 +33,7 @@ const EnterNicknameOnSign = () => {
 				return;
 			}
 			setError(undefined);
+			setSatisfied(true);
 		}, 300);
 	};
 
