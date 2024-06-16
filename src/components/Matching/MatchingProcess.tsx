@@ -19,11 +19,11 @@ const MatchingProcess = () => {
 		(async () => {
 			if (!user) return;
 			const res = await Server.Matching.match(user.nickname);
+			setMatchDetails(res);
 			await Server.Matching.matchAcceptOrReject({
 				request_id: res.id,
 				action: 'accept',
 			});
-			setMatchDetails(res);
 		})();
 	}, []);
 

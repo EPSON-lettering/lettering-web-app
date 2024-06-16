@@ -20,7 +20,8 @@ const MatchRouter = () => {
 	return (
 			<div className="flex flex-col h-full justify-between flex-1">
 				{!matchDetails && <MatchingProcess />}
-				{matchDetails && !isMatch && <FoundMatch />}
+				{/*{matchDetails && !isMatch && <FoundMatch />}*/}
+				{matchDetails && <FoundMatch />}
 				{isMatch &&<div>hello</div>}
 			</div>
 	);
