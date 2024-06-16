@@ -42,9 +42,7 @@ const Button: React.FC<ButtonProps> = ({
 			>
 				<section className="flex gap-x-[10px] justify-center items-center">
 					{icon?.leftIcon && icon.leftIcon}
-					<Typo color={theme === "normal" ? "white" : "black"}>
-						{children}
-					</Typo>
+					{children}
 					{icon?.rightIcon && icon.rightIcon}
 				</section>
 			</button>

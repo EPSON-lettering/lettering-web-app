@@ -5,9 +5,9 @@ import useUser from "@/hooks/useUser";
 import Typo from "@/components/common/Typo";
 import Button from "@/components/common/Button";
 import RightArrow from "@public/icon/right-arrow-yello.svg";
-import WhitePerson from "@public/icon/white-person.svg";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import NoneProfile from "@/components/common/NoneProfile";
 
 const MyPage = () => {
 	const { user } = useUser();
@@ -27,11 +27,7 @@ const MyPage = () => {
 								alt="user profile image"
 						/>
 					)}
-					{!uploadedProfileImage && (
-						<div className="avatar bg-violet-400 flex-all-center">
-							<WhitePerson />
-						</div>
-					)}
+					{!uploadedProfileImage && <NoneProfile className="w-[130px] h-[130px]" />}
 					<Typo size="47" bold>{user.nickname}</Typo>
 				</section>
 

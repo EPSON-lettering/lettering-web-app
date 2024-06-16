@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import LetterBox from "@/pages/LetterBox";
 
 export const metadata: Metadata = {
 	title: "LetterU",
@@ -7,6 +8,6 @@ export const metadata: Metadata = {
 
 
 export default function LetterBoxPage() {
-	return <div>hello</div>;
+	return <LetterBox />;
 }
 
