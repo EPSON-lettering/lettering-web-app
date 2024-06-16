@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { User } from "@/types/object";
 import Server from "@public/services/api";
 import { create } from "zustand";
+import { persist, createJSONStorage } from "zustand/middleware";
 
 interface AuthenticationStore {
 	user?: User;
@@ -9,21 +10,29 @@ interface AuthenticationStore {
 	logout: () => void;
 }
 
-const useStore = create<AuthenticationStore>(set => ({
-	setUser: user => set({ user }),
-	logout: () => {
-		localStorage.removeItem('access');
-		localStorage.removeItem('refresh');
-		set({ user: undefined });
-	},
-}));
+const useStore = create(
+		persist<AuthenticationStore>(set => ({
+			setUser: user => set({ user }),
+			logout: () => {
+				localStorage.removeItem('access');
+				localStorage.removeItem('refresh');
+				set({ user: undefined });
+		}}), {
+			name: 'user-store',
+			storage: createJSONStorage(() => localStorage),
+		})
+)
 
 const useUser = () => {
 	const store = useStore();
-	const { setUser } = store;
+	const { setUser, logout } = store;
 
 	const login = (user: User) => {
 		setUser(user);
+	};
+
+	const logoutWrapper = async () => {
+		logout();
 	};
 
 	useEffect(() => {
@@ -34,6 +43,7 @@ const useUser = () => {
 				const user = await Server.Account.getUserDetails();
 				setUser(user);
 			} catch (error) {
+				logoutWrapper();
 				console.error(error);
 				alert("로그인이 되어있지 않습니다.")
 			}
@@ -43,6 +53,7 @@ const useUser = () => {
 	return {
 		...store,
 		login,
+		logout: logoutWrapper,
 	};
 };
 
