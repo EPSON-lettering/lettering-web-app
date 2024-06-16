@@ -52,7 +52,7 @@ const accountService: AccountService = {
 	validateNickname: (nickname) => jsonClient.get(`${URL}/nickname/?nickname=${nickname}`),
 	getUserDetails: () => jsonClient.get(`${URL}/user/details/`),
 	changeNickname: (nickname) => jsonClient.post(`${URL}/nickname/`, { nickname }),
-	checkUserHasMatching: () => jsonClient.get(`${URL}/match/check`),
+	checkUserHasMatching: () => jsonClient.get(`${URL}/match/check/`),
 };
 
 export default accountService;

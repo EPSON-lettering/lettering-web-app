@@ -80,7 +80,7 @@ body {
 }
 
 .avatar {
-  @apply rounded-[99px];
+  @apply rounded-[999px];
 }
 
 .box {

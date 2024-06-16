@@ -29,7 +29,7 @@ const URL = '/match';
 
 const matchingService: MatchingService = {
 	match: (nickname) => jsonClient.post(`${URL}/`, { nickname }),
-	matchAcceptOrReject: ({ action, request_id }) => jsonClient.post(`${URL}/request/${request_id}/${action}`),
+	matchAcceptOrReject: ({ action, request_id }) => jsonClient.post(`${URL}/request/${request_id}/${action}/`),
 };
 
 export default matchingService;
