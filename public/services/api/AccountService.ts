@@ -27,6 +27,7 @@ interface AccountService {
 	getLanguages: () => Promise<Language[]>;
 	validateNickname: (nickname: string) => Promise<{ available:boolean; error?: string }>;
 	getUserDetails: () => Promise<User>;
+	changeNickname: (nickname: string) => Promise<void>;
 }
 
 const URL= '/account';
@@ -49,6 +50,7 @@ const accountService: AccountService = {
 	signup: (body) => jsonClient.post(`${URL}/register/`, body),
 	validateNickname: (nickname) => jsonClient.get(`${URL}/nickname/?nickname=${nickname}`),
 	getUserDetails: () => jsonClient.get(`${URL}/user/details/`),
+	changeNickname: (nickname) => jsonClient.post(`${URL}/nickname/`, { nickname }),
 };
 
 export default accountService;

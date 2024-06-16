@@ -9,10 +9,13 @@ import Button from "@/components/common/Button";
 import { useRouter } from "next/navigation";
 import RightArrow from "@public/icon/right-arrow-yello.svg";
 import GoogleShared from "@public/icon/google-shared.svg";
+import { useDialog } from "@/components/common/Dialog";
+import NicknameChangeDialog from "@/components/MyPage/NicknameChangeDialog";
 
 const EditUserDetails = () => {
 	const { user, logout } = useUser();
 	const router = useRouter();
+	const { show: showNickDialog, open: openNickDialog, close: closeNickDialog } = useDialog();
 	const uploadedProfileImage = !!user?.profileImageUrl;
 
 	const onClickLogout = async () => {
@@ -64,6 +67,7 @@ const EditUserDetails = () => {
 						<section className="flex items-center mt-[6px] justify-between">
 							<Typo size="16">{user.nickname}</Typo>
 							<Button
+									onClick={openNickDialog}
 									size="fit"
 									theme="ghost"
 									className="px-[12px] py-[6px]"
@@ -102,6 +106,8 @@ const EditUserDetails = () => {
 					<div className="horizontal-divider" />
 					<Menu name="탈퇴하기" onClick={onClickWithdraw} />
 				</section>
+
+				<NicknameChangeDialog show={showNickDialog} close={closeNickDialog} />
 			</div>
 	);
 };
