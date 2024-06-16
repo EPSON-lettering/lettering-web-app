@@ -3,6 +3,7 @@ import { User } from "@/types/object";
 import Server from "@public/services/api";
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
+import { useRouter } from "next/navigation";
 
 interface AuthenticationStore {
 	user?: User;
@@ -25,7 +26,8 @@ const useStore = create(
 
 const useUser = () => {
 	const store = useStore();
-	const { setUser, logout } = store;
+	const { setUser, user, logout } = store;
+	const router = useRouter();
 
 	const login = (user: User) => {
 		setUser(user);
@@ -40,12 +42,13 @@ const useUser = () => {
 		if (!access) return;
 		(async () => {
 			try {
-				const user = await Server.Account.getUserDetails();
-				setUser(user);
+				if (user) return;
+				const userData = await Server.Account.getUserDetails();
+				setUser(userData);
 			} catch (error) {
 				logoutWrapper();
 				console.error(error);
-				alert("로그인이 되어있지 않습니다.")
+				router.push('/');
 			}
 		})();
 	}, []);

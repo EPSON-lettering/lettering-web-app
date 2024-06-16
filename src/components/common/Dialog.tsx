@@ -7,7 +7,7 @@ import Button from "@/components/common/Button";
 
 const portal = document.getElementById('portal') as HTMLDivElement;
 
-interface DialogProps {
+export interface DialogProps {
 	show: boolean;
 	close: () => void;
 	cancelText?: string;

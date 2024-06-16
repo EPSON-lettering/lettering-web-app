@@ -20,9 +20,7 @@ const EditUserDetails = () => {
 		router.push('/');
 	};
 
-	const onClickWithdraw = async () => {
-
-	};
+	const onClickWithdraw = () => router.push('/my/withdraw');
 
 	if (!user) return null;
 
@@ -78,7 +76,7 @@ const EditUserDetails = () => {
 					<div className="horizontal-divider" />
 
 					<div className="flex flex-col pb-[12px] py-[9px]">
-						<Typo bold className="text-gray-400">닉네임</Typo>
+						<Typo bold className="text-gray-400">관심사</Typo>
 						<section className="flex items-center mt-[6px] justify-between">
 							<nav className="flex gap-x-2 flex-wrap w-2/3">
 								{user.interests.map(interest => (
