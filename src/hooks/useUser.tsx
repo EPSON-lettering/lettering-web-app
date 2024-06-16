@@ -30,7 +30,13 @@ const useUser = () => {
 		const access  = localStorage.getItem('access');
 		if (!access) return;
 		(async () => {
-			await Server.Account;
+			try {
+				const user = await Server.Account.getUserDetails();
+				setUser(user);
+			} catch (error) {
+				console.error(error);
+				alert("로그인이 되어있지 않습니다.")
+			}
 		})();
 	}, []);
 
