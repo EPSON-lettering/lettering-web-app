@@ -8,14 +8,14 @@ import MatchingProcess from "@/components/Matching/MatchingProcess";
 const MatchRouter = () => {
 	const { data: { isMatch } = { isMatch: false }, isLoading } = useQuery({
 		queryKey: ['checkMatch'],
-		queryFn: Server.Matching.hasUserMatch,
+		queryFn: Server.Account.checkUserHasMatching,
 	});
 
-	// if (isLoading) return null;
+	if (isLoading) return null;
 
 	return (
 			<div className="flex flex-col h-full justify-between flex-1">
-				<MatchingProcess />
+				{!isMatch && <MatchingProcess />}
 			</div>
 	);
 };

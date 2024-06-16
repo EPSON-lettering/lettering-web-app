@@ -28,6 +28,7 @@ interface AccountService {
 	validateNickname: (nickname: string) => Promise<{ available:boolean; error?: string }>;
 	getUserDetails: () => Promise<User>;
 	changeNickname: (nickname: string) => Promise<void>;
+	checkUserHasMatching: () => Promise<{ isMatch: boolean }>;
 }
 
 const URL= '/account';
@@ -51,6 +52,7 @@ const accountService: AccountService = {
 	validateNickname: (nickname) => jsonClient.get(`${URL}/nickname/?nickname=${nickname}`),
 	getUserDetails: () => jsonClient.get(`${URL}/user/details/`),
 	changeNickname: (nickname) => jsonClient.post(`${URL}/nickname/`, { nickname }),
+	checkUserHasMatching: () => jsonClient.get(`${URL}/match/check`),
 };
 
 export default accountService;
