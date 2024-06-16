@@ -1,12 +1,27 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import useUser from "@/hooks/useUser";
 import MatchingProcessingLogo from "@public/icon/matching.svg";
 import Typo from "@/components/common/Typo";
+import MobileCamera from "@/components/Camera";
+import Button from "@/components/common/Button";
+import Server from "@public/services/api";
+import { MatchResponse } from "@public/services/api/MatchingService";
+import useMatchingProcess from "@/hooks/useMatchingProcess";
+import { useRouter } from "next/navigation";
 
 const MatchingProcess = () => {
 	const { user } = useUser();
+	const { setMatchDetails } = useMatchingProcess();
+
+	useEffect(() => {
+		(async () => {
+			if (!user) return;
+			const res = await Server.Matching.match(user.nickname);
+			setMatchDetails(res);
+		})();
+	}, []);
 
 	return (
 			<div className="flex flex-col items-center py-[195px] justify-between flex-1">
