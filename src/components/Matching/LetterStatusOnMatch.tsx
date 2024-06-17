@@ -1,8 +1,6 @@
 'use client';
 
 import React from 'react';
-import { useQuery } from "@tanstack/react-query";
-import Server from "@public/services/api";
 import useMatchOneQuery from "@/hooks/query/useMatchOneQuery";
 import Loading from "@/components/common/Loading";
 import useQuestionOnMatchQuery from "@/hooks/query/useQuestionOnMatchQuery";
@@ -24,7 +22,7 @@ const LetterStatusOnMatch = () => {
 	if (loading) return <Loading loading={loading} />;
 
 	return (
-			<div className="flex-1 col-center px-[16px]">
+			<div className="flex-1 col-center px-[21px]">
 				<section className="flex-1 box w-full !px-[0] mt-[48px] mb-[60px]">
 					<header className="w-full flex gap-x-3 items-center">
 						<div className="w-full h-[1px] border-letter-yellow border-2 flex-[0.8]" />

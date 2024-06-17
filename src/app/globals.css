@@ -53,6 +53,10 @@ body {
   outline: none;
 }
 
+textarea {
+  resize: none;
+}
+
 .header {
   @apply h-[62px] w-full flex rounded-2xl bg-white px-[17px] items-center;
   box-shadow: 0px 14px 30px 0px rgba(0, 0, 0, 0.05);

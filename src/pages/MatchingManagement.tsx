@@ -7,9 +7,16 @@ import Button from "@/components/common/Button";
 import SmallWhitePerson from "@public/icon/user-small-white.svg";
 import Loading from "@/components/common/Loading";
 import useMatchOneQuery from "@/hooks/query/useMatchOneQuery";
+import { useRouter } from "next/navigation";
 
 const MatchingManagement = () => {
 	const { match, isLoadingOneMatching } = useMatchOneQuery();
+	const router = useRouter();
+
+	const onClickRedirectCancelMatching = () => {
+		if (!match) return;
+		router.push(`/my/match/cancel/${match.id}`);
+	};
 
 	if (isLoadingOneMatching || !match) return <Loading loading={isLoadingOneMatching} />;
 
@@ -36,6 +43,7 @@ const MatchingManagement = () => {
 							theme="ghost"
 							size="fit"
 							className="rounded-2xl px-[10px]"
+							onClick={onClickRedirectCancelMatching}
 						>
 							<Typo size="13" color="gray2">
 								매칭상대 변경
