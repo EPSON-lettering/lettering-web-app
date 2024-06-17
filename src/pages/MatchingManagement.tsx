@@ -1,21 +1,17 @@
 'use client';
 
 import React from 'react';
-import { useQuery } from "@tanstack/react-query";
-import Server from "@public/services/api";
 import NoneProfile from "@/components/common/NoneProfile";
 import Typo from "@/components/common/Typo";
 import Button from "@/components/common/Button";
 import SmallWhitePerson from "@public/icon/user-small-white.svg";
 import Loading from "@/components/common/Loading";
+import useMatchOneQuery from "@/hooks/query/useMatchOneQuery";
 
 const MatchingManagement = () => {
-	const { data, isLoading } = useQuery({
-		queryKey: ['my-matching-management'],
-		queryFn: Server.Matching.getMyMatchingDetails,
-	});
+	const { match, isLoadingOneMatching } = useMatchOneQuery();
 
-	if (isLoading || !data) return <Loading loading={isLoading} />;
+	if (isLoadingOneMatching || !match) return <Loading loading={isLoadingOneMatching} />;
 
 	return (
 			<div className="flex-1 w-full col-center px-[16px]">
@@ -24,9 +20,9 @@ const MatchingManagement = () => {
 						<div className="flex gap-x-[20px]">
 							<NoneProfile className="w-[60px] h-[60px]" replaceIcon={<SmallWhitePerson />} />
 							<div className="flex flex-col">
-								<Typo bold>{data.acceptor.nickname}</Typo>
+								<Typo bold>{match.acceptor.nickname}</Typo>
 								<nav className="flex gap-x-1 flex-wrap">
-									{data.interests.map(item => (
+									{match.interests.map(item => (
 											<div key={item.id} className="flex gap-x-1 items-center">
 												<img src={item.image} />
 												<Typo>{item.name}</Typo>
