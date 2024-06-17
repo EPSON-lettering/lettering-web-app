@@ -15,7 +15,6 @@ const MatchingProcess = () => {
 	const { user } = useUser();
 	const { setMatchDetails } = useMatchingProcess();
 	const router = useRouter();
-	const [isLeastTime, setIsLeastTime] = useState(false);
 
 	useEffect(() => {
 		if (!user) return;

@@ -37,6 +37,7 @@ export interface MatchResponse {
 	receiver: MatchUser;
 	state: boolean,
 	createdAt: string;
+	duplicateInterests: Interest[]
 }
 
 const URL = '/match';

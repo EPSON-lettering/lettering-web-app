@@ -29,7 +29,7 @@ const MatchingManagement = () => {
 											<div key={item.id} className="flex gap-x-1 items-center">
 												<img src={item.image} />
 												<Typo>{item.name}</Typo>
-											</div>
+											</div>  
 									))}
 								</nav>
 							</div>

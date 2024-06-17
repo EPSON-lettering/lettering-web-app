@@ -11,19 +11,36 @@ import { useRouter } from "next/navigation";
 const FoundMatch = () => {
 	const { matchDetails } = useMatchingProcess();
 	const router = useRouter();
+	const interestCount = matchDetails?.duplicateInterests.length ?? 0;
 
 	if (!matchDetails) return null;
 
 	return (
 			<div className="flex-1 flex flex-col px-[16px]">
-				<section className="py-[80px] flex justify-center">
+				<section className="py-[80px] flex gap-x-5 justify-center">
 					<User user={matchDetails.requester} />
 					<User user={matchDetails.receiver} />
 				</section>
 
 				<section className="w-full flex flex-wrap gap-x-3 py-[46px]">
-					<div className="w-full flex justify-center">
-						<Typo color="gray" bold>{matchDetails.receiver.nickname} 님의 관심사와 4개 일치합니다.</Typo>
+					<div className="w-full flex-all-center">
+						<nav className="w-full flex gap-x-2 flex-wrap">
+							{matchDetails.duplicateInterests.map(interest => (
+									<Button
+											key={interest.id}
+											shape="round"
+											size="fit"
+											className="px-[5px] py-[2px]"
+											icon={{
+												leftIcon: <img src={interest.image} />,
+											}}
+									>
+										{interest.name}
+									</Button>
+							))}
+						</nav>
+
+						<Typo color="gray2" className="pt-[30px]" bold>{matchDetails.receiver.nickname} 님의 관심사와 {interestCount}개 일치합니다.</Typo>
 					</div>
 				</section>
 
