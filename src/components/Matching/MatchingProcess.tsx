@@ -46,7 +46,6 @@ const MatchingProcess = () => {
 	useEffect(() => {
 		if (!user) return;
 		setTimeout(async () => {
-			console.log('MatchingProcess useEffect - !');
 			try {
 				const fetcher = new Fetcher();
 				const result = await fetcher.match(user.nickname);

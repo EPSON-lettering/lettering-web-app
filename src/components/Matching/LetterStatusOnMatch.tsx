@@ -35,6 +35,7 @@ const LetterStatusOnMatch = () => {
 					<section className="w-full px-[40px] flex flex-col">
 						<Typo size="19" bold>질문</Typo>
 						<Typo size="16" className="pt-3">{question?.text}</Typo>
+						<Typo size="16" className="pt-3">{question?.engText}</Typo>
 						<div className="pt-12">
 							<Typo size="19" bold>To.</Typo>
 						</div>
@@ -49,13 +50,13 @@ const LetterStatusOnMatch = () => {
 					>
 						편지지 프린트 하기
 					</Button>
-					<Button
-							theme="normal"
-							size="full"
-							className="flex-1"
-					>
-						답장 보내기
-					</Button>
+					{/*<Button*/}
+					{/*		theme="normal"*/}
+					{/*		size="full"*/}
+					{/*		className="flex-1"*/}
+					{/*>*/}
+					{/*	답장 보내기*/}
+					{/*</Button>*/}
 				</section>
 			</div>
 	);

@@ -27,4 +27,5 @@ export interface Language {
 export interface Question {
 	id: number;
 	text: string;
+	engText: string;
 }

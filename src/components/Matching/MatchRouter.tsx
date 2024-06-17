@@ -12,8 +12,6 @@ const MatchRouter = () => {
 	if (loadingHasMatching) return <Loading loading={loadingHasMatching} />
 	if (!isFetched) return null;
 
-	console.log({ isMatch });
-
 	return (
 			<div className="flex flex-col h-full justify-between flex-1">
 				{!isMatch && <MatchingProcess />}
