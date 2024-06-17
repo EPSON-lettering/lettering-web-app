@@ -35,3 +35,8 @@ export interface Language {
 	id: number;
 	langName: string;
 }
+
+export interface Question {
+	id: number;
+	text: string;
+}

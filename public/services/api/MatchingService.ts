@@ -1,11 +1,14 @@
 import { jsonClient } from "@public/services/api/client";
-import { Interest, User } from "@/types/object";
+import { Interest, User, Question } from "@/types/object";
 
 interface MatchingService {
 	match: (nickname: string) => Promise<MatchResponse>;
 	matchAcceptOrReject: (req: MatchAccOrRejRequest) => Promise<MatchResponse>;
 	getMyMatchingDetails: () => Promise<MatchingManagementDetailsResponse>;
-	getMatchingSimpleList: () => Promise<LetteMatchResponse[]>;
+	getMatchingSimpleList: () => Promise<LetterMatchResponse[]>;
+	disconnect: (matchId: number, reason: string) => Promise<void>;
+	getQuestion: (matchId: number) => Promise<Question>;
+	createQuestion: (matchId: number) => Promise<Question>;
 }
 
 interface MatchingManagementDetailsResponse {
@@ -41,7 +44,7 @@ export interface MatchResponse {
 	duplicateInterests: Interest[]
 }
 
-export interface LetteMatchResponse {
+export interface LetterMatchResponse {
 	id: number;
 	acceptor: User
 	createdAt: string;
@@ -56,6 +59,10 @@ const matchingService: MatchingService = {
 	matchAcceptOrReject: ({ action, request_id }) => jsonClient.post(`${URL}/request/${request_id}/${action}/`),
 	getMyMatchingDetails: () => jsonClient.get(`${URL}/details/`),
 	getMatchingSimpleList: () => jsonClient.get(`${URL}/list/`),
+	disconnect: (matchId, reason) => jsonClient.post(`${URL}/end/${matchId}/`, { reason }),
+
+	getQuestion: (matchId) => jsonClient.get(`${URL}/question/${matchId}/`),
+	createQuestion: (matchId) => jsonClient.post(`${URL}/question/${matchId}/`),
 };
 
 export default matchingService;
