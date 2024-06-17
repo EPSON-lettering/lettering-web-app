@@ -14,17 +14,26 @@ import { useRouter } from "next/navigation";
 const MatchingProcess = () => {
 	const { user } = useUser();
 	const { setMatchDetails } = useMatchingProcess();
+	const router = useRouter();
+	const [isLeastTime, setIsLeastTime] = useState(false);
 
 	useEffect(() => {
-		(async () => {
-			if (!user) return;
-			const res = await Server.Matching.match(user.nickname);
-			setMatchDetails(res);
-			await Server.Matching.matchAcceptOrReject({
-				request_id: res.id,
-				action: 'accept',
-			});
-		})();
+		if (!user) return;
+		setTimeout(async () => {
+			try {
+				const res = await Server.Matching.match(user.nickname);
+				setMatchDetails(res);
+				await Server.Matching.matchAcceptOrReject({
+					request_id: res.id,
+					action: 'accept',
+				});
+			} catch (error) {
+				console.error(error);
+			} finally {
+				router.push('/my/done');
+			}
+
+		}, 1200);
 	}, []);
 
 	return (

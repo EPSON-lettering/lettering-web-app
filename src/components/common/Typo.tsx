@@ -1,7 +1,7 @@
 import React from 'react';
 import clsx from 'clsx';
 
-type Color = 'black' | 'white' | 'yellow' | "gray";
+type Color = 'black' | 'white' | 'yellow' | "gray" | "gray2";
 type Size = '25' | '16' | '19' | '13' | '47';
 
 export type TypoProps = {
@@ -37,6 +37,7 @@ const colorProps: Record<Color, string> = {
 	white: 'text-white',
 	yellow: 'text-letter-yellow',
 	gray: 'text-letter-gray',
+	gray2: 'text-gray-400',
 }
 
 const textProps: Record<Size, string> = {

@@ -1,17 +1,21 @@
+'use client';
+
 import React, { HTMLAttributes } from 'react';
 import useMatchingProcess from "@/hooks/useMatchingProcess";
 import Button from "@/components/common/Button";
 import NoneProfile from "@/components/common/NoneProfile";
 import { MatchUser } from "@public/services/api/MatchingService";
 import Typo from "@/components/common/Typo";
+import { useRouter } from "next/navigation";
 
 const FoundMatch = () => {
 	const { matchDetails } = useMatchingProcess();
+	const router = useRouter();
 
 	if (!matchDetails) return null;
 
 	return (
-			<div className="flex-1 px-[16px]">
+			<div className="flex-1 flex flex-col px-[16px]">
 				<section className="py-[80px] flex justify-center">
 					<User user={matchDetails.requester} />
 					<User user={matchDetails.receiver} />
@@ -31,9 +35,10 @@ const FoundMatch = () => {
 					</div>
 				</section>
 
-				<section>
+				<section className="pb-[50px]">
 					<Button
 							size="full"
+							onClick={() => router.push('/match')}
 					>
 						편지 쓰러 가기
 					</Button>
