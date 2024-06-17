@@ -22,10 +22,11 @@ const MatchingProcess = () => {
 			try {
 				const res = await Server.Matching.match(user.nickname);
 				setMatchDetails(res);
-				await Server.Matching.matchAcceptOrReject({
+				const match = await Server.Matching.matchAcceptOrReject({
 					request_id: res.id,
 					action: 'accept',
 				});
+				await Server.Matching.createQuestion(match.id);
 			} catch (error) {
 				console.error(error);
 			} finally {
