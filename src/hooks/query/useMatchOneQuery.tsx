@@ -2,8 +2,8 @@ import { useQuery } from "@tanstack/react-query";
 import Server from "@public/services/api";
 
 const useMatchOneQuery = () => {
-	const { isLoading, data, ...query } = useQuery({
-		queryKey: ['one-match-getter'],
+	const { isLoading, data = null, ...query } = useQuery({
+		queryKey: ['check-matching'],
 		queryFn: Server.Matching.getMyMatchingDetails
 	});
 

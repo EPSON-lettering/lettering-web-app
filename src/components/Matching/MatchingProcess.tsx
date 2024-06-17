@@ -1,36 +1,63 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import useUser from "@/hooks/useUser";
 import MatchingProcessingLogo from "@public/icon/matching.svg";
 import Typo from "@/components/common/Typo";
 import MobileCamera from "@/components/Camera";
 import Button from "@/components/common/Button";
 import Server from "@public/services/api";
-import { MatchResponse } from "@public/services/api/MatchingService";
+import { MatchResponse, MatchConnected } from "@public/services/api/MatchingService";
 import useMatchingProcess from "@/hooks/useMatchingProcess";
 import { useRouter } from "next/navigation";
+import useCheckHasMatchingQuery from "@/hooks/query/useCheckHasMatchingQuery";
+
+
+class Fetcher {
+
+	private static fetched: boolean = false;
+
+	public async match(nickname: string) {
+		if (Fetcher.fetched) return;
+		Fetcher.fetched = true;
+		const res = await Server.Matching.match(nickname);
+		const match = await Server.Matching.matchAcceptOrReject({
+			request_id: res.id,
+			action: 'accept',
+		});
+		this.rest();
+		return { matchRequest: res, match };
+	}
+
+	private rest() {
+		setTimeout(() => {
+			Fetcher.fetched = false;
+		}, 500);
+	}
+
+}
 
 const MatchingProcess = () => {
 	const { user } = useUser();
-	const { setMatchDetails } = useMatchingProcess();
 	const router = useRouter();
+	const { setMatchDetails } = useMatchingProcess();
+	const { refetch: refetchHasMatching } = useCheckHasMatchingQuery();
 
 	useEffect(() => {
 		if (!user) return;
 		setTimeout(async () => {
+			console.log('MatchingProcess useEffect - !');
 			try {
-				const res = await Server.Matching.match(user.nickname);
-				setMatchDetails(res);
-				const match = await Server.Matching.matchAcceptOrReject({
-					request_id: res.id,
-					action: 'accept',
-				});
+				const fetcher = new Fetcher();
+				const result = await fetcher.match(user.nickname);
+				if (!result) return;
+				const { matchRequest, match } = result;
+				setMatchDetails(matchRequest);
 				await Server.Matching.createQuestion(match.id);
+				router.push('/match/done');
+				await refetchHasMatching();
 			} catch (error) {
 				console.error(error);
-			} finally {
-				router.push('/my/done');
 			}
 		}, 1200);
 	}, []);

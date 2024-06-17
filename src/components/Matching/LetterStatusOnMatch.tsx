@@ -13,6 +13,8 @@ const LetterStatusOnMatch = () => {
 	const { question, questionLoading } = useQuestionOnMatchQuery(match?.id);
 	const today = dayjs().format('YYYY.MM.DD');
 
+	console.log({ match });
+
 	const loading = (() => {
 		if (!match || isLoadingOneMatching) return true;
 		if (questionLoading || !question) return true;
