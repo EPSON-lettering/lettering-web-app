@@ -9,6 +9,7 @@ import Ratio from "@/components/common/RatioButton";
 import TextArea from "@/components/common/TextArea";
 import Server from "@public/services/api";
 import { useParams, useRouter } from "next/navigation";
+import useMatchingProcess from "@/hooks/useMatchingProcess";
 
 enum MatchCancelOption {
 	// NO_MIND = '원하는 매칭 상대가 없어요.',
@@ -38,12 +39,14 @@ export default function MatchCancellationPage() {
 	const [cancelReason, setCancelReason] = useState<MatchCancelOption>();
 	const [manual, setManual] = useState<string>('');
 	const { show, close, open } = useDialog();
+	const { setMatchDetails } = useMatchingProcess();
 
 	const onClickCancelMatching = async () => {
 		if (!params || !cancelReason) return;
 		const reason = cancelReason === MatchCancelOption.MANUAL ? manual : cancelReason;
 		try {
 			await Server.Matching.disconnect(Number(params.id), reason);
+			setMatchDetails(undefined);
 			alert('매칭 연결이 끊어졌습니다. 마이페이지로 이동합니다.');
 			router.push('/my');
 		} catch (error) {

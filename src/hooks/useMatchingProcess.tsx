@@ -4,7 +4,7 @@ import { MatchResponse } from "@public/services/api/MatchingService";
 
 interface MatchProcessStoreProps {
 	matchDetails?: MatchResponse;
-	setMatchDetails: (match: MatchResponse) => void;
+	setMatchDetails: (match?: MatchResponse) => void;
 }
 
 const useMatchingProcess = create<MatchProcessStoreProps>(set => ({

@@ -32,7 +32,6 @@ const MatchingProcess = () => {
 			} finally {
 				router.push('/my/done');
 			}
-
 		}, 1200);
 	}, []);
 
