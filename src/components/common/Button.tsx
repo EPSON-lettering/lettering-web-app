@@ -32,6 +32,7 @@ const Button: React.FC<ButtonProps> = ({
 			<button
 					className={twMerge(clsx([
 						'transition-all duration-150',
+						'flex justify-center items-center',
 						shapeProps[shape],
 						sizeProps[size],
 						themeProps[theme],
@@ -40,7 +41,7 @@ const Button: React.FC<ButtonProps> = ({
 					]))}
 					{...props}
 			>
-				<section className="flex gap-x-[10px] justify-center items-center">
+				<section className="flex gap-x-[10px] w-full justify-center items-center">
 					{icon?.leftIcon && icon.leftIcon}
 					{children}
 					{icon?.rightIcon && icon.rightIcon}
