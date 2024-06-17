@@ -1,4 +1,4 @@
-import React, { createContext, useContext, PropsWithChildren, useState } from 'react';
+import React, { createContext, useContext, PropsWithChildren, useState, useEffect } from 'react';
 import Button, { ButtonProps } from "./Button";
 import RatioInactive from "@public/icon/ratio-inactive.svg";
 import RatioActive from "@public/icon/ratio-active.svg";
@@ -19,9 +19,15 @@ interface RatioContextProps {
 const RatioContext = createContext<RatioContextProps>({} as RatioContextProps);
 const useRatioContext = () => useContext(RatioContext);
 
-type Comp = PropsWithChildren & { list: Identifier[] };
-const RatioContextComponent: React.FC<Comp> = ({ list, children }) => {
-	const [current, setCurrent] = useState<Identifier>();
+type Comp = PropsWithChildren & { list: Identifier[], injectedItem?: Identifier };
+const RatioContextComponent: React.FC<Comp> = ({ list, injectedItem, children }) => {
+	const [current, setCurrent] = useState<Identifier>(injectedItem);
+
+	useEffect(() => {
+		if (injectedItem) {
+			setCurrent(injectedItem);
+		}
+	}, [injectedItem])
 
 	return (
 			<RatioContext.Provider value={{

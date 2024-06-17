@@ -65,33 +65,33 @@ export default function MatchCancellationPage() {
 				</section>
 
 				<section className="flex flex-col flex-1 gap-y-3">
-					<Ratio.Context list={options}>
-						<OptionComp>
-							<Ratio.Button identifier={M.NO_REPLY} onClick={() => setCancelReason(M.NO_REPLY)} iconMode />
+					<Ratio.Context list={options} injectedItem={cancelReason}>
+						<OptionComp onClick={() => setCancelReason(M.NO_REPLY)}>
+							<Ratio.Button identifier={M.NO_REPLY} iconMode />
 							<Typo>{M.NO_REPLY}</Typo>
 						</OptionComp>
-						<OptionComp>
-							<Ratio.Button identifier={M.SLOW} onClick={() => setCancelReason(M.SLOW)} iconMode />
+						<OptionComp onClick={() => setCancelReason(M.SLOW)}>
+							<Ratio.Button identifier={M.SLOW} iconMode />
 							<Typo>{M.SLOW}</Typo>
 						</OptionComp>
-						<OptionComp>
-							<Ratio.Button identifier={M.DIRTY_WORD} onClick={() => setCancelReason(M.DIRTY_WORD)} iconMode />
+						<OptionComp onClick={() => setCancelReason(M.DIRTY_WORD)}>
+							<Ratio.Button identifier={M.DIRTY_WORD} iconMode />
 							<Typo>{M.DIRTY_WORD}</Typo>
 						</OptionComp>
-						<OptionComp>
-							<Ratio.Button identifier={M.BLIND_LETTER} onClick={() => setCancelReason(M.BLIND_LETTER)} iconMode />
+						<OptionComp onClick={() => setCancelReason(M.BLIND_LETTER)}>
+							<Ratio.Button identifier={M.BLIND_LETTER} iconMode />
 							<Typo>{M.BLIND_LETTER}</Typo>
 						</OptionComp>
-						<OptionComp>
-							<Ratio.Button identifier={M.NO_FUNNY} onClick={() => setCancelReason(M.NO_FUNNY)} iconMode />
+						<OptionComp onClick={() => setCancelReason(M.NO_FUNNY)}>
+							<Ratio.Button identifier={M.NO_FUNNY} iconMode />
 							<Typo>{M.NO_FUNNY}</Typo>
 						</OptionComp>
-						<OptionComp>
-							<Ratio.Button identifier={M.NO_FEEDBACK} onClick={() => setCancelReason(M.NO_FEEDBACK)} iconMode />
+						<OptionComp onClick={() => setCancelReason(M.NO_FEEDBACK)}>
+							<Ratio.Button identifier={M.NO_FEEDBACK} iconMode />
 							<Typo>{M.NO_FEEDBACK}</Typo>
 						</OptionComp>
-						<OptionComp>
-							<Ratio.Button identifier={M.MANUAL} onClick={() => setCancelReason(M.MANUAL)} iconMode />
+						<OptionComp onClick={() => setCancelReason(M.MANUAL)}>
+							<Ratio.Button identifier={M.MANUAL} iconMode />
 							<Typo>{M.MANUAL}</Typo>
 						</OptionComp>
 						{cancelReason === MatchCancelOption.MANUAL && (
@@ -122,9 +122,9 @@ export default function MatchCancellationPage() {
 	);
 }
 
-const OptionComp: React.FC<React.PropsWithChildren> = ({ children }) => {
+const OptionComp: React.FC<React.PropsWithChildren & { onClick: () => void }> = ({ onClick, children }) => {
 	return (
-			<div className="w-full flex gap-x-3 items-center">
+			<div className="w-full flex gap-x-3 items-center cursor-pointer" onClick={onClick}>
 				{children}
 			</div>
 	);
