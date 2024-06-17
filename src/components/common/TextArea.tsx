@@ -19,6 +19,7 @@ const TextArea: React.FC<TextAreaProps> = ({ maxLength, placeholder, onChange, .
 	return (
 		<div className="w-full min-h-[120] flex flex-col p-3 rounded-xl border-2 border-letter-yellow">
 			<textarea
+				value={value}
 				onChange={onChangeWrapper}
 				placeholder={placeholder}
 				className="w-full h-full outline-none"
