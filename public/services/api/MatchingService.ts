@@ -3,7 +3,7 @@ import { Interest, User, Question } from "@/types/object";
 
 interface MatchingService {
 	match: (nickname: string) => Promise<MatchResponse>;
-	matchAcceptOrReject: (req: MatchAccOrRejRequest) => Promise<MatchResponse>;
+	matchAcceptOrReject: (req: MatchAccOrRejRequest) => Promise<MatchConnected>;
 	getMyMatchingDetails: () => Promise<MatchingManagementDetailsResponse>;
 	getMatchingSimpleList: () => Promise<LetterMatchResponse[]>;
 	disconnect: (matchId: number, reason: string) => Promise<void>;
@@ -26,6 +26,15 @@ interface MatchingManagementDetailsResponse {
 export interface MatchAccOrRejRequest {
 	action: 'accept' | 'reject';
 	request_id: number;
+}
+
+export interface MatchConnected {
+	id: number;
+	requester: MatchUser;
+	acceptor: MatchUser;
+	state: boolean;
+	createdAt: string;
+	withdrawReason?: string;
 }
 
 export interface MatchUser {
