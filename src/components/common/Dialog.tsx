@@ -12,8 +12,8 @@ export interface DialogProps {
 	close: () => void;
 	cancelText?: string;
 	okText?: string;
-	onClickOk: () => void;
-	title: string;
+	onClickOk?: () => void;
+	title?: string;
 	children?: React.ReactNode;
 	hideCancel?: boolean;
 	closePrevent?: boolean;
@@ -51,7 +51,7 @@ const Dialog: React.FC<DialogProps> = ({
 				<div className="dialog-dimmed fixed inset-0 w-screen" />
 				<div className="fixed inset-0 w-screen items-center p-4 flex-all-center">
 					<DialogPanel className="dialog-panel space-y-4 bg-white">
-						<DialogTitle className="font-bold pt-[40px] pb-[12px] text-center">{title}</DialogTitle>
+						{title && <DialogTitle className="font-bold pt-[40px] pb-[12px] text-center">{title}</DialogTitle>}
 
 						<section>
 							{children}
@@ -65,11 +65,13 @@ const Dialog: React.FC<DialogProps> = ({
 											className="flex-1"
 									>{cancelText}</Button>
 							)}
-							<Button
-									theme="normal"
-									onClick={onClickOk}
-									className="flex-1"
-							>{okText}</Button>
+							{onClickOk && (
+									<Button
+											theme="normal"
+											onClick={onClickOk}
+											className="flex-1"
+									>{okText}</Button>
+							)}
 						</section>
 					</DialogPanel>
 				</div>
