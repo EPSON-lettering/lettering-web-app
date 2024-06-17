@@ -48,7 +48,7 @@ const MatchedUser: React.FC<MatchedUserProps> = ({ profileUrl, date, nickname })
 			<Button
 					theme="ghost"
 					shape="round"
-					className="w-full py-[10px] px-[16px] h-[58px] justify-start"
+					className="w-full px-[16px] h-[70px] justify-start"
 			>
 				<section className="w-full flex justify-between items-center">
 					<section className="flex gap-x-[28px] items-center h-[36px]">
