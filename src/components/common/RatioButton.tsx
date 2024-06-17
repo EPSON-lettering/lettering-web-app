@@ -1,10 +1,13 @@
 import React, { createContext, useContext, PropsWithChildren, useState } from 'react';
 import Button, { ButtonProps } from "./Button";
+import RatioInactive from "@public/icon/ratio-inactive.svg";
+import RatioActive from "@public/icon/ratio-active.svg";
 
 type Identifier = any;
 
 interface RatioButtonProps extends ButtonProps {
 	identifier: Identifier;
+	iconMode?: boolean;
 }
 
 interface RatioContextProps {
@@ -31,15 +34,26 @@ const RatioContextComponent: React.FC<Comp> = ({ list, children }) => {
 	)
 }
 
-const RatioButton: React.FC<RatioButtonProps> = ({ identifier, ...props }) => {
+const RatioButton: React.FC<RatioButtonProps> = ({ identifier, iconMode = false, ...props }) => {
 	const { currentIdentifier, setIdentifier } = useRatioContext();
 const selected: boolean = currentIdentifier === identifier
 
 	const onClickWrapper = (e: any) => {
-		console.log('onClickWrapper');
 		setIdentifier(identifier);
 		if (!props?.onClick) return;
 		props.onClick(e);
+	}
+
+	if (iconMode) {
+		return selected
+				?
+					<button onClick={onClickWrapper}>
+						<RatioActive />
+					</button>
+				:
+					<button onClick={onClickWrapper}>
+						<RatioInactive />
+					</button>;
 	}
 
 	return <Button theme={selected ? 'normal' : 'real-ghost'} {...props} onClick={onClickWrapper} />;
