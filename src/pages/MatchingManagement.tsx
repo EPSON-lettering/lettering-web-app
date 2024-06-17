@@ -7,6 +7,7 @@ import NoneProfile from "@/components/common/NoneProfile";
 import Typo from "@/components/common/Typo";
 import Button from "@/components/common/Button";
 import SmallWhitePerson from "@public/icon/user-small-white.svg";
+import Loading from "@/components/common/Loading";
 
 const MatchingManagement = () => {
 	const { data, isLoading } = useQuery({
@@ -14,7 +15,7 @@ const MatchingManagement = () => {
 		queryFn: Server.Matching.getMyMatchingDetails,
 	});
 
-	if (isLoading || !data) return null;
+	if (isLoading || !data) return <Loading loading={isLoading} />;
 
 	return (
 			<div className="flex-1 w-full col-center px-[16px]">
@@ -29,7 +30,7 @@ const MatchingManagement = () => {
 											<div key={item.id} className="flex gap-x-1 items-center">
 												<img src={item.image} />
 												<Typo>{item.name}</Typo>
-											</div>  
+											</div>
 									))}
 								</nav>
 							</div>

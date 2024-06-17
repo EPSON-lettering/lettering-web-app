@@ -9,6 +9,7 @@ import SmallWhitePerson from "@public/icon/user-small-white.svg";
 import { useQuery } from "@tanstack/react-query";
 import Server from "@public/services/api";
 import dayjs from "dayjs";
+import Loading from "@/components/common/Loading";
 
 
 interface MatchedUserProps {
@@ -19,10 +20,12 @@ interface MatchedUserProps {
 
 
 const LetterBox = () => {
-	const { data: list = [] } = useQuery({
+	const { data: list = [], isLoading } = useQuery({
 		queryKey: ['letter-list'],
 		queryFn: Server.Matching.getMatchingSimpleList,
 	});
+
+	if (isLoading) return <Loading loading={isLoading} />;
 
 	return (
 			<div className="pt-[65px] px-[19px] w-full h-full flex-1 flex flex-col gap-y-[18px]">
