@@ -1,10 +1,11 @@
 import { jsonClient } from "@public/services/api/client";
-import { Interest } from "@/types/object";
+import { Interest, User } from "@/types/object";
 
 interface MatchingService {
 	match: (nickname: string) => Promise<MatchResponse>;
 	matchAcceptOrReject: (req: MatchAccOrRejRequest) => Promise<MatchResponse>;
 	getMyMatchingDetails: () => Promise<MatchingManagementDetailsResponse>;
+	getMatchingSimpleList: () => Promise<LetteMatchResponse[]>;
 }
 
 interface MatchingManagementDetailsResponse {
@@ -40,12 +41,21 @@ export interface MatchResponse {
 	duplicateInterests: Interest[]
 }
 
+export interface LetteMatchResponse {
+	id: number;
+	acceptor: User
+	createdAt: string;
+	state: boolean;
+	withdrawReason?: string;
+}
+
 const URL = '/match';
 
 const matchingService: MatchingService = {
 	match: (nickname) => jsonClient.post(`${URL}/`, { nickname }),
 	matchAcceptOrReject: ({ action, request_id }) => jsonClient.post(`${URL}/request/${request_id}/${action}/`),
 	getMyMatchingDetails: () => jsonClient.get(`${URL}/details/`),
+	getMatchingSimpleList: () => jsonClient.get(`${URL}/list/`),
 };
 
 export default matchingService;
