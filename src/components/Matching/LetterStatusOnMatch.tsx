@@ -7,19 +7,34 @@ import useQuestionOnMatchQuery from "@/hooks/query/useQuestionOnMatchQuery";
 import Button from "@/components/common/Button";
 import dayjs from "dayjs";
 import Typo from "@/components/common/Typo";
+import useUser from "@/hooks/useUser";
+import Dialog, { useDialog } from "@/components/common/Dialog";
+import { useRouter } from "next/navigation";
 
 const LetterStatusOnMatch = () => {
+	const { user } = useUser();
 	const { match, isLoadingOneMatching } = useMatchOneQuery();
 	const { question, questionLoading } = useQuestionOnMatchQuery(match?.id);
 	const today = dayjs().format('YYYY.MM.DD');
-
-	console.log({ match });
+	const { show: showEpsonDialog, open: openEpsonDialog, close: closeEpsonDialog } = useDialog();
+	const router = useRouter();
 
 	const loading = (() => {
 		if (!match || isLoadingOneMatching) return true;
 		if (questionLoading || !question) return true;
 		return false;
 	})();
+
+
+	const onClickPrint = () => {
+		if (!user?.epsonEmail) {
+			return openEpsonDialog();
+		}
+	};
+
+	const onClickOkUsingEpson = () => {
+		router.push('/epson/register');
+	};
 
 	if (loading) return <Loading loading={loading} />;
 
@@ -47,6 +62,7 @@ const LetterStatusOnMatch = () => {
 						theme="normal"
 						size="full"
 						className="flex-1"
+						onClick={onClickPrint}
 					>
 						편지지 프린트 하기
 					</Button>
@@ -58,6 +74,12 @@ const LetterStatusOnMatch = () => {
 					{/*	답장 보내기*/}
 					{/*</Button>*/}
 				</section>
+				<Dialog
+					title="Epson 프린터기를 사용 중이신가요?"
+					show={showEpsonDialog}
+					close={closeEpsonDialog}
+					onClickOk={onClickOkUsingEpson}
+				/>
 			</div>
 	);
 };
