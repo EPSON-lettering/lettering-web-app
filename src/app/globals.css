@@ -95,3 +95,14 @@ textarea {
 .horizontal-divider {
   @apply w-full border border-gray-200;
 }
+
+.a4 {
+  width: 2480px;
+  height: 3508px;
+  background: white;
+  padding: 2em 5em;
+}
+
+.letter-divider {
+  @apply border-[3px] border-letter-yellow h-[3px] w-full;
+}
