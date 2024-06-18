@@ -16,6 +16,7 @@
     "broadcast-channel": "^7.0.0",
     "clsx": "^2.1.1",
     "dayjs": "^1.11.11",
+    "html-to-image": "^1.11.11",
     "i18next": "^23.11.5",
     "next": "14.2.3",
     "react": "^18",
