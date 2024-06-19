@@ -87,7 +87,7 @@ const GlobalNavBar = () => {
 							active={navItem === NavItem.LETTER}
 							activeIcon={<LetterActive />}
 							icon={<LetterInActive />}
-							text="편지함"
+							text="매칭 피드"
 					>
 					</Activation>
 				</button>
@@ -96,7 +96,7 @@ const GlobalNavBar = () => {
 							active={navItem === NavItem.MYPAGE}
 							activeIcon={<MyPageActive />}
 							icon={<MyPageInActive />}
-							text="마이페이지"
+							text="MY"
 					>
 					</Activation>
 				</button>
