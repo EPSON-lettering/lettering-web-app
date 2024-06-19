@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import useMatchOneQuery from "@/hooks/query/useMatchOneQuery";
 import Loading from "@/components/common/Loading";
 import useQuestionOnMatchQuery from "@/hooks/query/useQuestionOnMatchQuery";
@@ -10,6 +10,22 @@ import Typo from "@/components/common/Typo";
 import useUser from "@/hooks/useUser";
 import Dialog, { useDialog } from "@/components/common/Dialog";
 import { useRouter } from "next/navigation";
+import LetterPaper from "@/components/Letter/LetterPaper";
+import usePaper from "@/hooks/usePaper";
+
+
+const printWindow = (src: string) => {
+	console.log("print()");
+	const newWindow = window.open();
+	if (newWindow) {
+		newWindow.document.write(`<!--<img src="${src}" onload="window.print();window.close()" />-->`);
+		newWindow.document.write(`<img src="${src}" />`);
+		// newWindow.document.close();
+	} else {
+		alert('팝업 차단기를 해제하세요.');
+	}
+};
+
 
 const LetterStatusOnMatch = () => {
 	const { user } = useUser();
@@ -18,6 +34,8 @@ const LetterStatusOnMatch = () => {
 	const today = dayjs().format('YYYY.MM.DD');
 	const { show: showEpsonDialog, open: openEpsonDialog, close: closeEpsonDialog } = useDialog();
 	const router = useRouter();
+	const [visible, setVisible] = useState(false);
+	const { imageSrc: a4ImageSrc } = usePaper();
 
 	const loading = (() => {
 		if (!match || isLoadingOneMatching) return true;
@@ -25,11 +43,23 @@ const LetterStatusOnMatch = () => {
 		return false;
 	})();
 
-
 	const onClickPrint = () => {
 		if (!user?.epsonEmail) {
 			return openEpsonDialog();
 		}
+
+		setVisible(true);
+		setTimeout(async () => {
+			await print();
+			setVisible(false);
+		}, 400);
+	};
+
+	const print = () => {
+		if (a4ImageSrc) {
+			printWindow(a4ImageSrc);
+		}
+		closeEpsonDialog();
 	};
 
 	const onClickOkUsingEpson = () => {
@@ -77,9 +107,17 @@ const LetterStatusOnMatch = () => {
 				<Dialog
 					title="Epson 프린터기를 사용 중이신가요?"
 					show={showEpsonDialog}
-					close={closeEpsonDialog}
+					close={print}
 					onClickOk={onClickOkUsingEpson}
 				/>
+
+				<div style={{
+					display: visible ? 'block' : 'none',
+				}}>
+					<LetterPaper
+							questions={[question?.text ?? '', question?.engText ?? '']}
+					/>
+				</div>
 			</div>
 	);
 };

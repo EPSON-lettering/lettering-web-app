@@ -97,7 +97,7 @@ export default function MatchCancellationPage() {
 						{cancelReason === MatchCancelOption.MANUAL && (
 								<TextArea
 									maxLength={200}
-									placeholder="더 나은 서비스를 제공드릴 수 있도록 소중한 의견을 들려주세요"
+									placeholder="더 나은 서비스를 제공드릴 수 있도록 소중한 의견을 들려주세요."
 									onChange={(e: ChangeEvent<HTMLTextAreaElement>) => {
 										setManual(e.target.value);
 									}}
