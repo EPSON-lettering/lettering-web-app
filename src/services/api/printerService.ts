@@ -1,4 +1,4 @@
-import { jsonClient } from "@public/services/api/client";
+import { jsonClient } from "@/services/api/client";
 
 interface PrinterService {
 	print: (epsonEmail: string) => Promise<void>;

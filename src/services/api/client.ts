@@ -1,8 +1,10 @@
-import axios from 'axios';
+import axios, { HttpStatusCode } from 'axios';
+import { BroadcastChannel } from "broadcast-channel";
 
 const serverUrl = process.env.NEXT_PUBLIC_SERVER_URL;
 
-console.log({ serverUrl })
+
+const unAuthroizedAlertChannel = new BroadcastChannel('UNAUTH');
 
 export const jsonClient = axios.create({
 	baseURL: serverUrl,
@@ -24,6 +26,9 @@ jsonClient.interceptors.response.use(
 		(res) => res.data,
 		(err) => {
 			const statusCode = err.response.status as number;
+			if (statusCode === HttpStatusCode.Unauthorized) {
+				unAuthroizedAlertChannel.postMessage('UNAUTH');
+			}
 			return Promise.reject({ ...err.response.data, code: statusCode });
 		},
 );

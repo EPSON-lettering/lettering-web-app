@@ -1,15 +1,18 @@
 import { useEffect } from "react";
 import { User } from "@/types/object";
-import Server from "@public/services/api";
+import Server from "@/services/api";
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
 import { useRouter } from "next/navigation";
+import { BroadcastChannel } from "broadcast-channel";
 
 interface AuthenticationStore {
 	user?: User;
 	setUser: (user: User) => void;
 	logout: () => void;
 }
+
+const unAuthroizedAlertChannel = new BroadcastChannel('UNAUTH');
 
 const useStore = create(
 		persist<AuthenticationStore>(set => ({
@@ -51,6 +54,13 @@ const useUser = () => {
 				router.push('/');
 			}
 		})();
+
+		unAuthroizedAlertChannel.addEventListener('message', (message: string) => {
+			if (message === 'UNAUTH') {
+				logout();
+				router.push('/');
+			}
+		})
 	}, []);
 
 	return {

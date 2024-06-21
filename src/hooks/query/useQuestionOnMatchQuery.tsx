@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import Server from "@public/services/api";
+import Server from "@/services/api";
 
 const useQuestionOnMatchQuery = (matchId: number | undefined) => {
 	const { isLoading, data, ...query } = useQuery({

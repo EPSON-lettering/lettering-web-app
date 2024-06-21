@@ -1,6 +1,6 @@
 import React from 'react';
 import { useQuery } from "@tanstack/react-query";
-import Server from "@public/services/api";
+import Server from "@/services/api";
 
 const UseCheckHasMatchingQuery = () => {
 	const { data, isLoading, ...query } = useQuery({

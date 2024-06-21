@@ -9,7 +9,7 @@ import Apple from '@public/icon/apple.svg';
 import Typo from "@/components/common/Typo";
 import Button from "@/components/common/Button";
 import { useRouter } from "next/navigation";
-import Server from "@public/services/api";
+import Server from "@/services/api";
 import { BroadcastChannel } from "broadcast-channel";
 import useSessionStore, { SessionItem } from "@/hooks/useSessionStore";
 import { HttpStatusCode } from "axios";

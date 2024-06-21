@@ -7,7 +7,7 @@ import ArrowRight from "@public/icon/left-arrow-white.svg";
 import Ratio from "@/components/common/RatioButton";
 import { useHeader } from "@/components/common/AppHeader";
 import { useQuery } from "@tanstack/react-query";
-import Server from "@public/services/api";
+import Server from "@/services/api";
 import { Language } from "@/types/object";
 
 const ChoiceLangOnSign = () => {

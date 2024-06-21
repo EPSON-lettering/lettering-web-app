@@ -6,7 +6,7 @@ import MatchingProcessingLogo from "@public/icon/matching.svg";
 import Typo from "@/components/common/Typo";
 import MobileCamera from "@/components/Camera";
 import Button from "@/components/common/Button";
-import Server from "@public/services/api";
+import Server from "@/services/api";
 import { MatchResponse, MatchConnected } from "@public/services/api/MatchingService";
 import useMatchingProcess from "@/hooks/useMatchingProcess";
 import { useRouter } from "next/navigation";

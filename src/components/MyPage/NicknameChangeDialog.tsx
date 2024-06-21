@@ -3,7 +3,7 @@ import Dialog from "@/components/common/Dialog";
 import { CustomDialogProps } from "@/types/ui";
 import NickInput from "@/components/common/NickInput";
 import useUser from "@/hooks/useUser";
-import Server from "@public/services/api";
+import Server from "@/services/api";
 import { User } from "@/types/object";
 
 const NicknameChangeDialog: React.FC<CustomDialogProps> = ({ show, close }) => {

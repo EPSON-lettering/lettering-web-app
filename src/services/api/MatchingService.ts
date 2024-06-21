@@ -1,5 +1,5 @@
-import { jsonClient } from "@public/services/api/client";
 import { Interest, User, Question } from "@/types/object";
+import { jsonClient } from "@/services/api/client";
 
 interface MatchingService {
 	match: (nickname: string) => Promise<MatchResponse>;
@@ -9,6 +9,7 @@ interface MatchingService {
 	disconnect: (matchId: number, reason: string) => Promise<void>;
 	getQuestion: (matchId: number) => Promise<Question>;
 	createQuestion: (matchId: number) => Promise<Question>;
+	getMatchingOpponent: () => Promise<User>;
 }
 
 interface MatchingManagementDetailsResponse {
@@ -68,6 +69,7 @@ const matchingService: MatchingService = {
 	matchAcceptOrReject: ({ action, request_id }) => jsonClient.post(`${URL}/request/${request_id}/${action}/`),
 	getMyMatchingDetails: () => jsonClient.get(`${URL}/details/`),
 	getMatchingSimpleList: () => jsonClient.get(`${URL}/list/`),
+	getMatchingOpponent: () => jsonClient.get(`${URL}/opponent/`),
 	disconnect: (matchId, reason) => jsonClient.post(`${URL}/end/${matchId}/`, { reason }),
 
 	getQuestion: (matchId) => jsonClient.get(`${URL}/question/${matchId}/`),

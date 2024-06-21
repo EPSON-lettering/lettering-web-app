@@ -47,8 +47,8 @@ const GlobalNavBar = () => {
 		router.push('/match');
 	};
 
-	const onClickLetter = () => {
-		router.push('/letter');
+	const onClickmatchingFeed = () => {
+		router.push('/feed');
 	};
 
 	const onClickMyPage = () => {
@@ -60,7 +60,7 @@ const GlobalNavBar = () => {
 			setNavItem(NavItem.HOME);
 		}
 
-		if (pathname === '/letter') {
+		if (pathname === '/feed') {
 			setNavItem(NavItem.LETTER);
 		}
 
@@ -82,12 +82,12 @@ const GlobalNavBar = () => {
 					>
 					</Activation>
 				</button>
-				<button className="w-[80px]" onClick={onClickLetter}>
+				<button className="w-[80px]" onClick={onClickmatchingFeed}>
 					<Activation
 							active={navItem === NavItem.LETTER}
 							activeIcon={<LetterActive />}
 							icon={<LetterInActive />}
-							text="매칭 피드"
+							text="상대피드"
 					>
 					</Activation>
 				</button>

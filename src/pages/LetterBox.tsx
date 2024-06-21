@@ -7,7 +7,7 @@ import Typo from "@/components/common/Typo";
 import NoneProfile from "@/components/common/NoneProfile";
 import SmallWhitePerson from "@public/icon/user-small-white.svg";
 import { useQuery } from "@tanstack/react-query";
-import Server from "@public/services/api";
+import Server from "@/services/api";
 import dayjs from "dayjs";
 import Loading from "@/components/common/Loading";
 

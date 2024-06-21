@@ -4,7 +4,7 @@ import type { Interest as InterestType } from "@/types/object";
 import Button from "@/components/common/Button";
 import Typo from "@/components/common/Typo";
 import { useQuery } from "@tanstack/react-query";
-import Server from "@public/services/api";
+import Server from "@/services/api";
 import { useSignupContext } from "@/pages/Signup";
 import useSessionStore, { SessionItem } from "@/hooks/useSessionStore";
 import { SignupProvider } from "@public/services/api/AccountService";

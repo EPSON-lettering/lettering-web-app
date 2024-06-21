@@ -1,6 +1,6 @@
-import { jsonClient } from "@public/services/api/client";
 import { Interest, User, Language } from "@/types/object";
 import { toCamel } from "snake-camel";
+import { jsonClient } from "@/services/api/client";
 
 interface LoginResponse {
 	user: User;

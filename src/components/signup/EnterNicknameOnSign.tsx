@@ -4,7 +4,7 @@ import NickInput from "@/components/common/NickInput";
 import Button from "@/components/common/Button";
 import ArrowRight from "@public/icon/left-arrow-white.svg";
 import { useSignupContext, SignupPhase } from "@/pages/Signup";
-import Server from "@public/services/api";
+import Server from "@/services/api";
 import { useHeader } from "@/components/common/AppHeader";
 
 

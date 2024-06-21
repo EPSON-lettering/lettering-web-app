@@ -10,7 +10,7 @@ import { useRouter } from "next/navigation";
 import Printer from "@public/icon/printer.svg";
 import LetterRound from "@public/icon/letter-logo-round.svg";
 import Processing from "@public/icon/processing.svg";
-import Server from "@public/services/api";
+import Server from "@/services/api";
 
 export default function EpsonRegisterPage() {
 	const [epsonEmail, setEpsonEmail] = useState('');

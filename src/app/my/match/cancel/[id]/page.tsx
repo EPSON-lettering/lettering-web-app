@@ -7,7 +7,7 @@ import Button from "@/components/common/Button";
 import Dialog, { useDialog } from "@/components/common/Dialog";
 import Ratio from "@/components/common/RatioButton";
 import TextArea from "@/components/common/TextArea";
-import Server from "@public/services/api";
+import Server from "@/services/api";
 import { useParams, useRouter } from "next/navigation";
 import useMatchingProcess from "@/hooks/useMatchingProcess";
 
