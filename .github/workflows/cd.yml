@@ -19,3 +19,13 @@ jobs:
           passphrase: ${{ secrets.PASSPHRASE }}
           script: |
             source /home/galaxy4276/script/letter-u/front_deploy.sh
+
+      - name: action-slack
+        uses: 8398a7/action-slack@v3
+        with:
+          status: ${{ job.status }}
+          author_name: Deploy Bot
+          fields: repo,message,commit,author,action,eventName,ref,workflow,job,took
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        if: always()
