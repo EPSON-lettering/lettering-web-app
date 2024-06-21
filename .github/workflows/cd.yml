@@ -1,4 +1,4 @@
-name: Django CI
+name: Deploy Frontend App
 
 on:
   push:
@@ -22,5 +22,6 @@ jobs:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.KEY }}
+          passphrase: ${{ secrets.PASSPHRASE }}
           script: |
             source /home/galaxy4276/script/letter-u/front_deploy.sh
