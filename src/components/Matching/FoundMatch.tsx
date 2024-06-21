@@ -4,9 +4,9 @@ import React, { HTMLAttributes } from 'react';
 import useMatchingProcess from "@/hooks/useMatchingProcess";
 import Button from "@/components/common/Button";
 import NoneProfile from "@/components/common/NoneProfile";
-import { MatchUser } from "@public/services/api/MatchingService";
 import Typo from "@/components/common/Typo";
 import { useRouter } from "next/navigation";
+import { MatchUser } from "@/services/api/MatchingService";
 
 const FoundMatch = () => {
 	const { matchDetails } = useMatchingProcess();

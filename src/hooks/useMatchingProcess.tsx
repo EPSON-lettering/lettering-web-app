@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { MatchResponse } from "@public/services/api/MatchingService";
+import { MatchResponse } from "@/services/api/MatchingService";
 
 
 interface MatchProcessStoreProps {

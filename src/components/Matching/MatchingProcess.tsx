@@ -52,8 +52,8 @@ const MatchingProcess = () => {
 				if (!result) return;
 				const { matchRequest, match } = result;
 				setMatchDetails(matchRequest);
-				await Server.Matching.createQuestion(match.id);
 				router.push('/match/done');
+				await Server.Matching.createQuestion(match.id);
 				await refetchHasMatching();
 			} catch (error) {
 				console.error(error);
