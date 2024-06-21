@@ -15,12 +15,26 @@ import usePaper from "@/hooks/usePaper";
 
 
 const printWindow = (src: string) => {
-	console.log("print()");
-	const newWindow = window.open();
-	if (newWindow) {
-		newWindow.document.write(`<!--<img src="${src}" onload="window.print();window.close()" />-->`);
-		newWindow.document.write(`<img src="${src}" />`);
-		// newWindow.document.close();
+	const printWindow = window.open('', '_blank');
+	if (printWindow) {
+		const img = new Image();
+		img.src = src;
+		printWindow.document.write(`
+			<html>
+				<style>
+					html, body { margin: 0; padding: 0; }
+					img { height: 100%; }
+				</style>
+				<body>
+		`);
+		printWindow.document.body.appendChild(img);
+		printWindow.document.write('</body></html>');
+		printWindow.document.close();
+
+		printWindow.onload = () => {
+			printWindow.print();
+			printWindow.onafterprint = () => printWindow.close();
+		}
 	} else {
 		alert('팝업 차단기를 해제하세요.');
 	}
