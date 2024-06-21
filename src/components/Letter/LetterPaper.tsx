@@ -46,7 +46,7 @@ const LetterPaper: React.FC<LetterPagerProps> = ({ questions }) => {
 
 			<div className="pb-[100px]" />
 
-			<section className="flex flex-col flex-1">
+			<section className="flex flex-col">
 				<Typo size="47" bold>질문</Typo>
 
 				<div className="pt-[50px] pb-[120px] flex flex-col pl-[24px]">
@@ -56,7 +56,7 @@ const LetterPaper: React.FC<LetterPagerProps> = ({ questions }) => {
 				</div>
 			</section>
 
-			<section className="flex justify-end items-end pr-[300px]">
+			<section className="flex pt-[50px]">
 				<Typo size="47" bold>To.</Typo>
 			</section>
 		</div>
