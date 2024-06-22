@@ -49,3 +49,24 @@ export interface Letter {
 		profileImageUrl?: string;
 	}
 }
+
+
+export interface Feedback {
+	id: number;
+	image: string;
+	sender: User;
+	receiver: User;
+	letter: Letter;
+	message: string;
+	type: string;
+	createdAt: string;
+}
+
+export interface Reply {
+	id: number;
+	comment: Feedback;
+	sender: User;
+	receiver: User;
+	message: string;
+	createdAt:string;
+}

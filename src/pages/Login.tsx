@@ -58,12 +58,13 @@ const Login = () => {
 			if (e.origin !== window.location.origin) {
 				return;
 			}
+
+			console.log(e.data);
+			if (!e.data?.authCode) return;
 			const { authCode } = e.data as AuthCode;
-			const fn = getLoginOnceCallback(authCode);
-			console.log('message');
 
 			try {
-				const res = await fn();
+				const res = await Server.Account.login(authCode);
 				if (!res) return;
 				login(res.user);
 				router.push('/match');

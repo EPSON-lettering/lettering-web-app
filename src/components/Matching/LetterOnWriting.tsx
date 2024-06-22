@@ -99,12 +99,17 @@ const LetterOnWriting = () => {
 				</Dialog>
 
 				<Dialog
-						title="편지를 전송했습니다"
+						title="편지를 전송했어요!"
 						show={showSendLetter}
 						close={closeSendLetter}
 						onClickOk={onClickSendOk}
+						okText="네, 이동할게요"
 						hideCancel
-				></Dialog>
+				>
+					<section className="w-full p-4 flex-all-center">
+						<Typo>새로운 질문으로 안내할게요!</Typo>
+					</section>
+				</Dialog>
 			</div>
 	);
 };
