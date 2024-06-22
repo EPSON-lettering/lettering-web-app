@@ -7,11 +7,16 @@ export interface CreateCommentRequest {
 	image?: File;
 }
 
+export interface CreateReplyRequest {
+	message: string;
+	image?: File;
+}
+
 export interface CommentService {
 	getFeedbacks: (letterId: number) => Promise<Feedback[]>;
 	createFeedback: (letterId: number, body: CreateCommentRequest) => Promise<Feedback>;
 	getReplies: (commentId: number) => Promise<Reply[]>;
-	createReply: (commentId: number, body: any) => Promise<any>;
+	createReply: (commentId: number, body: CreateReplyRequest) => Promise<any>;
 }
 
 const URL = '/comment';

@@ -1,19 +1,18 @@
 import React from 'react';
 import { Feedback } from "@/types/object";
-import useUser from "@/hooks/useUser";
 import clsx from "clsx";
 import SP from "@public/icon/user-small-white.svg";
 import NoneProfile from "@/components/common/NoneProfile";
 import Typo from "@/components/common/Typo";
+import { useRouter } from "next/navigation";
 
 interface ChatProps {
 	chat: Feedback;
 }
 
 const Chat: React.FC<ChatProps> = ({ chat }) => {
-	const { user } = useUser();
-	console.log({ chat });
-	// const isMe = user?.id === chat.sender.id
+	const router = useRouter();
+
 	return (
 			<div className={
 				clsx([
@@ -31,12 +30,18 @@ const Chat: React.FC<ChatProps> = ({ chat }) => {
 
 
 				<section>
-					<div className="flex gap-x-[5px] pl-[52px] pt-2 items-center">
+					<div
+						className="flex gap-x-[5px] pl-[52px] pt-2 items-center cursor-pointer"
+						onClick={() => router.push(`/letter/reply/${chat.id}`)}
+					>
 						<NoneProfile replaceIcon={<SP />} className="w-[21px] h-[21px]" />
 						{!chat?.latestReply && (
 								<div>
 									<Typo color="gray" className="underline underline-offset-2">답글을 달아보세요.</Typo>
 								</div>
+						)}
+						{chat?.latestReply && (
+								<Typo>{chat.latestReply.message}</Typo>
 						)}
 					</div>
 

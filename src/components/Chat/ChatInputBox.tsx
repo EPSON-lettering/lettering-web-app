@@ -4,18 +4,30 @@ import SP from "@public/icon/user-small-white.svg";
 import Server from "@/services/api";
 
 interface ChatInputBoxProps {
-	mode: 'feedback' | 'chat';
-	letterId: string;
+	mode: 'feedback' | 'chat' | 'reply';
+	id: string;
 	reloadFn: () => void;
 }
 
 
-const ChatInputBox: React.FC<ChatInputBoxProps> = ({ mode, letterId, reloadFn }) => {
+const ChatInputBox: React.FC<ChatInputBoxProps> = ({ mode, id, reloadFn }) => {
 	const [message, setMessage] = useState('');
 
 	const send = async () => {
+		if (mode === 'reply') {
+			try {
+				await Server.Comment.createReply(Number(id), {
+					message,
+				});
+				reloadFn();
+			} catch (error) {
+				console.error(error);
+			}
+			return;
+		}
+
 		try {
-			await Server.Comment.createFeedback(Number(letterId), {
+			await Server.Comment.createFeedback(Number(id), {
 				message,
 				type: mode,
 			});

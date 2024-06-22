@@ -8,17 +8,18 @@ import Loading from "@/components/common/Loading";
 import Typo from "@/components/common/Typo";
 import ChatInputBox from "@/components/Chat/ChatInputBox";
 import Chat from "@/components/Chat/Chat";
+import Reply from "@/components/Chat/Reply";
 
-export default function FeedbackPage() {
+export default function ReplyPage() {
 	const params = useParams<{ id: string }>();
-	const { data: feedbacks = [], isLoading, refetch } = useQuery({
+	const { data: replies = [], isLoading, refetch } = useQuery({
 		queryKey: ['feedbacks-getter'],
-		queryFn: () => Server.Comment.getFeedbacks(Number(params?.id)),
+		queryFn: () => Server.Comment.getReplies(Number(params?.id)),
 		enabled: !!params?.id
 	});
 
 	const reload = () => refetch();
-	const empty = feedbacks.length === 0;
+	const empty = replies.length === 0;
 
 	if (isLoading || !params?.id) return <Loading loading={isLoading} />;
 
@@ -26,21 +27,21 @@ export default function FeedbackPage() {
 		<div className="PageLayout">
 			{empty && (
 				<section className="flex flex-col items-center flex-1 pt-[200px]">
-					<Typo size="25" bold>아직 피드백이 없습니다.</Typo>
-					<Typo size="16">피드백을 시작해보세요.</Typo>
+					<Typo size="25" bold>아직 답장이 없습니다.</Typo>
+					<Typo size="16">답장을 시작해보세요.</Typo>
 				</section>
 			)}
 			{!empty && (
 					<section className="relative h-full w-full">
 						<section className="absolute flex w-full flex-col h-full max-h-full overflow-y-scroll overflow-x-hidden">
-							{feedbacks.map(chat => (
-									<Chat key={chat.id} chat={chat} />
+							{replies.map(reply => (
+									<Reply key={reply.id} reply={reply} />
 							))}
 						</section>
 					</section>
 			)}
 			<section className="w-full h-fit pb-[40px]">
-				<ChatInputBox mode="feedback" id={params.id} reloadFn={reload} />
+				<ChatInputBox mode="reply" id={params.id} reloadFn={reload} />
 			</section>
 		</div>
 	);
