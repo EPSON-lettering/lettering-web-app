@@ -27,8 +27,8 @@ export default function RootLayout({
           <AppHeader />
           <QueryProvider>
             {children}
+            <GNB />
           </QueryProvider>
-          <GNB />
           <div id="portal" />
         </main>
       </body>

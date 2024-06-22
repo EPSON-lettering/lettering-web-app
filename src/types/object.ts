@@ -72,3 +72,9 @@ export interface Reply {
 	message: string;
 	createdAt:string;
 }
+
+export interface Notification {
+	message: string;
+	createdAt: string;
+	isRead: boolean;
+}

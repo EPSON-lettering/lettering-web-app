@@ -1,0 +1,17 @@
+import { useQuery } from "@tanstack/react-query";
+import Server from "@/services/api";
+
+const useNotificationsQuery = () => {
+	const { data = [], isLoading, ...props } = useQuery({
+		queryKey: ['notifications-getter'],
+		queryFn: Server.Notification.getList,
+	});
+
+	return {
+		notifications: data,
+		notificationLoading: isLoading,
+		...props,
+	};
+};
+
+export default useNotificationsQuery;

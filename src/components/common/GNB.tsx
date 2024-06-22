@@ -10,6 +10,8 @@ import LetterActive from "@public/icon/letter_active.svg";
 import LetterInActive from "@public/icon/letter_inactive.svg";
 import MyPageActive from "@public/icon/mypage_active.svg";
 import MyPageInActive from "@public/icon/mypage_inactive.svg";
+import useNotificationsQuery from "@/hooks/query/useNotificationsQuery";
+import NotiAlert from "@/components/common/NotiAlert";
 
 const noRenderUrls: string[] = ['/', '/sign-up', '/on-board'];
 
@@ -42,6 +44,8 @@ const GlobalNavBar = () => {
 	const pathname = usePathname();
 	const router = useRouter();
 	const noRender = pathname ? noRenderUrls.includes(pathname) : false;
+	const { notifications } = useNotificationsQuery();
+	const newNotiCount = notifications.length;
 
 	const onClickHome = () => {
 		router.push('/match');
@@ -82,7 +86,7 @@ const GlobalNavBar = () => {
 					>
 					</Activation>
 				</button>
-				<button className="w-[80px]" onClick={onClickmatchingFeed}>
+				<button className="w-[80px] relative" onClick={onClickmatchingFeed}>
 					<Activation
 							active={navItem === NavItem.LETTER}
 							activeIcon={<LetterActive />}
@@ -90,8 +94,9 @@ const GlobalNavBar = () => {
 							text="상대피드"
 					>
 					</Activation>
+					<NotiAlert count={notifications.length} />
 				</button>
-				<button className="w-[80px]" onClick={onClickMyPage}>
+				<button className="w-[80px] relative" onClick={onClickMyPage}>
 					<Activation
 							active={navItem === NavItem.MYPAGE}
 							activeIcon={<MyPageActive />}
