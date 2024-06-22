@@ -40,20 +40,22 @@ const useUser = () => {
 		logout();
 	};
 
+	const getUserOnServer = async () => {
+		try {
+			const userData = await Server.Account.getUserDetails();
+			setUser(userData);
+		} catch (error) {
+			logoutWrapper();
+			console.error(error);
+			router.push('/');
+		}
+	}
+
 	useEffect(() => {
 		const access  = localStorage.getItem('access');
 		if (!access) return;
-		(async () => {
-			try {
-				if (user) return;
-				const userData = await Server.Account.getUserDetails();
-				setUser(userData);
-			} catch (error) {
-				logoutWrapper();
-				console.error(error);
-				router.push('/');
-			}
-		})();
+		if (user) return;
+		getUserOnServer();
 
 		unAuthroizedAlertChannel.addEventListener('message', (message: string) => {
 			if (message === 'UNAUTH') {
@@ -67,6 +69,7 @@ const useUser = () => {
 		...store,
 		login,
 		logout: logoutWrapper,
+		refresh: getUserOnServer,
 	};
 };
 

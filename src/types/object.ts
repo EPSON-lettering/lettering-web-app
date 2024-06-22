@@ -4,6 +4,11 @@ export interface Interest {
 	name: string;
 }
 
+export enum LetterWritingStatus {
+	BEFORE = 0,
+	PROCESSING = 1
+}
+
 export interface User {
 	oauthId: number;
 	nickname: string;
@@ -17,6 +22,7 @@ export interface User {
 	isLoggined: boolean;
 	withdrawReason?: string;
 	epsonEmail?: string;
+	status: LetterWritingStatus;
 }
 
 export interface Language {

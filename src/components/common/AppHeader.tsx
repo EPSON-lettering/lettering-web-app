@@ -53,8 +53,6 @@ const AppHeader: React.FC = () => {
 
 	const noRender = pathname ? noRenderList.includes(pathname) : false;
 
-	console.log('Header Rerender!');
-
 	const goBack = () => router.back();
 
 	useEffect(() => {

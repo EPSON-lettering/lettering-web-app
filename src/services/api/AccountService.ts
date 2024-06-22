@@ -50,7 +50,7 @@ const accountService: AccountService = {
 			.then((data: any) => data.map(toCamel) as Language[]),
 	signup: (body) => jsonClient.post(`${URL}/register/`, body),
 	validateNickname: (nickname) => jsonClient.get(`${URL}/nickname/?nickname=${nickname}`),
-	getUserDetails: () => jsonClient.get(`${URL}/user/details/`),
+	getUserDetails: () => jsonClient.get(`${URL}/`),
 	changeNickname: (nickname) => jsonClient.post(`${URL}/nickname/`, { nickname }),
 	checkUserHasMatching: () => jsonClient.get(`${URL}/match/check/`),
 };

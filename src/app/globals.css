@@ -128,3 +128,8 @@ textarea {
 .letter-divider {
   @apply border-[3px] border-letter-yellow h-[3px] w-full;
 }
+
+
+.PageLayout {
+  @apply flex flex-col flex-1 w-full px-[16px];
+}

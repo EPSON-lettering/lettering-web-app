@@ -12,10 +12,11 @@ import Dialog, { useDialog } from "@/components/common/Dialog";
 import { useRouter } from "next/navigation";
 import LetterPaper from "@/components/Letter/LetterPaper";
 import usePaper from "@/hooks/usePaper";
+import Server from "@/services/api";
 
 
-const printWindow = (src: string) => {
-	const printWindow = window.open('', '_blank');
+const printWindow = (src: string, onPrint: () => void) => {
+	const printWindow = window.open('');
 	if (printWindow) {
 		const img = new Image();
 		img.src = src;
@@ -33,7 +34,10 @@ const printWindow = (src: string) => {
 
 		printWindow.onload = () => {
 			printWindow.print();
-			printWindow.onafterprint = () => printWindow.close();
+			printWindow.onafterprint = () => {
+				onPrint();
+				printWindow.close();
+			};
 		}
 	} else {
 		alert('팝업 차단기를 해제하세요.');
@@ -42,11 +46,12 @@ const printWindow = (src: string) => {
 
 
 const LetterStatusOnMatch = () => {
-	const { user } = useUser();
+	const { user, refresh } = useUser();
 	const { match, isLoadingOneMatching } = useMatchOneQuery();
 	const { question, questionLoading } = useQuestionOnMatchQuery(match?.id);
 	const today = dayjs().format('YYYY.MM.DD');
 	const { show: showEpsonDialog, open: openEpsonDialog, close: closeEpsonDialog } = useDialog();
+	const { show: showCompletePrint, open: openCompPrint, close: closeCompPrint } = useDialog();
 	const router = useRouter();
 	const [visible, setVisible] = useState(false);
 	const { imageSrc: a4ImageSrc } = usePaper();
@@ -69,11 +74,16 @@ const LetterStatusOnMatch = () => {
 		}, 400);
 	};
 
-	const print = () => {
+	const print = async () => {
 		if (a4ImageSrc) {
-			printWindow(a4ImageSrc);
+			printWindow(a4ImageSrc, () => {
+				openCompPrint();
+			});
 		}
+		await Server.Print.changeStatusOnWriting();
+		await refresh();
 		closeEpsonDialog();
+		openCompPrint();
 	};
 
 	const onClickOkUsingEpson = () => {
@@ -123,6 +133,14 @@ const LetterStatusOnMatch = () => {
 					show={showEpsonDialog}
 					close={print}
 					onClickOk={onClickOkUsingEpson}
+				/>
+
+				<Dialog
+					title="편지지 인쇄가 완료되었습니다!"
+					show={showCompletePrint}
+					close={closeCompPrint}
+					onClickOk={closeCompPrint}
+					hideCancel
 				/>
 
 				<div style={{

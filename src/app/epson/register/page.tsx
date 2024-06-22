@@ -68,7 +68,7 @@ const Connecting: React.FC<{ email: string }> = ({ email }) => {
 	useEffect(() => {
 		(async () => {
 			try {
-				await Server.Epson.register(email);
+				await Server.Print.register(email);
 				// await Server.Epson.print(email);
 			} catch (error) {
 				console.error(error);

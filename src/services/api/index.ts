@@ -5,7 +5,7 @@ import printerService from "@/services/api/printerService";
 const Server = {
 	Account: accountService,
 	Matching: matchingService,
-	Epson: printerService,
+	Print: printerService,
 };
 
 export default Server;
