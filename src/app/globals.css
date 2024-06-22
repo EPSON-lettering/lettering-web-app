@@ -137,8 +137,10 @@ textarea {
 
 .MyPageLetterList {
   @apply grid grid-cols-3 w-full pt-4 gap-4;
+  overflow-y: scroll;
 }
 
 .MyPageLetterButton {
-  @apply p-4 border border-letter-yellow rounded-lg min-h-[120px];
+  @apply p-4 border border-letter-yellow rounded-lg min-h-[120px]
+    max-h-[230px] md:max-h-[500px];
 }
