@@ -2,7 +2,7 @@
 
 import NoneProfile from "@/components/common/NoneProfile";
 import Typo from "@/components/common/Typo";
-import { useSearchParams, useParams } from "next/navigation";
+import { useSearchParams, useParams, useRouter } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import Server from "@/services/api";
 import Loading from "@/components/common/Loading";
@@ -17,6 +17,7 @@ export default function LetterDetailsPage() {
 		queryFn: () => Server.Letter.getLetterDetails(Number(params?.id)),
 		enabled: !!params?.id
 	});
+	const router = useRouter();
 
 	if (!data || isLoading) return <Loading loading={isLoading} />;
 	const { owner: { nickname }, imageUrl } = data;
@@ -33,7 +34,7 @@ export default function LetterDetailsPage() {
 				</section>
 
 				<section className="py-[60px] flex gap-x-4 px-12">
-					<Button>
+					<Button onClick={() => router.push(`/letter/feedback/${data.id}`)}>
 						피드백
 					</Button>
 					<Button>

@@ -1,9 +1,10 @@
 import { jsonClient } from "@/services/api/client";
+import { Feedback, Reply } from "@/types/object";
 
 export interface CommentService {
-	getFeedbacks: (letterId: number) => Promise<any>;
+	getFeedbacks: (letterId: number) => Promise<Feedback[]>;
 	createFeedback: (letterId: number, body: any) => Promise<any>;
-	getReplies: (commentId: number) => Promise<any>;
+	getReplies: (commentId: number) => Promise<Reply[]>;
 	createReply: (commentId: number, body: any) => Promise<any>;
 }
 
