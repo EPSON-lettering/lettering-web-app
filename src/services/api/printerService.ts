@@ -5,6 +5,14 @@ interface PrinterService {
 	register: (epsonEmail: string) => Promise<void>;
 	changeStatusOnWriting: () => Promise<void>;
 	registerScanner: () => Promise<void>;
+	scan: () => Promise<void>;
+	getScanData: () => Promise<ScanData>;
+	uploadLetter: (file: File) => Promise<void>;
+}
+
+interface ScanData {
+	id: string;
+	imageUrl: string;
 }
 
 
@@ -22,9 +30,20 @@ const printerService: PrinterService = {
 			}
 		});
 	},
+	uploadLetter: (file) => {
+		const formData = new FormData();
+		formData.append('file', file);
+		return jsonClient.post(`${URL}/scan/fileSave`, formData, {
+			headers: {
+				"Content-Type": "multipart/form-data"
+			}
+		});
+	},
 	register: (epsonEmail) => jsonClient.post(`${URL}/prints/auth`, { epsonEmail }),
 	registerScanner: () => jsonClient.post(`${URL}/scan`),
 	changeStatusOnWriting: () => jsonClient.patch(`${URL}/status`),
+	scan: () => jsonClient.post(`${URL}/scan/fileSave/`),
+	getScanData: () => jsonClient.get(`${URL}/scan/data`),
 };
 
 export default printerService;

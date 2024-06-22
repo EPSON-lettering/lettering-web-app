@@ -60,6 +60,7 @@ const Login = () => {
 			}
 			const { authCode } = e.data as AuthCode;
 			const fn = getLoginOnceCallback(authCode);
+			console.log('message');
 
 			try {
 				const res = await fn();

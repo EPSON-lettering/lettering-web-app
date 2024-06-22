@@ -1,10 +1,11 @@
 import { useEffect } from "react";
-import { User } from "@/types/object";
+import { User, LetterWritingStatus } from "@/types/object";
 import Server from "@/services/api";
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
 import { useRouter } from "next/navigation";
 import { BroadcastChannel } from "broadcast-channel";
+import useMatchOneQuery from "@/hooks/query/useMatchOneQuery";
 
 interface AuthenticationStore {
 	user?: User;
@@ -31,6 +32,7 @@ const useUser = () => {
 	const store = useStore();
 	const { setUser, user, logout } = store;
 	const router = useRouter();
+	const { match } = useMatchOneQuery();
 
 	const login = (user: User) => {
 		setUser(user);
@@ -48,6 +50,23 @@ const useUser = () => {
 			logoutWrapper();
 			console.error(error);
 			router.push('/');
+		}
+	};
+
+	const changeLetterWritingStatus = (status: LetterWritingStatus) => {
+		if (!user) return;
+		setUser({ ...user, status });
+	}
+
+	const afterSendLetter = async () => {
+		console.log('afterSendLetter()');
+		console.log({ match });
+		if (!match) return;
+		try {
+			changeLetterWritingStatus(LetterWritingStatus.BEFORE);
+			await Server.Matching.createQuestion(match.id);
+		} catch (error) {
+			console.error(error);
 		}
 	}
 
@@ -70,6 +89,8 @@ const useUser = () => {
 		login,
 		logout: logoutWrapper,
 		refresh: getUserOnServer,
+		changeLetterWritingStatus,
+		afterSendLetter,
 	};
 };
 

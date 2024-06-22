@@ -14,7 +14,6 @@ import LetterPaper from "@/components/Letter/LetterPaper";
 import usePaper from "@/hooks/usePaper";
 import Server from "@/services/api";
 import usePrintConnection from "@/hooks/usePrintConnection";
-import { images } from "next/dist/build/webpack/config/blocks/images";
 
 
 const printWindow = (src: string, onPrint: () => void) => {

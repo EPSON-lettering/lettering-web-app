@@ -1,11 +1,13 @@
-import accountService from "@/services/api/AccountService";
-import matchingService from "@/services/api/MatchingService";
-import printerService from "@/services/api/printerService";
+import accountService from "./AccountService";
+import matchingService from "./MatchingService";
+import printerService from "./printerService";
+import letterService from "./letterService";
 
 const Server = {
 	Account: accountService,
 	Matching: matchingService,
 	Print: printerService,
+	Letter: letterService,
 };
 
 export default Server;

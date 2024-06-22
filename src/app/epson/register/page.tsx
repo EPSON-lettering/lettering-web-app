@@ -13,7 +13,7 @@ import usePrintConnection from "@/hooks/usePrintConnection";
 import Server from "@/services/api";
 import usePaper from "@/hooks/usePaper";
 import Dialog, { useDialog } from "@/components/common/Dialog";
-import { images } from "next/dist/build/webpack/config/blocks/images";
+
 
 export default function EpsonRegisterPage() {
 	const [epsonEmail, setEpsonEmail] = useState('');
@@ -37,13 +37,13 @@ export default function EpsonRegisterPage() {
 
 				<section className="col-center flex-1">
 					<NickInput
-							value={epsonEmail}
-							setValue={setEpsonEmail}
-							placeholder="example@example.com"
-							className="w-full outline-none"
-							container={{
-								className: "w-full h-[42px] outline-none",
-							}}
+						value={epsonEmail}
+						setValue={setEpsonEmail}
+						placeholder="example@example.com"
+						className="w-full outline-none"
+						container={{
+							className: "w-full h-[42px] outline-none",
+						}}
 					/>
 					<button className="pt-3" onClick={onClickOpenHelp}>
 						<Typo className="underline">Epson 프린터 연결 이메일을 잊으셨나요?</Typo>
@@ -74,8 +74,8 @@ const Connecting: React.FC<{ email: string }> = ({ email }) => {
 	useEffect(() => {
 		if (!imageSrc) return;
 		(async () => {
-			await connect(email);
 			try {
+				await connect(email);
 				await Server.Print.print(imageSrc);
 				openCompPrint();
 			} catch (error) {

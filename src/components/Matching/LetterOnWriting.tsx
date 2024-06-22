@@ -1,9 +1,67 @@
-import React from 'react';
+import React, { useRef, ChangeEvent } from 'react';
 import MatchingProcessing from "@public/icon/match-processing.svg";
 import Typo from "@/components/common/Typo";
 import Button from "@/components/common/Button";
+import usePrintConnection from "@/hooks/usePrintConnection";
+import Dialog, { useDialog } from "@/components/common/Dialog";
+import Server from "@/services/api";
+import convertUrlToFile from "@/utils/convertUrlToFile";
+import useUser from "@/hooks/useUser";
+import useMatchOneQuery from "@/hooks/query/useMatchOneQuery";
+import useQuestionOnMatchQuery from "@/hooks/query/useQuestionOnMatchQuery";
 
 const LetterOnWriting = () => {
+	const { usingEpson } = usePrintConnection();
+	const { show: showNotFoundEpson, open: openNotFoundEpson, close: closeNotFoundEpson } = useDialog();
+	const { show: showSendLetter, open: openSendLetter, close: closeSendLetter } = useDialog();
+	const fileUploadRef = useRef<HTMLInputElement>(null);
+	const { afterSendLetter } = useUser();
+	const { match } = useMatchOneQuery();
+	const { refetch: refetchQuestion } = useQuestionOnMatchQuery(match?.id);
+
+	const onClickScanAndSend = async () => {
+		if (!usingEpson) {
+			openNotFoundEpson();
+			return;
+		}
+
+		try {
+			await Server.Print.scan();
+			const { imageUrl } = await Server.Print.getScanData();
+			const file = await convertUrlToFile(imageUrl);
+		} catch (error) {
+			console.error(error);
+		}
+	};
+
+	const onClickSendOk = async () => {
+		try {
+			await afterSendLetter();
+			await refetchQuestion();
+			closeSendLetter();
+		} catch (error) {
+			console.error(error);
+		}
+	};
+
+	const onClickSendImage = () => fileUploadRef?.current?.click();
+
+	const upload = async (e: ChangeEvent<HTMLInputElement>) => {
+		console.log('upload()');
+		const file = (() => {
+			if (!e.target?.files) return null;
+			return Array.from(e.target.files)[0];
+		})();
+		if (!file) return;
+		try {
+			await Server.Letter.sendManual(file);
+			openSendLetter();
+		} catch (error) {
+			console.error(error);
+		}
+	};
+
+
 	return (
 			<div className="PageLayout">
 				<section className="py-[100px] flex justify-center">
@@ -15,13 +73,38 @@ const LetterOnWriting = () => {
 				</section>
 
 				<section className="flex gap-x-3 pb-[60px]">
-					<Button>
+					<Button onClick={onClickScanAndSend}>
 						편지 스캔하고 전송하기
 					</Button>
-					<Button>
-						편지 PDF 전송하기
+					<Button onClick={onClickSendImage}>
+						이미지 전송하기
 					</Button>
 				</section>
+
+				<div className="hidden">
+					<input type="file" ref={fileUploadRef} onChange={upload} />
+				</div>
+
+				<Dialog
+						title="EPSON 프린터를 찾을 수 없음"
+						show={showNotFoundEpson}
+						close={closeNotFoundEpson}
+						onClickOk={closeNotFoundEpson}
+						hideCancel
+				>
+					<section className="flex-all-center py-4 w-full">
+						<Typo>EPSON 프린터가 연결되어있지 않아 스캔을 수행할 수 없어요</Typo>
+						<Typo>프린터를 연결해주세요!</Typo>
+					</section>
+				</Dialog>
+
+				<Dialog
+						title="편지를 전송했습니다"
+						show={showSendLetter}
+						close={closeSendLetter}
+						onClickOk={onClickSendOk}
+						hideCancel
+				></Dialog>
 			</div>
 	);
 };
