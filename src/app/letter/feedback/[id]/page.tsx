@@ -39,7 +39,7 @@ export default function FeedbackPage() {
 						</section>
 					</section>
 			)}
-			<section className="w-full h-fit pb-[40px]">
+			<section className="w-full h-fit pb-[40px] pt-8">
 				<ChatInputBox mode="feedback" id={params.id} reloadFn={reload} />
 			</section>
 		</div>

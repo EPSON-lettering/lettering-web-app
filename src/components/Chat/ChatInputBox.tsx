@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import NoneProfile from "@/components/common/NoneProfile";
 import SP from "@public/icon/user-small-white.svg";
 import Server from "@/services/api";
+import SendingIcon from "@public/icon/message-send.svg";
 
 interface ChatInputBoxProps {
 	mode: 'feedback' | 'chat' | 'reply';
@@ -23,6 +24,7 @@ const ChatInputBox: React.FC<ChatInputBoxProps> = ({ mode, id, reloadFn }) => {
 			} catch (error) {
 				console.error(error);
 			}
+			setMessage('');
 			return;
 		}
 
@@ -31,6 +33,7 @@ const ChatInputBox: React.FC<ChatInputBoxProps> = ({ mode, id, reloadFn }) => {
 				message,
 				type: mode,
 			});
+			setMessage('');
 			reloadFn();
 		} catch (error) {
 			console.error(error);
@@ -40,7 +43,6 @@ const ChatInputBox: React.FC<ChatInputBoxProps> = ({ mode, id, reloadFn }) => {
 	const onEnter = async (e: React.KeyboardEvent<HTMLInputElement>) => {
 		if (e.keyCode !== 13) return;
 		await send();
-		setMessage('');
 	};
 
 	return (
@@ -54,6 +56,9 @@ const ChatInputBox: React.FC<ChatInputBoxProps> = ({ mode, id, reloadFn }) => {
 						onKeyDown={onEnter}
 						className="outline-none flex-1"
 					/>
+					<button onClick={send}>
+						<SendingIcon />
+					</button>
 				</div>
 			</nav>
 	);

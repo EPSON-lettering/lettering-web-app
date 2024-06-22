@@ -23,7 +23,7 @@ const Chat: React.FC<ChatProps> = ({ chat }) => {
 					<NoneProfile replaceIcon={<SP />} className="w-[42px] h-[42px]" />
 					<section className="flex flex-col w-full">
 						<Typo bold>{chat.sender.nickname}</Typo>
-						<div className="w-3/4 pt-1">
+						<div className="w-3/4 pt-1.5">
 							<Typo>{chat.message}</Typo>
 						</div>
 					</section>
