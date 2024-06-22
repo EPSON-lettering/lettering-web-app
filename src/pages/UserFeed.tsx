@@ -41,7 +41,7 @@ const UserFeed: React.FC<UserFeedProps> = ({ user, letters = [] }) => {
 							</nav>
 
 							<nav className="col-center">
-								<Typo color="yellow" size="19" bold>0</Typo>
+								<Typo color="yellow" size="19" bold>{user.sendingLetterCount}</Typo>
 								<Typo color="gray2">보낸 편지</Typo>
 							</nav>
 						</section>

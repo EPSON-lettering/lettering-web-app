@@ -7,7 +7,6 @@ import Server from "@/services/api";
 import Loading from "@/components/common/Loading";
 import Typo from "@/components/common/Typo";
 import ChatInputBox from "@/components/Chat/ChatInputBox";
-import Chat from "@/components/Chat/Chat";
 import Reply from "@/components/Chat/Reply";
 
 export default function ReplyPage() {

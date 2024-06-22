@@ -24,6 +24,7 @@ export interface User {
 	withdrawReason?: string;
 	epsonEmail?: string;
 	status: LetterWritingStatus;
+	sendingLetterCount: number;
 }
 
 export interface Language {

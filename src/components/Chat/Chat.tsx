@@ -28,7 +28,6 @@ const Chat: React.FC<ChatProps> = ({ chat }) => {
 					<Typo>{chat.message}</Typo>
 				</div>
 
-
 				<section>
 					<div
 						className="flex gap-x-[5px] pl-[52px] pt-2 items-center cursor-pointer"
