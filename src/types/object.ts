@@ -10,6 +10,7 @@ export enum LetterWritingStatus {
 }
 
 export interface User {
+	id: number;
 	oauthId: number;
 	nickname: string;
 	email: string;
@@ -34,4 +35,12 @@ export interface Question {
 	id: number;
 	text: string;
 	engText: string;
+}
+
+
+export interface Letter {
+	id: number;
+	imageUrl: string;
+	isRead: boolean;
+	createdAt: string;
 }

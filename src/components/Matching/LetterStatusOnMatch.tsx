@@ -47,7 +47,7 @@ const printWindow = (src: string, onPrint: () => void) => {
 
 
 const LetterStatusOnMatch = () => {
-	const { user, refresh } = useUser();
+	const { refresh } = useUser();
 	const { match, isLoadingOneMatching } = useMatchOneQuery();
 	const { question, questionLoading } = useQuestionOnMatchQuery(match?.id);
 	const today = dayjs().format('YYYY.MM.DD');
@@ -132,13 +132,6 @@ const LetterStatusOnMatch = () => {
 					>
 						편지지 프린트 하기
 					</Button>
-					{/*<Button*/}
-					{/*		theme="normal"*/}
-					{/*		size="full"*/}
-					{/*		className="flex-1"*/}
-					{/*>*/}
-					{/*	답장 보내기*/}
-					{/*</Button>*/}
 				</section>
 				<Dialog
 					title="Epson 프린터기를 사용 중이신가요?"

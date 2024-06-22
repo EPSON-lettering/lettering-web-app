@@ -1,8 +1,10 @@
 import { jsonClient } from "@/services/api/client";
+import { Letter } from "@/types/object";
 
 interface LetterService {
 	sendLetter: (scanId: string) => Promise<void>;
 	sendManual: (file: File) => Promise<void>;
+	getLetterByUser: (userId: number) => Promise<Letter[]>;
 }
 
 const URL = '/letter';
@@ -18,6 +20,7 @@ const letterService: LetterService = {
 		});
 	},
 	sendLetter: scanId => jsonClient.post(`${URL}/lettering`, { scanData_id: scanId }),
+	getLetterByUser: user => jsonClient.get(`${URL}/list/${user}`),
 };
 
 export default letterService;

@@ -1,5 +1,5 @@
 import React from 'react';
-import { User } from "@/types/object";
+import { User, Letter } from "@/types/object";
 import Typo from "@/components/common/Typo";
 import SettingIcon from "@public/icon/settings.svg";
 import NoneProfile from "@/components/common/NoneProfile";
@@ -11,10 +11,12 @@ import statusService from "@/services/statusService";
 
 interface UserFeedProps {
 	user: User;
+	letters: Letter[];
 }
 
-const UserFeed: React.FC<UserFeedProps> = ({ user }) => {
+const UserFeed: React.FC<UserFeedProps> = ({ user, letters = [] }) => {
 	const router = useRouter();
+	const letterEmpty = letters.length === 0;
 
 	return (
 			<div className="flex flex-col flex-1 px-[16px]">
@@ -84,11 +86,18 @@ const UserFeed: React.FC<UserFeedProps> = ({ user }) => {
 								<GrayRightArrow />
 							</button>
 						</nav>
-
-						<div className="flex flex-col">
+						{letterEmpty && (<div className="flex flex-col">
 							<Typo>아직 보낸 편지가 없습니다!</Typo>
 							<Typo>편지를 보내보세요 :)</Typo>
-						</div>
+						</div>)}
+						<section className="MyPageLetterList">
+							{letters.map(letter => (
+									<button key={letter.id} className="MyPageLetterButton">
+										<img src={letter.imageUrl} />
+									</button>
+							))}
+						</section>
+
 					</article>
 				</section>
 			</div>

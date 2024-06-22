@@ -133,3 +133,12 @@ textarea {
 .PageLayout {
   @apply flex flex-col flex-1 w-full px-[16px];
 }
+
+
+.MyPageLetterList {
+  @apply grid grid-cols-3 gap-x-3 w-full pt-4;
+}
+
+.MyPageLetterButton {
+  @apply p-4 border border-letter-yellow rounded-lg min-h-[120px];
+}
