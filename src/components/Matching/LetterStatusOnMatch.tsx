@@ -13,6 +13,8 @@ import { useRouter } from "next/navigation";
 import LetterPaper from "@/components/Letter/LetterPaper";
 import usePaper from "@/hooks/usePaper";
 import Server from "@/services/api";
+import usePrintConnection from "@/hooks/usePrintConnection";
+import { images } from "next/dist/build/webpack/config/blocks/images";
 
 
 const printWindow = (src: string, onPrint: () => void) => {
@@ -52,9 +54,11 @@ const LetterStatusOnMatch = () => {
 	const today = dayjs().format('YYYY.MM.DD');
 	const { show: showEpsonDialog, open: openEpsonDialog, close: closeEpsonDialog } = useDialog();
 	const { show: showCompletePrint, open: openCompPrint, close: closeCompPrint } = useDialog();
+	const { show: showExistsPrinterCompPrint, open: openExistsComp, close: closeExistsComp } = useDialog();
 	const router = useRouter();
 	const [visible, setVisible] = useState(false);
 	const { imageSrc: a4ImageSrc } = usePaper();
+	const { usingEpson } = usePrintConnection();
 
 	const loading = (() => {
 		if (!match || isLoadingOneMatching) return true;
@@ -62,16 +66,24 @@ const LetterStatusOnMatch = () => {
 		return false;
 	})();
 
-	const onClickPrint = () => {
-		if (!user?.epsonEmail) {
+	const onClickPrint = async () => {
+		if (!a4ImageSrc) return;
+		if (!usingEpson) {
 			return openEpsonDialog();
 		}
 
-		setVisible(true);
-		setTimeout(async () => {
-			await print();
-			setVisible(false);
-		}, 400);
+		try {
+			await Server.Print.print(a4ImageSrc);
+			await Server.Print.changeStatusOnWriting();
+			openExistsComp();
+		} catch (error) {
+			console.error(error);
+		}
+		// setVisible(true);
+		// setTimeout(async () => {
+		// 	await print();
+		// 	setVisible(false);
+		// }, 400);
 	};
 
 	const print = async () => {
@@ -87,6 +99,7 @@ const LetterStatusOnMatch = () => {
 	};
 
 	const onClickOkUsingEpson = () => {
+		setVisible(true);
 		router.push('/epson/register');
 	};
 
@@ -142,6 +155,18 @@ const LetterStatusOnMatch = () => {
 					onClickOk={closeCompPrint}
 					hideCancel
 				/>
+
+				<Dialog
+						title="편지지 인쇄가 완료되었습니다!"
+						show={showExistsPrinterCompPrint}
+						close={closeExistsComp}
+						onClickOk={async () => {
+							await refresh();
+							closeExistsComp();
+						}}
+						hideCancel
+				/>
+
 
 				<div style={{
 					display: visible ? 'block' : 'none',

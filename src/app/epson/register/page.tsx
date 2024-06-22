@@ -5,12 +5,15 @@ import NickInput from "@/components/common/NickInput";
 import React, { useState, useEffect } from "react";
 import Button from "@/components/common/Button";
 import LeftArrow from "@public/icon/left-arrow-white.svg";
-import { useRouter } from "next/navigation";
 
 import Printer from "@public/icon/printer.svg";
 import LetterRound from "@public/icon/letter-logo-round.svg";
 import Processing from "@public/icon/processing.svg";
+import usePrintConnection from "@/hooks/usePrintConnection";
 import Server from "@/services/api";
+import usePaper from "@/hooks/usePaper";
+import Dialog, { useDialog } from "@/components/common/Dialog";
+import { images } from "next/dist/build/webpack/config/blocks/images";
 
 export default function EpsonRegisterPage() {
 	const [epsonEmail, setEpsonEmail] = useState('');
@@ -64,12 +67,17 @@ export default function EpsonRegisterPage() {
 }
 
 const Connecting: React.FC<{ email: string }> = ({ email }) => {
+	const { connect } = usePrintConnection();
+	const { imageSrc } = usePaper();
+	const { show: showCompletePrint, open: openCompPrint, close: closeCompPrint } = useDialog();
 
 	useEffect(() => {
+		if (!imageSrc) return;
 		(async () => {
+			await connect(email);
 			try {
-				await Server.Print.register(email);
-				// await Server.Epson.print(email);
+				await Server.Print.print(imageSrc);
+				openCompPrint();
 			} catch (error) {
 				console.error(error);
 			}
@@ -88,6 +96,14 @@ const Connecting: React.FC<{ email: string }> = ({ email }) => {
 					<Processing />
 					<Printer />
 				</section>
+
+				<Dialog
+						title="편지지 인쇄가 완료되었습니다!"
+						show={showCompletePrint}
+						close={closeCompPrint}
+						onClickOk={closeCompPrint}
+						hideCancel
+				/>
 			</div>
 	)
 };

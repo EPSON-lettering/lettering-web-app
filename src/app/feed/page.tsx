@@ -1,7 +1,6 @@
 'use client';
 
 import UserFeed from "@/pages/UserFeed";
-import useUser from "@/hooks/useUser";
 import Loading from "@/components/common/Loading";
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
