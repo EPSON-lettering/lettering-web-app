@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import LoginLogo from '@public/icon/login-logo.svg';
 import Google from '@public/icon/google.svg';
 import Facebook from '@public/icon/facebook.svg';
@@ -10,12 +10,10 @@ import Typo from "@/components/common/Typo";
 import Button from "@/components/common/Button";
 import { useRouter } from "next/navigation";
 import Server from "@/services/api";
-import { BroadcastChannel } from "broadcast-channel";
 import useSessionStore, { SessionItem } from "@/hooks/useSessionStore";
 import { HttpStatusCode } from "axios";
 import useUser from "@/hooks/useUser";
 
-const oAuthChannel = new BroadcastChannel('oauth');
 
 type AuthCode = { authCode: string };
 interface NonSignedUserError {
@@ -25,27 +23,30 @@ interface NonSignedUserError {
 	code: number;
 }
 
+let once = false;
+
 const getLoginOnceCallback = (code: string) => {
-	let once = false;
 	return async () => {
 		if (once) return;
 		const res = await Server.Account.login(code);
 		once = true;
+		console.log({ once });
+
 		return res;
 	};
 };
 
 const Login = () => {
 	const router = useRouter();
-	const [authCode, setAuthCode] = useState<string>();
 	const sessionStore = useSessionStore();
 	const { login, user } = useUser();
-
 	const redirectSignup = () => router.push('/sign-up');
-
 	const onClickGoogleLogin = async () => {
 		const { oauthUrl } = await Server.Account.getGoogleAuthUrl();
-		window.open(oauthUrl);
+		const loginWindow = window.open(oauthUrl);
+		if (loginWindow) {
+
+		}
 	};
 
 	useEffect(() => {
@@ -53,13 +54,16 @@ const Login = () => {
 			router.push('/match');
 		}
 
-		oAuthChannel.addEventListener('message', async ({ authCode }: AuthCode) => {
-			if (!authCode) return;
+		window.addEventListener('message', async (e) => {
+			if (e.origin !== window.location.origin) {
+				return;
+			}
+			const { authCode } = e.data as AuthCode;
+			const fn = getLoginOnceCallback(authCode);
+
 			try {
-				const fn = getLoginOnceCallback(authCode);
 				const res = await fn();
 				if (!res) return;
-				await oAuthChannel.close();
 				login(res.user);
 				router.push('/match');
 			} catch (error: unknown) {

@@ -2,10 +2,7 @@
 
 import React, { useState } from 'react';
 import { Dialog as D, DialogPanel, DialogTitle } from "@headlessui/react";
-import { createPortal } from "react-dom";
 import Button from "@/components/common/Button";
-
-const portal = document.getElementById('portal') as HTMLDivElement;
 
 export interface DialogProps {
 	show: boolean;

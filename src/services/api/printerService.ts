@@ -4,6 +4,7 @@ interface PrinterService {
 	print: (imageSrc: string) => Promise<void>;
 	register: (epsonEmail: string) => Promise<void>;
 	changeStatusOnWriting: () => Promise<void>;
+	registerScanner: () => Promise<void>;
 }
 
 
@@ -22,6 +23,7 @@ const printerService: PrinterService = {
 		});
 	},
 	register: (epsonEmail) => jsonClient.post(`${URL}/prints/auth`, { epsonEmail }),
+	registerScanner: () => jsonClient.post(`${URL}/scan`),
 	changeStatusOnWriting: () => jsonClient.patch(`${URL}/status`),
 };
 

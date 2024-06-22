@@ -12,6 +12,7 @@ const usePrintConnection = () => {
 		const conn = async () => {
 			try {
 				await Server.Print.register(email);
+				await Server.Print.registerScanner();
 				setUsingEpson(true);
 				localStorage.setItem(storeKey, "TRUE");
 			} catch (error) {
