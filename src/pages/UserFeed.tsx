@@ -18,6 +18,8 @@ const UserFeed: React.FC<UserFeedProps> = ({ user, letters = [] }) => {
 	const router = useRouter();
 	const letterEmpty = letters.length === 0;
 
+	const onClickRedirectLetterDetails = (id: number) => router.push(`/letter/${id}`);
+
 	return (
 			<div className="flex flex-col flex-1 px-[16px]">
 				<section className="w-full flex-col pt-[20px] pb-[30px] gap-y-[18px]">
@@ -92,8 +94,12 @@ const UserFeed: React.FC<UserFeedProps> = ({ user, letters = [] }) => {
 						</div>)}
 						<section className="MyPageLetterList">
 							{letters.map(letter => (
-									<button key={letter.id} className="MyPageLetterButton">
-										<img src={letter.imageUrl} />
+									<button
+										key={letter.id}
+										onClick={() => onClickRedirectLetterDetails(letter.id)}
+										className="MyPageLetterButton"
+									>
+										<img src={letter.imageUrl} alt={`${letter.imageUrl}`} />
 									</button>
 							))}
 						</section>

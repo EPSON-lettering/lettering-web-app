@@ -43,4 +43,9 @@ export interface Letter {
 	imageUrl: string;
 	isRead: boolean;
 	createdAt: string;
+	owner: {
+		id: number;
+		nickname: string;
+		profileImageUrl?: string;
+	}
 }

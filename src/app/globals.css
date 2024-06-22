@@ -136,7 +136,7 @@ textarea {
 
 
 .MyPageLetterList {
-  @apply grid grid-cols-3 gap-x-3 w-full pt-4;
+  @apply grid grid-cols-3 w-full pt-4 gap-4;
 }
 
 .MyPageLetterButton {
