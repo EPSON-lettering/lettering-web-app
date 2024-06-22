@@ -21,11 +21,12 @@ const Chat: React.FC<ChatProps> = ({ chat }) => {
 			}>
 				<div className="flex gap-x-[10px]">
 					<NoneProfile replaceIcon={<SP />} className="w-[42px] h-[42px]" />
-					<Typo bold>{chat.sender.nickname}</Typo>
-				</div>
-
-				<div className="pl-[52px] w-3/4">
-					<Typo>{chat.message}</Typo>
+					<section className="flex flex-col w-full">
+						<Typo bold>{chat.sender.nickname}</Typo>
+						<div className="w-3/4 pt-1">
+							<Typo>{chat.message}</Typo>
+						</div>
+					</section>
 				</div>
 
 				<section>

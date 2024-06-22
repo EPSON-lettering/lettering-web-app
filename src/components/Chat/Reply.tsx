@@ -19,11 +19,12 @@ const Reply: React.FC<ReplyProps> = ({ reply }) => {
 		}>
 			<div className="flex gap-x-[10px]">
 				<NoneProfile replaceIcon={<SP />} className="w-[42px] h-[42px]" />
-				<Typo bold>{reply.sender.nickname}</Typo>
-			</div>
-
-			<div className="pl-[52px] w-3/4">
-				<Typo>{reply.message}</Typo>
+				<section className="flex flex-col w-full">
+					<Typo bold>{reply.sender.nickname}</Typo>
+					<div className="w-3/4 pt-1">
+						<Typo>{reply.message}</Typo>
+					</div>
+				</section>
 			</div>
 		</div>
 	);

@@ -37,7 +37,7 @@ export default function LetterDetailsPage() {
 					<Button onClick={() => router.push(`/letter/feedback/${data.id}`)}>
 						피드백
 					</Button>
-					<Button>
+					<Button disabled>
 						답장
 					</Button>
 				</section>
