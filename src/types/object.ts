@@ -60,6 +60,7 @@ export interface Feedback {
 	message: string;
 	type: string;
 	createdAt: string;
+	latestReply?: Reply;
 }
 
 export interface Reply {

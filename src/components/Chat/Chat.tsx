@@ -28,6 +28,20 @@ const Chat: React.FC<ChatProps> = ({ chat }) => {
 				<div className="pl-[52px] w-3/4">
 					<Typo>{chat.message}</Typo>
 				</div>
+
+
+				<section>
+					<div className="flex gap-x-[5px] pl-[52px] pt-2 items-center">
+						<NoneProfile replaceIcon={<SP />} className="w-[21px] h-[21px]" />
+						{!chat?.latestReply && (
+								<div>
+									<Typo color="gray" className="underline underline-offset-2">답글을 달아보세요.</Typo>
+								</div>
+						)}
+					</div>
+
+				</section>
+
 			</div>
 	);
 };
