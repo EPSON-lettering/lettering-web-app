@@ -7,6 +7,7 @@ import Button from "@/components/common/Button";
 import ChatBox from "@/components/common/ChatBox";
 import GrayRightArrow from "@public/icon/gray-right-arrow.svg";
 import { useRouter } from "next/navigation";
+import statusService from "@/services/statusService";
 
 interface UserFeedProps {
 	user: User;
@@ -57,7 +58,7 @@ const UserFeed: React.FC<UserFeedProps> = ({ user }) => {
 
 					<section className="my-[20px]">
 						<ChatBox left>
-							<Typo bold>편지를 작성 중 입니다!</Typo>
+							<Typo bold>{statusService.getWritingStatusMessage(user.status)}</Typo>
 						</ChatBox>
 					</section>
 
