@@ -9,6 +9,7 @@ import convertUrlToFile from "@/utils/convertUrlToFile";
 import useUser from "@/hooks/useUser";
 import useMatchOneQuery from "@/hooks/query/useMatchOneQuery";
 import useQuestionOnMatchQuery from "@/hooks/query/useQuestionOnMatchQuery";
+import { useRouter } from "next/navigation";
 
 const LetterOnWriting = () => {
 	const { usingEpson } = usePrintConnection();
@@ -18,6 +19,7 @@ const LetterOnWriting = () => {
 	const { afterSendLetter } = useUser();
 	const { match } = useMatchOneQuery();
 	const { refetch: refetchQuestion } = useQuestionOnMatchQuery(match?.id);
+	const router = useRouter();
 
 	const onClickScanAndSend = async () => {
 		if (!usingEpson) {
@@ -25,14 +27,12 @@ const LetterOnWriting = () => {
 			return;
 		}
 
-		try {
-			const { imageUrl } = await Server.Print.getScanData();
-			const file = await convertUrlToFile(imageUrl);
-			await Server.Letter.sendManual(file);
-			openSendLetter();
-		} catch (error) {
-			console.error(error);
-		}
+		router.push('/epson/scan');
+
+			// const { imageUrl } = await Server.Print.getScanData();
+			// const file = await convertUrlToFile(imageUrl);
+			// await Server.Letter.sendManual(file);
+			// openSendLetter();
 	};
 
 	const onClickSendOk = async () => {
@@ -74,7 +74,7 @@ const LetterOnWriting = () => {
 				</section>
 
 				<section className="flex gap-x-3 pb-[60px]">
-					<Button onClick={onClickScanAndSend}>
+					<Button onClick={onClickScanAndSend} disabled={!usingEpson}>
 						(EPSON) 스캔본 전송하기
 					</Button>
 					<Button onClick={onClickSendImage}>
