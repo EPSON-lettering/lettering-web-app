@@ -11,6 +11,7 @@ import React from "react";
 import Server from "@/services/api";
 import convertUrlToFile from "@/utils/convertUrlToFile";
 import { useRouter } from "next/navigation";
+import getFilenameByUrl from "@/utils/getFilennameByUrl";
 
 export default function EpsonScanPage() {
 	const { match } = useMatchOneQuery();
@@ -22,17 +23,23 @@ export default function EpsonScanPage() {
 	const onScanComplete = async () => {
 		try {
 			const { imageUrl } = await Server.Print.getScanData();
-			const file = await convertUrlToFile(imageUrl);
+			const file = await convertUrlToFile(imageUrl, getFilenameByUrl(imageUrl));
 			await Server.Letter.sendManual(file);
-			await afterSendLetter();
-			closeSendLetter();
+			openSendLetter();
 		} catch (error) {
 			console.error(error);
 		}
 	};
 
-	const onClickSendOk = () => {
-		router.push('/match');
+	const onClickSendOk = async () => {
+		try {
+			closeSendLetter();
+			await afterSendLetter();
+			await refetchQuestion();
+			router.push('/match');
+		} catch (error) {
+			console.error(error);
+		}
 	};
 
 	return (

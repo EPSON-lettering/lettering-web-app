@@ -28,11 +28,6 @@ const LetterOnWriting = () => {
 		}
 
 		router.push('/epson/scan');
-
-			// const { imageUrl } = await Server.Print.getScanData();
-			// const file = await convertUrlToFile(imageUrl);
-			// await Server.Letter.sendManual(file);
-			// openSendLetter();
 	};
 
 	const onClickSendOk = async () => {
