@@ -26,9 +26,10 @@ const LetterOnWriting = () => {
 		}
 
 		try {
-			await Server.Print.scan();
 			const { imageUrl } = await Server.Print.getScanData();
 			const file = await convertUrlToFile(imageUrl);
+			await Server.Letter.sendManual(file);
+			openSendLetter();
 		} catch (error) {
 			console.error(error);
 		}
@@ -74,7 +75,7 @@ const LetterOnWriting = () => {
 
 				<section className="flex gap-x-3 pb-[60px]">
 					<Button onClick={onClickScanAndSend}>
-						편지 스캔하고 전송하기
+						(EPSON) 스캔본 전송하기
 					</Button>
 					<Button onClick={onClickSendImage}>
 						이미지 전송하기
