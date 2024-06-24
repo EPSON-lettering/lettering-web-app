@@ -6,6 +6,7 @@ import React, { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import Server from "@/services/api";
 import Typo from "@/components/common/Typo";
+import useLetterListQuery from "@/hooks/query/useLetterListQuery";
 
 export default function FeedPage() {
 	const [noOpponent, setNoOpponent] = useState(false);
@@ -16,6 +17,7 @@ export default function FeedPage() {
 		refetchInterval: false,
 		retry: false,
 	});
+	const { letters, loadingLetters } = useLetterListQuery(data);
 
 	useEffect(() => {
 		console.log({error})
@@ -36,7 +38,9 @@ export default function FeedPage() {
 		)
 	}
 
-	if (!data || isLoading) return <Loading loading={isLoading} />;
+	const loading = isLoading || loadingLetters;
 
-	return <UserFeed user={data} />;
+	if (!data || loading) return <Loading loading={loading} />;
+
+	return <UserFeed user={data} letters={letters} />;
 }
