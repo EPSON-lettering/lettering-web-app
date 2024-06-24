@@ -4,10 +4,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import useUser from "@/hooks/useUser";
 import MatchingProcessingLogo from "@public/icon/matching.svg";
 import Typo from "@/components/common/Typo";
-import MobileCamera from "@/components/Camera";
-import Button from "@/components/common/Button";
 import Server from "@/services/api";
-import { MatchResponse, MatchConnected } from "@public/services/api/MatchingService";
 import useMatchingProcess from "@/hooks/useMatchingProcess";
 import { useRouter } from "next/navigation";
 import useCheckHasMatchingQuery from "@/hooks/query/useCheckHasMatchingQuery";
@@ -42,6 +39,7 @@ const MatchingProcess = () => {
 	const router = useRouter();
 	const { setMatchDetails } = useMatchingProcess();
 	const { refetch: refetchHasMatching } = useCheckHasMatchingQuery();
+	const [notFound, setNotFound] = useState(false);
 
 	useEffect(() => {
 		if (!user) return;
@@ -55,11 +53,26 @@ const MatchingProcess = () => {
 				router.push('/match/done');
 				await Server.Matching.createQuestion(match.id);
 				await refetchHasMatching();
-			} catch (error) {
+			} catch (error: unknown) {
 				console.error(error);
+				const err = error as { code: number };
+				if (err.code === 404) {
+					setNotFound(true);
+				}
 			}
 		}, 1200);
 	}, []);
+
+	if (notFound) {
+		return (
+				<div className="flex-1">
+					<section className="flex-all-center py-[200px]">
+						<Typo size="25" bold>현재 적절한 매칭상대가 없어요 :(</Typo>
+						<Typo size="19" color="gray2" bold>잠시 후 다시시도해주세요</Typo>
+					</section>
+				</div>
+		)
+	}
 
 	return (
 			<div className="flex flex-col items-center py-[195px] justify-between flex-1">
