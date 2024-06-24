@@ -56,11 +56,9 @@ const useUser = () => {
 	const changeLetterWritingStatus = (status: LetterWritingStatus) => {
 		if (!user) return;
 		setUser({ ...user, status });
-	}
+	};
 
 	const afterSendLetter = async () => {
-		console.log('afterSendLetter()');
-		console.log({ match });
 		if (!match) return;
 		try {
 			changeLetterWritingStatus(LetterWritingStatus.BEFORE);
@@ -68,7 +66,7 @@ const useUser = () => {
 		} catch (error) {
 			console.error(error);
 		}
-	}
+	};
 
 	useEffect(() => {
 		const access  = localStorage.getItem('access');

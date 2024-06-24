@@ -2,6 +2,9 @@
 
 import React, { useEffect } from 'react';
 import { useSearchParams } from "next/navigation";
+import { BroadcastChannel } from "broadcast-channel";
+
+const LoginChannel = new BroadcastChannel("LOGIN");
 
 const OAuthCallbackPage = () => {
 	const searchParams = useSearchParams();
@@ -10,7 +13,7 @@ const OAuthCallbackPage = () => {
 		if (!searchParams) return;
 		(async () => {
 			const authCode = searchParams.get('code');
-			window.opener.postMessage({ authCode });
+			await LoginChannel.postMessage({ authCode });
 			window.close();
 		})();
 	}, [searchParams]);

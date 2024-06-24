@@ -13,7 +13,10 @@ import Server from "@/services/api";
 import useSessionStore, { SessionItem } from "@/hooks/useSessionStore";
 import { HttpStatusCode } from "axios";
 import useUser from "@/hooks/useUser";
+import { BroadcastChannel } from "broadcast-channel";
 
+
+const LoginChannel = new BroadcastChannel("LOGIN");
 
 type AuthCode = { authCode: string };
 interface NonSignedUserError {
@@ -54,15 +57,8 @@ const Login = () => {
 			router.push('/match');
 		}
 
-		window.addEventListener('message', async (e) => {
-			if (e.origin !== window.location.origin) {
-				return;
-			}
-
-			console.log(e.data);
-			if (!e.data?.authCode) return;
-			const { authCode } = e.data as AuthCode;
-
+		LoginChannel.addEventListener('message', async (data: AuthCode) => {
+			const { authCode } = data;
 			try {
 				const res = await Server.Account.login(authCode);
 				if (!res) return;
