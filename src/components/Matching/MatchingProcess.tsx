@@ -37,18 +37,22 @@ class Fetcher {
 const MatchingProcess = () => {
 	const { user } = useUser();
 	const router = useRouter();
-	const { setMatchDetails } = useMatchingProcess();
+	const { setMatchDetails } = useMatchingProcess.getState();
 	const { refetch: refetchHasMatching } = useCheckHasMatchingQuery();
 	const [notFound, setNotFound] = useState(false);
+	const didMount = useRef(false);
 
 	useEffect(() => {
 		if (!user) return;
+		if (didMount.current) return;
+		didMount.current = true;
 		setTimeout(async () => {
 			try {
-				const fetcher = new Fetcher();
-				const result = await fetcher.match(user.nickname);
-				if (!result) return;
-				const { matchRequest, match } = result;
+				const matchRequest = await Server.Matching.match(user.nickname);
+				const match = await Server.Matching.matchAcceptOrReject({
+					request_id: matchRequest.id,
+					action: 'accept',
+				});
 				setMatchDetails(matchRequest);
 				router.push('/match/done');
 				await Server.Matching.createQuestion(match.id);
