@@ -3,13 +3,12 @@ import { Feedback, Reply } from "@/types/object";
 
 export interface CreateCommentRequest {
 	type: 'feedback' | 'chat';
-	message: string;
-	image?: File;
+	message?: string;
+	image?: string;
 }
 
 export interface CreateReplyRequest {
-	message: string;
-	image?: File;
+	message?: string;
 }
 
 export interface CommentService {

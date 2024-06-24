@@ -12,6 +12,7 @@ interface ChatProps {
 
 const Chat: React.FC<ChatProps> = ({ chat }) => {
 	const router = useRouter();
+	const isTextMessage = chat?.message && !chat.image;
 
 	return (
 			<div className={
@@ -23,9 +24,16 @@ const Chat: React.FC<ChatProps> = ({ chat }) => {
 					<NoneProfile replaceIcon={<SP />} className="w-[42px] h-[42px]" />
 					<section className="flex flex-col w-full">
 						<Typo bold>{chat.sender.nickname}</Typo>
-						<div className="w-3/4 pt-1.5">
-							<Typo>{chat.message}</Typo>
-						</div>
+						{!isTextMessage && (
+								<section className="w-3/4 max-w-3/4 border rounded-lg border-letter-yellow">
+									<img src={chat.image} alt={chat.image} className="w-full h-full px-5 py-7 rounded-lg" />
+								</section>
+						)}
+						{isTextMessage && (
+								<div className="w-3/4 pt-1.5">
+									<Typo>{chat.message}</Typo>
+								</div>
+						)}
 					</section>
 				</div>
 

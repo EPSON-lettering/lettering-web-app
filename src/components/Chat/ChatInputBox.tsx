@@ -3,6 +3,7 @@ import NoneProfile from "@/components/common/NoneProfile";
 import SP from "@public/icon/user-small-white.svg";
 import Server from "@/services/api";
 import SendingIcon from "@public/icon/message-send.svg";
+import ScanSendingIcon from "@public/icon/message-scan.svg";
 
 interface ChatInputBoxProps {
 	mode: 'feedback' | 'chat' | 'reply';
@@ -10,11 +11,15 @@ interface ChatInputBoxProps {
 	reloadFn: () => void;
 }
 
+type SendType = 'scan' | 'text';
+
 
 const ChatInputBox: React.FC<ChatInputBoxProps> = ({ mode, id, reloadFn }) => {
 	const [message, setMessage] = useState('');
 
-	const send = async () => {
+	const send = async (type: SendType) => {
+
+
 		if (mode === 'reply') {
 			try {
 				await Server.Comment.createReply(Number(id), {
@@ -27,6 +32,23 @@ const ChatInputBox: React.FC<ChatInputBoxProps> = ({ mode, id, reloadFn }) => {
 			setMessage('');
 			return;
 		}
+
+		if (type === 'scan') {
+			try {
+				const { imageUrl } = await Server.Print.getScanData();
+				await Server.Comment.createFeedback(Number(id), {
+					type: mode,
+					image: imageUrl,
+				});
+				reloadFn();
+			} catch (error) {
+				console.error(error);
+			} finally {
+				setMessage('');
+				return;
+			}
+		}
+
 
 		try {
 			await Server.Comment.createFeedback(Number(id), {
@@ -42,7 +64,7 @@ const ChatInputBox: React.FC<ChatInputBoxProps> = ({ mode, id, reloadFn }) => {
 
 	const onEnter = async (e: React.KeyboardEvent<HTMLInputElement>) => {
 		if (e.keyCode !== 13) return;
-		await send();
+		await send('text');
 	};
 
 	return (
@@ -56,9 +78,15 @@ const ChatInputBox: React.FC<ChatInputBoxProps> = ({ mode, id, reloadFn }) => {
 						onKeyDown={onEnter}
 						className="outline-none flex-1"
 					/>
-					<button onClick={send}>
-						<SendingIcon />
-					</button>
+					<section className="flex items-center gap-x-1">
+						<button onClick={() => send('scan')}>
+							<ScanSendingIcon />
+						</button>
+						<button onClick={() =>send('text')}>
+							<SendingIcon />
+						</button>
+					</section>
+
 				</div>
 			</nav>
 	);

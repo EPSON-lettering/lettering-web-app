@@ -58,7 +58,7 @@ export interface Feedback {
 	sender: User;
 	receiver: User;
 	letter: Letter;
-	message: string;
+	message?: string;
 	type: string;
 	createdAt: string;
 	latestReply?: Reply;
