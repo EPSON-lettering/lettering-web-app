@@ -60,7 +60,7 @@ const LetterOnWriting = () => {
 
 	return (
 			<div className="PageLayout">
-				<section className="py-[100px] flex justify-center">
+				<section className="py-[30px] md:py-[100px] flex justify-center">
 					<Typo size="19" bold>편지를 다 작성하셨나요?</Typo>
 				</section>
 
@@ -70,7 +70,7 @@ const LetterOnWriting = () => {
 
 				<section className="flex gap-x-3 pb-[60px]">
 					<Button onClick={onClickScanAndSend} disabled={!usingEpson}>
-						(EPSON) 스캔본 전송하기
+						스캔본 전송하기
 					</Button>
 					<Button onClick={onClickSendImage}>
 						이미지 전송하기

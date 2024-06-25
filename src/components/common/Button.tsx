@@ -39,6 +39,7 @@ const Button: React.FC<ButtonProps> = ({
 						themeProps[theme],
 						className,
 						disabled && '!bg-gray-200 !border-gray-200',
+						'text-sm md:text-base',
 					]))}
 					{...props}
 			>

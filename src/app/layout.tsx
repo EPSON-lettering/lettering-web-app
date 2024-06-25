@@ -5,6 +5,7 @@ import clsx from "clsx";
 import AppHeader from "@/components/common/AppHeader";
 import QueryProvider from "@/components/common/QueryProvider";
 import GNB from "@/components/common/GNB";
+import VhMobile from "@/components/common/VhMobile";
 
 export const metadata: Metadata = {
   title: "Lettering",
@@ -19,6 +20,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       {/*<VhMobile />*/}
+      <head>
+        <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1" />
+      </head>
       <body className={clsx([
           pretendard.className, pretendard.variable,
           'flex justify-center h-full'

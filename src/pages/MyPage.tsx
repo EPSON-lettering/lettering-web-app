@@ -21,17 +21,15 @@ const MyPage = () => {
 					{uploadedProfileImage && (
 						<Image
 								src={user.profileImageUrl}
-								width={130}
-								height={130}
-								className="avatar"
+								className="avatar w-[52px] h-[52px] md:w-[130px] md:h-[130px]"
 								alt="user profile image"
 						/>
 					)}
-					{!uploadedProfileImage && <NoneProfile className="w-[130px] h-[130px]" />}
-					<Typo size="47" bold>{user.nickname}</Typo>
+					{!uploadedProfileImage && <NoneProfile className="w-[72px] h-[72px] md:w-[130px] md:h-[130px]" />}
+					<Typo size="25" bold>{user.nickname}</Typo>
 				</section>
 
-				<section className="flex flex-wrap gap-x-2 pb-[60px]">
+				<section className="flex flex-wrap gap-2 pb-[60px]">
 					{user.interests.map(item => (
 						<Button
 								key={item.id}

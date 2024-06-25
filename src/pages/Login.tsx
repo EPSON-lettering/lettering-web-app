@@ -26,18 +26,6 @@ interface NonSignedUserError {
 	code: number;
 }
 
-let once = false;
-
-const getLoginOnceCallback = (code: string) => {
-	return async () => {
-		if (once) return;
-		const res = await Server.Account.login(code);
-		once = true;
-		console.log({ once });
-
-		return res;
-	};
-};
 
 const Login = () => {
 	const router = useRouter();

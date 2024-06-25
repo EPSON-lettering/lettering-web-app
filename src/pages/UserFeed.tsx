@@ -5,7 +5,6 @@ import SettingIcon from "@public/icon/settings.svg";
 import NoneProfile from "@/components/common/NoneProfile";
 import Button from "@/components/common/Button";
 import ChatBox from "@/components/common/ChatBox";
-import GrayRightArrow from "@public/icon/gray-right-arrow.svg";
 import { useRouter } from "next/navigation";
 import statusService from "@/services/statusService";
 
@@ -22,7 +21,7 @@ const UserFeed: React.FC<UserFeedProps> = ({ user, letters = [] }) => {
 	const onClickRedirectLetterDetails = (id: number) => router.push(`/letter/${id}`);
 
 	return (
-			<div className="flex flex-col flex-1 px-[16px]">
+			<div className="flex flex-col flex-1 px-[16px] absolute">
 				<section className="w-full flex-col pt-[20px] pb-[30px] gap-y-[18px]">
 					<nav className="w-full flex items-center justify-between py-5">
 						<Typo size="19" bold>{user.nickname}</Typo>
@@ -47,7 +46,7 @@ const UserFeed: React.FC<UserFeedProps> = ({ user, letters = [] }) => {
 							</nav>
 						</section>
 
-						<section className="flex flex-wrap gap-x-2 pt-6">
+						<section className="flex flex-wrap gap-2 pt-6">
 							{user.interests.map(item => (
 									<Button
 											key={item.id}

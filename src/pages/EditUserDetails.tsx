@@ -28,18 +28,16 @@ const EditUserDetails = () => {
 	if (!user) return null;
 
 	return (
-			<div className="flex-1 col-center px-[16px]">
+			<div className="PageLayout absolute">
 				<section className="flex-all-center gap-y-3 py-[60px]">
 					{uploadedProfileImage && (
-							<Image
+							<img
 									src={user.profileImageUrl}
-									width={130}
-									height={130}
-									className="avatar"
+									className="avatar w-[52px] h-[52px] md:w-[130px] md:h-[130px]"
 									alt="user profile image"
 							/>
 					)}
-					{!uploadedProfileImage && <NoneProfile className="w-[130px] h-[130px]" />}
+					{!uploadedProfileImage && <NoneProfile className="w-[72px] h-[72px] md:w-[130px] md:h-[130px]" />}
 					<Button
 						theme="ghost"
 						size="fit"

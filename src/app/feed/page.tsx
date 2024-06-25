@@ -42,5 +42,9 @@ export default function FeedPage() {
 
 	if (!data || loading) return <Loading loading={loading} />;
 
-	return <UserFeed user={data} letters={letters} />;
+	return (
+		<div className="Scroller">
+			<UserFeed user={data} letters={letters} />
+		</div>
+	);
 }

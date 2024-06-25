@@ -7,5 +7,9 @@ export const metadata: Metadata = {
 };
 
 export default function EditMyPage() {
-	return <EditUserDetails />;
+	return (
+			<div className="Scroller">
+				<EditUserDetails />
+			</div>
+	);
 }

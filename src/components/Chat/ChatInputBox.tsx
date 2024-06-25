@@ -19,7 +19,6 @@ const ChatInputBox: React.FC<ChatInputBoxProps> = ({ mode, id, reloadFn }) => {
 
 	const send = async (type: SendType) => {
 
-
 		if (mode === 'reply') {
 			try {
 				await Server.Comment.createReply(Number(id), {
@@ -48,7 +47,6 @@ const ChatInputBox: React.FC<ChatInputBoxProps> = ({ mode, id, reloadFn }) => {
 				return;
 			}
 		}
-
 
 		try {
 			await Server.Comment.createFeedback(Number(id), {

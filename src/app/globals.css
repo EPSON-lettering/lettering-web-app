@@ -40,17 +40,16 @@
 }
 
 html, body, #__next {
-  height: 100%;
-}
-
-html {
-  height: 100%;
+  /*height: 100vh;*/
+  /*height: calc(var(--vh, 1vh) * 100);*/
+  height: 100vh;
 }
 
 body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   color: rgb(var(--foreground-rgb));
   background: #FAFAFA;
 }
@@ -115,8 +114,6 @@ textarea {
 }
 
 .a4 {
-  /*width: 2480px;*/
-  /*height: 3508px;*/
   width: 100%;
   height: 100%;
   background: white;
@@ -149,4 +146,8 @@ textarea {
   @apply
     p-4 w-full h-[48px] rounded-lg drop-shadow-md flex items-center
     bg-white;
+}
+
+.Scroller {
+  @apply w-full h-full overflow-y-scroll relative flex justify-center;
 }
