@@ -46,10 +46,7 @@ const Login = () => {
 	const redirectSignup = () => router.push('/sign-up');
 	const onClickGoogleLogin = async () => {
 		const { oauthUrl } = await Server.Account.getGoogleAuthUrl();
-		const loginWindow = window.open(oauthUrl);
-		if (loginWindow) {
-
-		}
+		window.open(oauthUrl);
 	};
 
 	useEffect(() => {

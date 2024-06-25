@@ -33,6 +33,7 @@ const Button: React.FC<ButtonProps> = ({
 					className={twMerge(clsx([
 						'transition-all duration-150',
 						'flex justify-center items-center',
+						'text-nowrap',
 						shapeProps[shape],
 						sizeProps[size],
 						themeProps[theme],

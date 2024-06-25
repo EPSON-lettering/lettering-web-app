@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 import Server from "@/services/api";
 import { useRouter } from "next/navigation";
+import useUser from "@/hooks/useUser";
 
 const storeKey = 'USING_EPSON';
 
 const usePrintConnection = () => {
+	const { user } = useUser();
 	const [usingEpson, setUsingEpson] = useState<boolean>(() => {
-		return localStorage.getItem(storeKey) !== null;
+		if (!user) return false;
+		return user?.epsonEmail !== '';
 	});
 	const router = useRouter();
 
