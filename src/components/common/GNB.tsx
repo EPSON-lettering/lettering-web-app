@@ -91,7 +91,7 @@ const GlobalNavBar = () => {
 							active={navItem === NavItem.LETTER}
 							activeIcon={<LetterActive />}
 							icon={<LetterInActive />}
-							text="상대피드"
+							text="상대 피드"
 					>
 					</Activation>
 					<NotiAlert count={notifications.length} />
@@ -101,7 +101,7 @@ const GlobalNavBar = () => {
 							active={navItem === NavItem.MYPAGE}
 							activeIcon={<MyPageActive />}
 							icon={<MyPageInActive />}
-							text="MY"
+							text="내 피드"
 					>
 					</Activation>
 				</button>

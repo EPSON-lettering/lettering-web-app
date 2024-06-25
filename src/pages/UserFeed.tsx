@@ -18,6 +18,7 @@ const UserFeed: React.FC<UserFeedProps> = ({ user, letters = [] }) => {
 	const router = useRouter();
 	const letterEmpty = letters.length === 0;
 
+
 	const onClickRedirectLetterDetails = (id: number) => router.push(`/letter/${id}`);
 
 	return (
@@ -69,10 +70,10 @@ const UserFeed: React.FC<UserFeedProps> = ({ user, letters = [] }) => {
 					<article className="box w-full p-4 mt-[18px]">
 						<nav className="flex items-center justify-between">
 							<Typo color="gray2" size="16">획득 뱃지</Typo>
-							<button className="flex items-center gap-x-3">
-								<Typo color="gray2" size="16">모두보기</Typo>
-								<GrayRightArrow />
-							</button>
+							{/*<button className="flex items-center gap-x-3">*/}
+							{/*	<Typo color="gray2" size="16">모두보기</Typo>*/}
+							{/*	<GrayRightArrow />*/}
+							{/*</button>*/}
 						</nav>
 
 						<div className="flex flex-col">
@@ -81,30 +82,25 @@ const UserFeed: React.FC<UserFeedProps> = ({ user, letters = [] }) => {
 						</div>
 					</article>
 
-					<article className="box w-full p-4 min-h-[230px] mt-[18px]">
-						<nav className="flex items-center justify-between">
-							<Typo color="gray2" size="16">보낸 편지</Typo>
-							<button className="flex items-center gap-x-3">
-								<GrayRightArrow />
+					<nav className="flex items-center justify-between pt-2">
+						<Typo color="gray2" size="16">보낸 편지</Typo>
+					</nav>
+					{letterEmpty && (<div className="flex flex-col pl-5 pt-[75px]">
+						<Typo>아직 보낸 편지가 없습니다!</Typo>
+						<Typo>편지를 보내보세요 :)</Typo>
+					</div>)}
+					<section className="MyPageLetterList">
+						{letters.map(letter => (
+							<button
+								key={letter.id}
+								onClick={() => onClickRedirectLetterDetails(letter.id)}
+								className="MyPageLetterButton"
+							>
+								<img src={letter.imageUrl} alt={`${letter.imageUrl}`} />
 							</button>
-						</nav>
-						{letterEmpty && (<div className="flex flex-col">
-							<Typo>아직 보낸 편지가 없습니다!</Typo>
-							<Typo>편지를 보내보세요 :)</Typo>
-						</div>)}
-						<section className="MyPageLetterList">
-							{letters.map(letter => (
-									<button
-										key={letter.id}
-										onClick={() => onClickRedirectLetterDetails(letter.id)}
-										className="MyPageLetterButton"
-									>
-										<img src={letter.imageUrl} alt={`${letter.imageUrl}`} />
-									</button>
-							))}
-						</section>
+						))}
+					</section>
 
-					</article>
 				</section>
 			</div>
 	);
