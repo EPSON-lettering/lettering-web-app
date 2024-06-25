@@ -29,6 +29,12 @@ jsonClient.interceptors.response.use(
 			if (statusCode === HttpStatusCode.Unauthorized) {
 				unAuthroizedAlertChannel.postMessage('UNAUTH');
 			}
+			if (statusCode === 401) {
+				localStorage.removeItem('access');
+				localStorage.removeItem('refresh');
+				localStorage.removeItem('user-store');
+				location.href = '/';
+			}
 			return Promise.reject({ ...err.response.data, code: statusCode });
 		},
 );
