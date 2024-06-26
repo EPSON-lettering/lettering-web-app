@@ -25,6 +25,7 @@ export interface User {
 	epsonEmail?: string;
 	status: LetterWritingStatus;
 	sendingLetterCount: number;
+	level: number;
 }
 
 export interface Language {

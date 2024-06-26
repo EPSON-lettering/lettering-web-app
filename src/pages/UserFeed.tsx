@@ -36,8 +36,8 @@ const UserFeed: React.FC<UserFeedProps> = ({ user, letters = [] }) => {
 							{user?.profileImageUrl && <img src={user.profileImageUrl} />}
 
 							<nav className="col-center">
-								<Typo color="yellow" size="19" bold>LV. 1</Typo>
-								<Typo color="gray2">뱃지</Typo>
+								<Typo color="yellow" size="19" bold>LV. {user.level}</Typo>
+								<Typo color="gray2">레벨</Typo>
 							</nav>
 
 							<nav className="col-center">
