@@ -13,16 +13,19 @@ import usePrintConnection from "@/hooks/usePrintConnection";
 import Server from "@/services/api";
 import usePaper from "@/hooks/usePaper";
 import Dialog, { useDialog } from "@/components/common/Dialog";
+import useUser from "@/hooks/useUser";
 
 
 export default function EpsonRegisterPage() {
 	const [epsonEmail, setEpsonEmail] = useState('');
 	const [connecting, setConnecting] = useState(false);
+	const { updateEpsonEmail } = useUser();
 
 	const onClickOpenHelp = () => window.open('https://www.epsonconnect.com/user');
 
 	const onClickRegisterEpsonPrinter = () => {
 		if (epsonEmail.trim() === '') return;
+		updateEpsonEmail(epsonEmail);
 		setConnecting(true);
 	};
 
@@ -75,8 +78,7 @@ const Connecting: React.FC<{ email: string }> = ({ email }) => {
 		if (!imageSrc) return;
 		(async () => {
 			try {
-				await connect(email);
-				await Server.Print.print(imageSrc);
+				await connect(email, () => Server.Print.print(imageSrc));
 				openCompPrint();
 			} catch (error) {
 				console.error(error);
@@ -85,7 +87,8 @@ const Connecting: React.FC<{ email: string }> = ({ email }) => {
 	}, []);
 
 	return (
-			<div className="flex flex-1 flex-col px-[70px] w-full py-[200px]">
+		<div className="Scroller">
+			<div className="flex flex-1 flex-col px-[70px] w-full py-[200px] absolute">
 				<section className="w-full col-center">
 					<Typo size="19" bold>프린터기를 연결 중입니다!</Typo>
 					<Typo size="19" bold>잠시만 기다려주세요 :)</Typo>
@@ -105,5 +108,6 @@ const Connecting: React.FC<{ email: string }> = ({ email }) => {
 						hideCancel
 				/>
 			</div>
-	)
+		</div>
+	);
 };
