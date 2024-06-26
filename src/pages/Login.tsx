@@ -65,7 +65,7 @@ const Login = () => {
 					<LoginLogo />
 				</section>
 
-				<article className="px-[39px] py-[70px] md:py-[110px]">
+				<article className="px-[39px] py-[20px] md:py-[110px]">
 					<section className="flex flex-col pt-[35px]">
 						<Typo size="25" bold>손편지 한장으로</Typo>
 						<Typo size="25" bold>시작하는,</Typo>

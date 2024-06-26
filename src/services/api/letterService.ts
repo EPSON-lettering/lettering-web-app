@@ -20,7 +20,7 @@ const letterService: LetterService = {
 			}
 		});
 	},
-	sendLetter: scanId => jsonClient.post(`${URL}/lettering`, { scanData_id: scanId }),
+	sendLetter: scanId => jsonClient.post(`${URL}/lettering/`, { scanData_id: scanId }),
 	getLetterByUser: user => jsonClient.get(`${URL}/list/${user}`),
 	getLetterDetails: id => jsonClient.get(`${URL}/details/${id}/`),
 };

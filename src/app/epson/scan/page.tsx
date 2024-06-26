@@ -22,9 +22,9 @@ export default function EpsonScanPage() {
 
 	const onScanComplete = async () => {
 		try {
-			const { imageUrl } = await Server.Print.getScanData();
-			const file = await convertUrlToFile(imageUrl, getFilenameByUrl(imageUrl));
-			await Server.Letter.sendManual(file);
+			const { id } = await Server.Print.getScanData();
+			// const file = await convertUrlToFile(imageUrl, getFilenameByUrl(imageUrl));
+			await Server.Letter.sendLetter(id);
 			openSendLetter();
 		} catch (error) {
 			console.error(error);
