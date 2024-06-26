@@ -81,7 +81,7 @@ const UserFeed: React.FC<UserFeedProps> = ({ user, letters = [] }) => {
 						</div>
 					</article>
 
-					<nav className="flex items-center justify-between pt-2">
+					<nav className="flex items-center justify-between pt-10">
 						<Typo color="gray2" size="16">보낸 편지</Typo>
 					</nav>
 					{letterEmpty && (<div className="flex flex-col pl-5 pt-[75px]">
