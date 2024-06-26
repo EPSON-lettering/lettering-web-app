@@ -34,7 +34,7 @@ const NickInput: React.FC<NickInputProps> = ({
 						value={value}
 						placeholder={placeholder}
 						onChange={onChangeValue}
-						className="flex-1 input"
+						className="flex-1 text-black input"
 						{...inputProps}
 					/>
 					{value.length > 0 && (
