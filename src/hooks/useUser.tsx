@@ -53,6 +53,11 @@ const useUser = () => {
 		}
 	};
 
+	const updateEpsonEmail = (email: string) => {
+		if (!user) return;
+		setUser({ ...user, epsonEmail: email });
+	};
+
 	const changeLetterWritingStatus = (status: LetterWritingStatus) => {
 		if (!user) return;
 		setUser({ ...user, status });
@@ -89,6 +94,7 @@ const useUser = () => {
 		refresh: getUserOnServer,
 		changeLetterWritingStatus,
 		afterSendLetter,
+		updateEpsonEmail,
 	};
 };
 
