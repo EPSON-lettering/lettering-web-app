@@ -25,6 +25,16 @@ const ChoiceLangOnSign = () => {
 		setSignupPhase(SignupPhase.SET_NICKNAME);
 	};
 
+	const onClickLang = (lang: Language) => {
+		if (lang.langName === 'Korean') {
+			const found = langOptions.find(l => l.langName === 'English');
+			setLang(found);
+			return;
+		}
+		const found = langOptions.find(l => l.langName === 'Korean');
+		setLang(found);
+	}
+
 	useEffect(() => {
 		hideBack();
 		return () => showBack();
@@ -45,7 +55,7 @@ const ChoiceLangOnSign = () => {
 											shape="round"
 											key={lang.id}
 											className="w-[200px] h-[46px]"
-											onClick={() => setLang(lang)}
+											onClick={() => onClickLang(lang)}
 									>{lang.langName}</Ratio.Button>
 							))}
 						</section>
@@ -77,5 +87,6 @@ const ChoiceLangOnSign = () => {
 			</article>
 	);
 };
+
 
 export default ChoiceLangOnSign;
