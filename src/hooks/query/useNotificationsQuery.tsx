@@ -1,12 +1,15 @@
+'use client';
+
 import { useQuery } from "@tanstack/react-query";
 import Server from "@/services/api";
+import useUser from "@/hooks/useUser";
 
 const useNotificationsQuery = () => {
-	const isLogined = localStorage.getItem("access");
+	const { user } = useUser();
 	const { data = [], isLoading, ...props } = useQuery({
 		queryKey: ['notifications-getter'],
 		queryFn: Server.Notification.getList,
-		enabled: !!isLogined,
+		enabled: !!user,
 	});
 
 	return {
