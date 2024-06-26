@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import Server from "@/services/api";
 import { usePathname } from "next/navigation";
 
-const disabledUrls = ['/', '/sign-up'];
+const disabledUrls = ['/', '/sign-up', '/callback'];
 
 const useMatchOneQuery = () => {
 	const pathname = usePathname();
