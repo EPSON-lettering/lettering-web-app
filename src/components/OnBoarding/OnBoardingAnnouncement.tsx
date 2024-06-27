@@ -10,7 +10,9 @@ const OnBoardingAnnouncement: React.FC<ComponentProps> = ({ element, desc }) => 
 	return (
 			<section className="w-full h-full col-center">
 				{element}
-				<Typo className="bottom-[-15px] mt-[50px] text-center">{desc}</Typo>
+				<div className="flex-all-center w-3/4 text-center">
+					<Typo className="bottom-[-15px] mt-[50px] text-center">{desc}</Typo>
+				</div>
 			</section>
 	);
 };

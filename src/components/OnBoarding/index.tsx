@@ -14,6 +14,10 @@ import Button from "@/components/common/Button";
 import useSessionStore, { SessionItem } from "@/hooks/useSessionStore";
 import { useRouter } from "next/navigation";
 
+import OnBoard1 from "@public/logo/ob-1.svg";
+import OnBoard2 from "@public/logo/ob-2.svg";
+import OnBoard3 from "@public/logo/ob-3.svg";
+
 const OnBoarding = () => {
 	const sessionStore = useSessionStore();
 	const router = useRouter();
@@ -33,19 +37,27 @@ const OnBoarding = () => {
 					>
 						<SwiperSlide>
 							<OnBoardingAnnouncement
-									element={<img src="/image/onboard-1.png" className="w-[393px] h-[550px]" alt="onboarding" />}
+									element={
+										<div className="w-full flex justify-center">
+											<OnBoard1 />
+										</div>
+								}
 									desc={onboardParagraphs.first}
 							/>
 						</SwiperSlide>
 						<SwiperSlide>
 							<OnBoardingAnnouncement
-									element={<img src="/image/onboard-2.png" className="w-[393px] h-[550px]" alt="onboarding" />}
+									element={<OnBoard2 />}
 									desc={onboardParagraphs.second}
 							/>
 						</SwiperSlide>
 						<SwiperSlide>
 							<OnBoardingAnnouncement
-									element={<img src="/image/onboard-3.png" className="h-[550px]" alt="onboarding" />}
+									element={
+										<div className="w-full">
+											<OnBoard3 />
+										</div>
+								}
 									desc={onboardParagraphs.third}
 							/>
 						</SwiperSlide>
