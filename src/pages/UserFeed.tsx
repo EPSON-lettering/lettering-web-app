@@ -7,7 +7,13 @@ import Button from "@/components/common/Button";
 import ChatBox from "@/components/common/ChatBox";
 import { useRouter } from "next/navigation";
 import statusService from "@/services/statusService";
+import GrayRightArrow from "@public/icon/gray-right-arrow.svg"
 import useUser from "@/hooks/useUser";
+import Badge2 from "@public/icon/badge2.svg"
+import Badge3 from "@public/icon/badge3.svg"
+import Badge4 from "@public/icon/badge4.svg"
+import Badge1 from "@public/icon/badge1.svg"
+
 
 interface UserFeedProps {
 	user: User;
@@ -18,7 +24,6 @@ const UserFeed: React.FC<UserFeedProps> = ({ user, letters = [] }) => {
 	const router = useRouter();
 	const currentUser = useUser();
 	const letterEmpty = letters.length === 0;
-
 	const isCurrentUser = currentUser?.user === user;
 	const onClickRedirectLetterDetails = (id: number) => router.push(`/letter/${id}`);
 
@@ -74,15 +79,18 @@ const UserFeed: React.FC<UserFeedProps> = ({ user, letters = [] }) => {
 					<article className="box w-full p-4 mt-[18px]">
 						<nav className="flex items-center justify-between">
 							<Typo color="gray2" size="16">획득 뱃지</Typo>
-							{/*<button className="flex items-center gap-x-3">*/}
-							{/*	<Typo color="gray2" size="16">모두보기</Typo>*/}
-							{/*	<GrayRightArrow />*/}
-							{/*</button>*/}
+							{isCurrentUser && <button onClick={() => router.push('/badge')} className="flex items-center gap-x-3">
+								<Typo color="gray2" size="16">모두보기</Typo>
+								<GrayRightArrow/>
+							</button>}
+
 						</nav>
 
-						<div className="flex flex-col">
-							<Typo>아직 획득한 뱃지가 없습니다!</Typo>
-							<Typo>편지를 보내고, 뱃지를 모아보세요 :)</Typo>
+						<div className="flex gap-x-3">
+							<Badge4/>
+							<Badge2/>
+							<Badge3/>
+							<Badge1/>
 						</div>
 					</article>
 
