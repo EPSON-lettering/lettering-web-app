@@ -81,11 +81,7 @@ const LetterStatusOnMatch = () => {
 		} catch (error) {
 			console.error(error);
 		}
-		// setVisible(true);
-		// setTimeout(async () => {
-		// 	await print();
-		// 	setVisible(false);
-		// }, 400);
+		await refresh();
 	};
 
 	const print = async () => {
