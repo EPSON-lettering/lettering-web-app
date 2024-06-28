@@ -16,7 +16,6 @@ const MatchRouter = () => {
 	const { isMatch, loadingHasMatching, isFetched } = useCheckHasMatchingQuery();
 	const userWritingStatus: number | undefined = user?.status;
 	const beforePhase = ing.includes(userWritingStatus ?? LetterWritingStatus.BEFORE);
-	console.log({ beforePhase });
 
 	if (loadingHasMatching) return <Loading loading={loadingHasMatching} />
 	if (!isFetched) return null;

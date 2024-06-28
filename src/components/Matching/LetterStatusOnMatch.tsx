@@ -58,6 +58,7 @@ const LetterStatusOnMatch = () => {
 	const [visible, setVisible] = useState(false);
 	const { imageSrc: a4ImageSrc } = usePaper();
 	const { usingEpson } = usePrintConnection();
+	const [loadingPrint, setLoadingPrint] = useState(false);
 
 	const loading = (() => {
 		if (!match || isLoadingOneMatching) return true;
@@ -72,9 +73,11 @@ const LetterStatusOnMatch = () => {
 		}
 
 		try {
+			setLoadingPrint(true);
 			await Server.Print.print(a4ImageSrc);
 			await Server.Print.changeStatusOnWriting();
 			openExistsComp();
+			setLoadingPrint(false);
 		} catch (error) {
 			console.error(error);
 		}
@@ -103,6 +106,7 @@ const LetterStatusOnMatch = () => {
 	};
 
 	if (loading) return <Loading loading={loading} />;
+	if (loadingPrint) return <Loading loading={loadingPrint} />;
 
 	return (
 			<div className="flex-1 col-center px-[21px]">
