@@ -20,6 +20,7 @@ interface UserFeedProps {
 	letters: Letter[];
 }
 
+
 const UserFeed: React.FC<UserFeedProps> = ({ user, letters = [] }) => {
 	const router = useRouter();
 	const currentUser = useUser();
@@ -72,7 +73,8 @@ const UserFeed: React.FC<UserFeedProps> = ({ user, letters = [] }) => {
 
 					<section className="my-[20px]">
 						<ChatBox left>
-							<Typo bold>{statusService.getWritingStatusMessage(user.status)}</Typo>
+							{/*<Typo bold>{statusService.getWritingStatusMessage(user.status)}</Typo>*/}
+							<Typo bold>편지 전송을 완료하였습니다.</Typo>
 						</ChatBox>
 					</section>
 
@@ -88,8 +90,8 @@ const UserFeed: React.FC<UserFeedProps> = ({ user, letters = [] }) => {
 
 						<div className="flex gap-x-3">
 							<Badge4/>
-							<Badge2/>
-							<Badge3/>
+							{/*<Badge2/>*/}
+							{/*<Badge3/>*/}
 							<Badge1/>
 						</div>
 					</article>

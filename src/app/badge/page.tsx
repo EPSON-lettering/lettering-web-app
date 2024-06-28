@@ -10,8 +10,12 @@ import Loading from "@/components/common/Loading";
 export default function BadgePage () {
   const { user } = useUser();
 
-  if(!user)return<Loading loading={!(!user)}/>
+  if(!user)return <Loading loading={!(!user)}/>
 
-  return <UserBadge user={user} />;
+  return (
+    <div className="Scroller">
+      <UserBadge user={user} />
+    </div>
+  );
 };
 

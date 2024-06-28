@@ -13,6 +13,10 @@ import MyPageInActive from "@public/icon/mypage_inactive.svg";
 import useNotificationsQuery from "@/hooks/query/useNotificationsQuery";
 import NotiAlert from "@/components/common/NotiAlert";
 
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
+import Server from "@/services/api";
+
 const noRenderUrls: string[] = ['/', '/sign-up', '/on-board'];
 
 enum NavItem {
@@ -44,18 +48,21 @@ const GlobalNavBar = () => {
 	const pathname = usePathname();
 	const router = useRouter();
 	const noRender = pathname ? noRenderUrls.includes(pathname) : false;
-	const { notifications } = useNotificationsQuery();
-	const newNotiCount = notifications.length;
+	const { cacheStore } = useNotificationsQuery();
+	const newNotiCount = cacheStore.size;
 
 	const onClickHome = () => {
 		router.push('/match');
 	};
 
-	const onClickmatchingFeed = () => {
+	const onClickmatchingFeed = async () => {
 		router.push('/feed');
 	};
 
-	const onClickMyPage = () => {
+	const onClickMyPage = async () => {
+		const ids = Array.from(cacheStore.keys());
+		cacheStore.clear();
+		await Server.Notification.read(ids);
 		router.push('/my');
 	};
 
@@ -94,7 +101,6 @@ const GlobalNavBar = () => {
 							text="상대 피드"
 					>
 					</Activation>
-					<NotiAlert count={notifications.length} />
 				</button>
 				<button className="w-[80px] relative" onClick={onClickMyPage}>
 					<Activation
@@ -104,7 +110,11 @@ const GlobalNavBar = () => {
 							text="내 피드"
 					>
 					</Activation>
+					<NotiAlert count={newNotiCount} />
 				</button>
+				<section className="absolute w-0">
+					<ToastContainer position="top-center" limit={5} />
+				</section>
 			</nav>
 	);
 };

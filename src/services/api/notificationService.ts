@@ -10,7 +10,7 @@ const URL = 'notification';
 
 const notificationService: NotificationService = {
 	getList: () => jsonClient.get(`${URL}/`),
-	read: ids => jsonClient.put(`${URL}/`, { ids }),
+	read: ids => jsonClient.put(`${URL}/read/`, { ids }),
 };
 
 export default notificationService;
