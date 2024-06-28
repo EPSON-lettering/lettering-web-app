@@ -8,7 +8,7 @@ import { toast } from "react-toastify";
 
 const notiCache = new Set<number>();
 
-const useNotificationsQuery = () => {
+const useNotificationsQuery = (notify: (s: string) => number | string) => {
 	const { user } = useUser();
 	const { data = [], isLoading, ...props } = useQuery({
 		queryKey: ['notifications-getter'],
@@ -17,7 +17,6 @@ const useNotificationsQuery = () => {
 		refetchInterval: 3000,
 	});
 
-	const notify = (m: string) => toast(m);
 
 	useEffect(() => {
 		if (notiCache.size === 0) {

@@ -16,7 +16,7 @@ const LetterOnWriting = () => {
 	const { show: showNotFoundEpson, open: openNotFoundEpson, close: closeNotFoundEpson } = useDialog();
 	const { show: showSendLetter, open: openSendLetter, close: closeSendLetter } = useDialog();
 	const fileUploadRef = useRef<HTMLInputElement>(null);
-	const { afterSendLetter } = useUser();
+	const { afterSendLetter, refresh } = useUser();
 	const { match } = useMatchOneQuery();
 	const { refetch: refetchQuestion } = useQuestionOnMatchQuery(match?.id);
 	const router = useRouter();
@@ -32,9 +32,12 @@ const LetterOnWriting = () => {
 
 	const onClickSendOk = async () => {
 		try {
+			if (!match) return;
 			await afterSendLetter();
 			await refetchQuestion();
 			closeSendLetter();
+			await refresh();
+			await Server.Matching.createQuestion(match.id);
 		} catch (error) {
 			console.error(error);
 		}
@@ -51,6 +54,7 @@ const LetterOnWriting = () => {
 		if (!file) return;
 		try {
 			await Server.Letter.sendManual(file);
+			refresh();
 			openSendLetter();
 		} catch (error) {
 			console.error(error);

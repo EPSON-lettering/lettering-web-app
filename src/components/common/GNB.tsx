@@ -14,7 +14,7 @@ import useNotificationsQuery from "@/hooks/query/useNotificationsQuery";
 import NotiAlert from "@/components/common/NotiAlert";
 
 import "react-toastify/dist/ReactToastify.css";
-import { ToastContainer } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import Server from "@/services/api";
 
 const noRenderUrls: string[] = ['/', '/sign-up', '/on-board'];
@@ -48,7 +48,8 @@ const GlobalNavBar = () => {
 	const pathname = usePathname();
 	const router = useRouter();
 	const noRender = pathname ? noRenderUrls.includes(pathname) : false;
-	const { cacheStore } = useNotificationsQuery();
+	const notify = (m: string) => toast(m);
+	const { cacheStore } = useNotificationsQuery(notify);
 	const newNotiCount = cacheStore.size;
 
 	const onClickHome = () => {

@@ -6,13 +6,11 @@ import NoneProfile from "@/components/common/NoneProfile";
 import Button from "@/components/common/Button";
 import ChatBox from "@/components/common/ChatBox";
 import { useRouter } from "next/navigation";
-import statusService from "@/services/statusService";
 import GrayRightArrow from "@public/icon/gray-right-arrow.svg"
 import useUser from "@/hooks/useUser";
-import Badge2 from "@public/icon/badge2.svg"
-import Badge3 from "@public/icon/badge3.svg"
 import Badge4 from "@public/icon/badge4.svg"
 import Badge1 from "@public/icon/badge1.svg"
+import statusService from "@/services/statusService";
 
 
 interface UserFeedProps {
@@ -73,8 +71,8 @@ const UserFeed: React.FC<UserFeedProps> = ({ user, letters = [] }) => {
 
 					<section className="my-[20px]">
 						<ChatBox left>
-							{/*<Typo bold>{statusService.getWritingStatusMessage(user.status)}</Typo>*/}
-							<Typo bold>편지 전송을 완료하였습니다.</Typo>
+							<Typo bold>{statusService.getWritingStatusMessage(user.status)}</Typo>
+							{/*<Typo bold>편지 전송을 완료하였습니다.</Typo>*/}
 						</ChatBox>
 					</section>
 
