@@ -27,6 +27,7 @@ export interface User {
 	status: LetterWritingStatus;
 	sendingLetterCount: number;
 	level: number;
+	noneProfileColor: string;
 }
 
 export interface Language {
@@ -50,6 +51,7 @@ export interface Letter {
 		id: number;
 		nickname: string;
 		profileImageUrl?: string;
+		noneProfileColor: string;
 	}
 }
 

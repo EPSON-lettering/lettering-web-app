@@ -4,6 +4,7 @@ import SP from "@public/icon/user-small-white.svg";
 import Server from "@/services/api";
 import SendingIcon from "@public/icon/message-send.svg";
 import ScanSendingIcon from "@public/icon/message-scan.svg";
+import useUser from "@/hooks/useUser";
 
 interface ChatInputBoxProps {
 	mode: 'feedback' | 'chat' | 'reply';
@@ -16,6 +17,7 @@ type SendType = 'scan' | 'text';
 
 const ChatInputBox: React.FC<ChatInputBoxProps> = ({ mode, id, reloadFn }) => {
 	const [message, setMessage] = useState('');
+	const { user } = useUser();
 
 	const send = async (type: SendType) => {
 
@@ -67,7 +69,7 @@ const ChatInputBox: React.FC<ChatInputBoxProps> = ({ mode, id, reloadFn }) => {
 
 	return (
 			<nav className="flex items-center gap-x-2">
-				<NoneProfile replaceIcon={<SP />} className="w-[42px] h-[42px]" />
+				<NoneProfile color={user?.noneProfileColor ?? ''} replaceIcon={<SP />} className="w-[42px] h-[42px]" />
 				<div className="ChatInputBox">
 					<input
 						value={message}

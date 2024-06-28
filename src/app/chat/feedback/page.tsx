@@ -9,7 +9,7 @@ export default function FeedBackPage() {
 
 				<article className="w-full flex flex-col">
 					<nav>
-						<NoneProfile />
+						{/*<NoneProfile />*/}
 						<Typo>닉네임</Typo>
 					</nav>
 

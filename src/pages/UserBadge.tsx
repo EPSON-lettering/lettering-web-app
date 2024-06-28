@@ -17,7 +17,7 @@ const UserBadge:React.FC<UserBadgeProps> = ({user}) => {
     <div className="PageLayout">
       <article className="box flex items-start my-8">
         <section className="w-full flex items-start">
-          {!user?.profileImageUrl && <NoneProfile className="p-2 "/>}
+          {!user?.profileImageUrl && <NoneProfile color={user.noneProfileColor} className="p-2 "/>}
           {user?.profileImageUrl && <img src={user.profileImageUrl}/>}
           <nav className="col-center pl-4">
             <Typo bold size="19">{user.nickname}</Typo>

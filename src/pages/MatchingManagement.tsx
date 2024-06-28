@@ -25,7 +25,7 @@ const MatchingManagement = () => {
 				<section className="box !px-[32px] !py-[48px] w-full mt-[30px]">
 					<div className="w-full h-full flex justify-between">
 						<div className="flex gap-x-[20px]">
-							<NoneProfile className="w-[60px] h-[60px]" replaceIcon={<SmallWhitePerson />} />
+							<NoneProfile color={match.acceptor.noneProfileColor} className="w-[60px] h-[60px]" replaceIcon={<SmallWhitePerson />} />
 							<div className="flex flex-col">
 								<Typo bold>{match.acceptor.nickname}</Typo>
 								<nav className="flex gap-x-1 flex-wrap">

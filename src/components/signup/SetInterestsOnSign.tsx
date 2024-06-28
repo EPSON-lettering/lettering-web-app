@@ -39,6 +39,7 @@ const SetInterestsOnSign = () => {
 				language: form.lang,
 				unique,
 				provider,
+				noneProfileColor: form.noneProfileColor,
 			});
 		} catch (error) {
 			console.error(error);
@@ -48,10 +49,6 @@ const SetInterestsOnSign = () => {
 	useEffect(() => {
 		setForm(prev => ({ ...prev, interests: selectedList.map(item => item.id) }));
 	}, [selectedList]);
-
-	// useEffect(() => {
-	// 	setBackFn(() => SignupPhase.SET_NICKNAME);
-	// }, []);
 
 	return (
 		<article className="w-full h-full flex flex-col">

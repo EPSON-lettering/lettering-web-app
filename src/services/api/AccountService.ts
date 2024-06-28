@@ -16,6 +16,7 @@ interface SignupRequest {
 	language: string;
 	nickname: string;
 	interests: number[];
+	noneProfileColor: string;
 }
 
 

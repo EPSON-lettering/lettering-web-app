@@ -25,7 +25,7 @@ const MyPage = () => {
 								alt="user profile image"
 						/>
 					)}
-					{!uploadedProfileImage && <NoneProfile className="w-[72px] h-[72px] md:w-[130px] md:h-[130px]" />}
+					{!uploadedProfileImage && <NoneProfile color={user.noneProfileColor} className="w-[72px] h-[72px] md:w-[130px] md:h-[130px]" />}
 					<Typo size="25" bold>{user.nickname}</Typo>
 				</section>
 

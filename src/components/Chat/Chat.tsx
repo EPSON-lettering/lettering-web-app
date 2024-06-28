@@ -5,6 +5,7 @@ import SP from "@public/icon/user-small-white.svg";
 import NoneProfile from "@/components/common/NoneProfile";
 import Typo from "@/components/common/Typo";
 import { useRouter } from "next/navigation";
+import useUser from "@/hooks/useUser";
 
 interface ChatProps {
 	chat: Feedback;
@@ -12,7 +13,19 @@ interface ChatProps {
 
 const Chat: React.FC<ChatProps> = ({ chat }) => {
 	const router = useRouter();
+	const { user } = useUser();
 	const isTextMessage = chat?.message && !chat.image;
+	const profileColor = (() => {
+		if (chat.sender.id === user?.id)
+			return user?.noneProfileColor;
+		return chat.receiver.noneProfileColor;
+	})();
+	const replyColor = (() => {
+		const target = chat?.latestReply;
+		if (target?.sender.id === user?.id)
+			return user?.noneProfileColor;
+		return target?.receiver.noneProfileColor;
+	})() ?? '';
 
 	return (
 			<div className={
@@ -21,7 +34,7 @@ const Chat: React.FC<ChatProps> = ({ chat }) => {
 				])
 			}>
 				<div className="flex gap-x-[10px]">
-					<NoneProfile replaceIcon={<SP />} className="w-[42px] h-[42px]" />
+					<NoneProfile color={profileColor} replaceIcon={<SP />} className="w-[42px] h-[42px]" />
 					<section className="flex flex-col w-full">
 						<Typo bold>{chat.sender.nickname}</Typo>
 						{!isTextMessage && (
@@ -42,7 +55,7 @@ const Chat: React.FC<ChatProps> = ({ chat }) => {
 						className="flex gap-x-[5px] pl-[52px] pt-2 items-center cursor-pointer"
 						onClick={() => router.push(`/letter/reply/${chat.id}`)}
 					>
-						<NoneProfile replaceIcon={<SP />} className="w-[21px] h-[21px]" />
+						<NoneProfile color={replyColor} replaceIcon={<SP />} className="w-[21px] h-[21px]" />
 						{!chat?.latestReply && (
 								<div>
 									<Typo color="gray" className="underline underline-offset-2">답글을 달아보세요.</Typo>

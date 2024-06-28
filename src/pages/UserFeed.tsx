@@ -43,7 +43,7 @@ const UserFeed: React.FC<UserFeedProps> = ({ user, letters = [] }) => {
 
 					<article className="box w-full p-4 UserSection">
 						<section className="w-full flex items-center justify-evenly">
-							{!user?.profileImageUrl && <NoneProfile className="p-4" />}
+							{!user?.profileImageUrl && <NoneProfile color={user.noneProfileColor} className="p-4" />}
 							{user?.profileImageUrl && <img src={user.profileImageUrl} />}
 
 							<nav className="col-center">

@@ -27,13 +27,13 @@ export default function LetterDetailsPage() {
 	};
 
 	if (!data || isLoading) return <Loading loading={isLoading} />;
-	const { owner: { nickname }, imageUrl } = data;
+	const { owner: { nickname, noneProfileColor }, imageUrl } = data;
 
 	return (
 			<div className="Scroller">
 				<div className="PageLayout absolute">
 					<section className="py-6 flex gap-x-3 items-center">
-						<NoneProfile replaceIcon={<SmPerson />} className="w-[25px] h-[25px]" />
+						<NoneProfile color={noneProfileColor} replaceIcon={<SmPerson />} className="w-[25px] h-[25px]" />
 						<Typo size="16" bold>{nickname}</Typo>
 					</section>
 

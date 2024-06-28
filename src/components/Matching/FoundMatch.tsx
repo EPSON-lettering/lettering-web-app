@@ -70,7 +70,7 @@ const FoundMatch = () => {
 const User: React.FC<{ user: MatchUser } & HTMLAttributes<HTMLDivElement>> = ({ user, ...props }) => {
 	return (
 			<nav className="flex flex-col items-center" {...props}>
-				<NoneProfile className="w-[120px] h-[120px] rounded-[99px]" />
+				<NoneProfile color={user.noneProfileColor} className="w-[120px] h-[120px] rounded-[99px]" />
 				<Typo size="16" className="pt-[10px]" bold>{user.nickname}</Typo>
 			</nav>
 	)

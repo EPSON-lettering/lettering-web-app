@@ -19,6 +19,7 @@ interface MatchingManagementDetailsResponse {
 		nickname: string;
 		profileImageUrl: string;
 		language: number;
+		noneProfileColor: string;
 	}
 	createdAt: string;
 	interests: Interest[];
@@ -43,6 +44,7 @@ export interface MatchUser {
 	nickname: string;
 	profileImageUrl: string;
 	language: string;
+	noneProfileColor: string;
 }
 
 export interface MatchResponse {

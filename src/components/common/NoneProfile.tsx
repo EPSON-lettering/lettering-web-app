@@ -2,28 +2,22 @@ import React, { useMemo, HTMLAttributes } from 'react';
 import WhitePerson from "@public/icon/white-person.svg";
 import clsx from "clsx";
 
-const colors = [
-		'bg-[#FFEB81]',
-		'bg-[#A3E798]',
-		'bg-[#9FAFE3]',
-];
-
-const getRandColor = () =>
-		colors[Math.floor(Math.random() * colors.length)];
-
 interface NoneProfileProps extends HTMLAttributes<HTMLDivElement> {
 	replaceIcon?: React.ReactNode;
+	color: string;
 }
 
-const NoneProfile: React.FC<NoneProfileProps> = ({ replaceIcon, className, ...props }) => {
-	const backColor = useMemo(getRandColor, []);
+const NoneProfile: React.FC<NoneProfileProps> = ({ replaceIcon, className, color, ...props }) => {
 
 	return (
 		<div
 				className={clsx([
-						`avatar ${backColor} flex-all-center`,
+						`avatar flex-all-center`,
 						className,
 				])}
+				style={{
+					background: color,
+				}}
 				{...props}
 		>
 			{replaceIcon && replaceIcon}

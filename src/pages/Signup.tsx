@@ -5,6 +5,7 @@ import ChoiceLangOnSign from "@/components/signup/ChoiceLangOnSign";
 import FormProgress from "@/components/common/FormProgress";
 import EnterNicknameOnSign from "@/components/signup/EnterNicknameOnSign";
 import SetInterestsOnSign from "@/components/signup/SetInterestsOnSign";
+import getRandomProfileColorCode from "@/utils/getRandomProfileColorCode";
 
 export enum SignupPhase {
 	CHOICE_LANG,
@@ -16,6 +17,7 @@ interface SignupForm {
 	nickname: string;
 	lang: string;
 	interests: number[];
+	noneProfileColor: string;
 }
 
 interface SignupContextProps {
@@ -34,6 +36,7 @@ const Signup = () => {
 		interests: [],
 		lang: '',
 		nickname: '',
+		noneProfileColor: getRandomProfileColorCode(),
 	}));
 
 	return (
