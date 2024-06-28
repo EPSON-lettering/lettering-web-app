@@ -72,14 +72,21 @@ export default function EpsonRegisterPage() {
 const Connecting: React.FC<{ email: string }> = ({ email }) => {
 	const { connect } = usePrintConnection();
 	const { imageSrc } = usePaper();
+	const { refresh } = useUser();
 	const { show: showCompletePrint, open: openCompPrint, close: closeCompPrint } = useDialog();
 
 	useEffect(() => {
 		if (!imageSrc) return;
 		(async () => {
 			try {
-				await connect(email, () => Server.Print.print(imageSrc));
-				openCompPrint();
+				await connect(email, async () => {
+					await Server.Print.print(imageSrc);
+					await Server.Print.changeStatusOnWriting();
+					await refresh();
+				});
+				setTimeout(() => {
+					openCompPrint();
+				}, 3000);
 			} catch (error) {
 				console.error(error);
 			}

@@ -5,6 +5,10 @@ const statusService = {
 		if (status === 1) {
 			return '편지를 작성 중 입니다!';
 		}
+
+		if (status === 2) {
+			return '편지를 수령하였습니다!';
+		}
 		return '...';
 	},
 };

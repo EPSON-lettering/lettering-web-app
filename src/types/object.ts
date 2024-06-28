@@ -6,7 +6,8 @@ export interface Interest {
 
 export enum LetterWritingStatus {
 	BEFORE = 0,
-	PROCESSING = 1
+	PROCESSING = 1,
+	COMPLETED = 2,
 }
 
 export interface User {
