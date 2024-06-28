@@ -9,7 +9,7 @@ import useUser from "@/hooks/useUser";
 import { LetterWritingStatus } from "@/types/object";
 import LetterOnWriting from "@/components/Matching/LetterOnWriting";
 
-const writes = [LetterWritingStatus.PROCESSING, LetterWritingStatus.COMPLETED];
+const ing = [LetterWritingStatus.COMPLETED, LetterWritingStatus.BEFORE];
 
 const MatchRouter = () => {
 	const { user } = useUser();
@@ -22,8 +22,8 @@ const MatchRouter = () => {
 	return (
 			<div className="flex flex-col h-full justify-between flex-1">
 				{!isMatch && <MatchingProcess />}
-				{(isMatch && userWritingStatus === LetterWritingStatus.BEFORE) && <LetterStatusOnMatch />}
-				{(isMatch && userWritingStatus && writes.includes(userWritingStatus)) && <LetterOnWriting />}
+				{(isMatch && userWritingStatus && ing.includes(userWritingStatus)) && <LetterStatusOnMatch />}
+				{(isMatch && userWritingStatus === LetterWritingStatus.PROCESSING) && <LetterOnWriting />}
 			</div>
 	);
 };
