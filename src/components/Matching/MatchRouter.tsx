@@ -15,6 +15,8 @@ const MatchRouter = () => {
 	const { user } = useUser();
 	const { isMatch, loadingHasMatching, isFetched } = useCheckHasMatchingQuery();
 	const userWritingStatus: number | undefined = user?.status;
+	const beforePhase = userWritingStatus && ing.includes(userWritingStatus);
+	console.log({ beforePhase });
 
 	if (loadingHasMatching) return <Loading loading={loadingHasMatching} />
 	if (!isFetched) return null;
@@ -22,7 +24,7 @@ const MatchRouter = () => {
 	return (
 			<div className="flex flex-col h-full justify-between flex-1">
 				{!isMatch && <MatchingProcess />}
-				{(isMatch && userWritingStatus && ing.includes(userWritingStatus)) && <LetterStatusOnMatch />}
+				{(isMatch &&  beforePhase) && <LetterStatusOnMatch />}
 				{(isMatch && userWritingStatus === LetterWritingStatus.PROCESSING) && <LetterOnWriting />}
 			</div>
 	);
