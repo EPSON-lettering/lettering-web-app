@@ -83,3 +83,21 @@ export interface Notification {
 	createdAt: string;
 	isRead: boolean;
 }
+
+export interface UserBadge{
+	id: number;
+	user: number;
+	badge: Badge
+	step: {
+		stepNumber:number;
+		requiredCount: number;
+	}
+	progress:number,
+	awarded_at:string;
+}
+
+export interface Badge{
+	name:string;
+	description:string;
+	icon:string;
+}
